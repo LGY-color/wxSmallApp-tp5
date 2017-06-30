@@ -29,8 +29,8 @@ CREATE TABLE `pdzg_admin` (
   `login_ip` varchar(30) DEFAULT NULL COMMENT '登录ip',
   `last_time` bigint(20) DEFAULT NULL COMMENT '上次登录时间',
   `login_time` bigint(20) DEFAULT NULL COMMENT '登录时间',
-  `level` tinyint(4) DEFAULT NULL  COMMENT '管理员等级 1为主管理 2为次级管理 3为客服',
-  `status` tinyint(4) DEFAULT NULL  COMMENT '1为使用中 0为停止使用',
+  `level` tinyint(4) DEFAULT NULL COMMENT '管理员等级 1为主管理 2为次级管理 3为客服',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为使用中 0为停止使用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -46,9 +46,9 @@ CREATE TABLE `pdzg_banner` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `banner_img_url_text` varchar(255) DEFAULT NULL COMMENT 'banner图片地址或者文本信息',
   `url_text` tinyint(4) DEFAULT NULL COMMENT '1为 url 2为text',
-  `create_time` bigint(20) DEFAULT NULL,
-  `update_time` bigint(20) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL,
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为使用中 0为停止使用',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -72,7 +72,7 @@ CREATE TABLE `pdzg_big_item` (
   `item_type` tinyint(4) DEFAULT NULL COMMENT 'item的类型 1为大类 2为小类 3为自定义',
   `item_type_id` int(11) DEFAULT NULL COMMENT '所属父类id',
   `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
-  `update_time` bigint(20) DEFAULT NULL,
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
   `status` tinyint(4) DEFAULT NULL COMMENT '1为使用 0为停止',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
@@ -129,9 +129,9 @@ CREATE TABLE `pdzg_collection` (
   `table_name` char(255) DEFAULT NULL COMMENT '表名',
   `list_id` bigint(20) DEFAULT NULL COMMENT '具体详情的id',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户表id',
-  `create_time` bigint(20) DEFAULT NULL,
-  `update_time` bigint(20) DEFAULT NULL,
-  `status` tinyint(4) DEFAULT NULL,
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为使用 0为停止',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
