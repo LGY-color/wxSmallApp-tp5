@@ -8,10 +8,7 @@
 
 namespace app\api\model;
 
-
-use think\Db;
-use think\Model;
-
+//banner图片
 class Banner extends BaseModel
 {
 //    不用获取的字段
@@ -24,7 +21,8 @@ class Banner extends BaseModel
 //    获取banner的imgurl内容
     public static function getBannerImgUrl(){
         $condition = [
-            'url_text' => 1
+            'url_text' => 1,
+            'status' => 1
         ];
         $data = Banner::all($condition);
         return $data;
