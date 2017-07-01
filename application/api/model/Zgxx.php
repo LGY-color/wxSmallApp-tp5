@@ -13,7 +13,7 @@ class Zgxx extends BaseModel
 {
     public static function getZgxxTopInfo($limit_num=''){
         $condition = [
-            'status' =>1,
+            'status'=>1,
             'level_type'=>3
         ];
         $data = Zgxx::all(function($query) use($condition,$limit_num) {
