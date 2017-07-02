@@ -28,6 +28,8 @@ class Index extends Controller
 //        $data['qzxx_top_info'] = Qzxx::getQzxxTopInfo();
 //        $data['dwcb_top_info'] = Dwcb::getDwcbTopInfo();
         $data = AllItem::getAllItemTopInfo();
-        return json($data);
+//        return $data;
+        var_dump($data);
+//        return json($data);
     }
 }
