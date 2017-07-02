@@ -12,4 +12,4 @@
 use think\Route;
 
 //Route::get('api/:version/index','api/:version/Index/index');
-Route::get('api/:version/index','api/:version.Index/index');
+Route::get('api/:version/index/:id','api/:version.Index/index');
