@@ -133,4 +133,9 @@ class Info extends BaseModel
         $data = Db::field($field)->table('pdzg_info')->alias('i')->join($join)->limit($limit)->where($condition)->order($order)->select();
         return $data;
     }
+
+    //测试
+    public function test(){
+        return $this->belongsTo('big_item','big_item_id','id');
+    }
 }

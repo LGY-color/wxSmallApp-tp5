@@ -28,4 +28,21 @@ class BaseValidate extends Validate
             return true;
         }
     }
+    //必须是正整数
+    protected function isPositiveInteger($value,$rule='',$data='',$field=''){
+        if(is_numeric($value) && is_int($value + 0 ) && ($value+0)>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    //必须存在
+    protected function isNotEmpty($value, $rule='', $data='', $field='')
+    {
+        if (empty($value)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
