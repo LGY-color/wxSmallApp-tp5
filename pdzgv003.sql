@@ -10,13 +10,13 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-06-30 17:36:03
+Date: 2017-07-03 09:29:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `pdzg_admin` 管理员表
+-- Table structure for `pdzg_admin`
 -- ----------------------------
 DROP TABLE IF EXISTS `pdzg_admin`;
 CREATE TABLE `pdzg_admin` (
@@ -93,7 +93,42 @@ INSERT INTO `pdzg_big_item` VALUES ('10', '需求承包', '2', '3', '2147483647'
 INSERT INTO `pdzg_big_item` VALUES ('11', '餐具设备', '2', '4', '2147483647', '1498699351000', '1');
 INSERT INTO `pdzg_big_item` VALUES ('12', '其他物品', '2', '4', '2147483647', '1498699351000', '1');
 
+-- ----------------------------
+-- Table structure for `pdzg_cjsb`
+-- ----------------------------
+DROP TABLE IF EXISTS `pdzg_cjsb`;
+CREATE TABLE `pdzg_cjsb` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `province` varchar(30) DEFAULT NULL COMMENT '省份',
+  `valid_period` varchar(30) DEFAULT NULL COMMENT '有效期',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `new_old` varchar(30) DEFAULT NULL COMMENT '新旧程度',
+  `content` text COMMENT '详情',
+  `img_id` bigint(20) DEFAULT NULL COMMENT '多对多引入3表 表一图片id 表二图片urlid 表三关联',
+  `contact_name` varchar(20) DEFAULT NULL COMMENT '联系人',
+  `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系人电话',
+  `contact_qq` varchar(20) DEFAULT NULL COMMENT '联系人QQ',
+  `location` varchar(255) DEFAULT NULL COMMENT '地址信息',
+  `level_type` tinyint(4) DEFAULT NULL COMMENT '1为正常 2星级信息 3为置顶信息',
+  `top_start_time` bigint(20) DEFAULT NULL COMMENT '置顶开始时间',
+  `top_end_time` bigint(20) DEFAULT NULL COMMENT '置顶结束时间',
+  `security_deposit` int(11) DEFAULT NULL COMMENT '保证金',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为正常使用 0为已成交',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of pdzg_cjsb
+-- ----------------------------
+INSERT INTO `pdzg_cjsb` VALUES ('0', '2', '福建', '一个月', '出售小吃设备', '全新', '好马配好鞍，好的小吃设备配好店', null, '乐先生', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_cjsb` VALUES ('1', '2', '福建', '一个月', '出售小吃设备002', '全新', '好马配好鞍，好的小吃设备配好店', null, '乐先生', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_cjsb` VALUES ('2', '2', '福建', '一个月', '出售小吃设备003', '全新', '好马配好鞍，好的小吃设备配好店', null, '乐先生', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_cjsb` VALUES ('3', '3', '上海', '一个月', '出售小吃设备004', '全新', '好马配好鞍，好的小吃设备配好店', null, '小乐', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_cjsb` VALUES ('4', '3', '广东', '一个月', '出售小吃设备005', '全新', '好马配好鞍，好的小吃设备配好店', null, '小乐', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_cjsb` VALUES ('5', '3', '广西', '一个月', '出售小吃设备006', '全新', '好马配好鞍，好的小吃设备配好店', null, '小乐', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for `pdzg_collection`
@@ -136,10 +171,10 @@ CREATE TABLE `pdzg_comment` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `pdzg_info`
+-- Table structure for `pdzg_dpzr`
 -- ----------------------------
-DROP TABLE IF EXISTS `pdzg_info`;
-CREATE TABLE `pdzg_info` (
+DROP TABLE IF EXISTS `pdzg_dpzr`;
+CREATE TABLE `pdzg_dpzr` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
   `province` varchar(30) DEFAULT NULL COMMENT '省份',
@@ -148,19 +183,6 @@ CREATE TABLE `pdzg_info` (
   `monthly_rent` varchar(30) DEFAULT NULL COMMENT '月租金',
   `day_turnover` varchar(30) DEFAULT NULL COMMENT '日营业额',
   `transfer_fee` varchar(30) DEFAULT NULL COMMENT '转让费',
-  `monthly_salary` varchar(30) DEFAULT NULL COMMENT '月薪',
-  `sex` varchar(30) DEFAULT NULL COMMENT '性别',
-  `work_experience` varchar(30) DEFAULT NULL COMMENT '工作经验',
-  `work_skill` varchar(30) DEFAULT NULL COMMENT '工作技能',
-  `work_hours` varchar(30) DEFAULT NULL COMMENT '工作时长',
-  `age` varchar(30) DEFAULT NULL COMMENT '年龄',
-  `health_status` varchar(30) DEFAULT NULL COMMENT '健康状况',
-  `cash_pledge` varchar(30) DEFAULT NULL COMMENT '押金要求',
-  `live_conditions` varchar(30) DEFAULT NULL COMMENT '居住条件',
-  `takeaway_status` varchar(30) DEFAULT NULL COMMENT '外卖情况',
-  `open_hours` varchar(30) DEFAULT NULL COMMENT '开门时间',
-  `close_hours` varchar(30) DEFAULT NULL COMMENT '打烊时间',
-  `new_old` varchar(30) DEFAULT NULL COMMENT '新旧程度',
   `content` text COMMENT '详情',
   `img_id` bigint(20) DEFAULT NULL COMMENT '多对多引入3表 表一图片id 表二图片urlid 表三关联',
   `contact_name` varchar(20) DEFAULT NULL COMMENT '联系人',
@@ -185,9 +207,59 @@ CREATE TABLE `pdzg_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of pdzg_info
+-- Records of pdzg_dpzr
 -- ----------------------------
+INSERT INTO `pdzg_dpzr` VALUES ('0', '2', '福建', '长期有效', '大店转让绝对给力', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_dpzr` VALUES ('1', '2', '福建', '长期有效', '大店转让绝对给力002', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_dpzr` VALUES ('2', '2', '福建', '长期有效', '大店转让绝对给力003', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '3', null, null, null, '1498879915', '1498879915', '1');
+INSERT INTO `pdzg_dpzr` VALUES ('3', '3', '福建', '长期有效', '大店转让绝对给力004', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '小乐', '18960501805', '764448863', null, '100平', '1500以上', '没有外卖', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '3', null, null, null, '1498579915', '1498979915', '1');
+INSERT INTO `pdzg_dpzr` VALUES ('4', '3', '福建', '长期有效', '大店转让绝对给力005', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '小乐', '18960501805', '764448863', null, '100平', '1500以上', '没有外卖', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_dpzr` VALUES ('5', '3', '福建', '长期有效', '大店转让绝对给力006', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '小乐', '18960501805', '764448863', null, '100平', '1500以上', '偶尔', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
 
+-- ----------------------------
+-- Table structure for `pdzg_dwcb`
+-- ----------------------------
+DROP TABLE IF EXISTS `pdzg_dwcb`;
+CREATE TABLE `pdzg_dwcb` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `province` varchar(30) DEFAULT NULL COMMENT '省份',
+  `valid_period` varchar(30) DEFAULT NULL COMMENT '有效期',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `monthly_rent` varchar(30) DEFAULT NULL COMMENT '月租金',
+  `day_turnover` varchar(30) DEFAULT NULL COMMENT '日营业额',
+  `content` text COMMENT '详情',
+  `img_id` bigint(20) DEFAULT NULL COMMENT '多对多引入3表 表一图片id 表二图片urlid 表三关联',
+  `contact_name` varchar(20) DEFAULT NULL COMMENT '联系人',
+  `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系人电话',
+  `contact_qq` varchar(20) DEFAULT NULL COMMENT '联系人QQ',
+  `location` varchar(255) DEFAULT NULL COMMENT '地址信息',
+  `shop_area` varchar(255) DEFAULT NULL COMMENT '店铺面积',
+  `water_electricity` varchar(30) DEFAULT NULL COMMENT '水电费',
+  `to_serve` varchar(30) DEFAULT NULL COMMENT '送餐',
+  `surroundings` varchar(30) DEFAULT NULL COMMENT '周边环境',
+  `shop_facilities` varchar(30) DEFAULT NULL COMMENT '店铺设施',
+  `hold_credentials` varchar(30) DEFAULT NULL COMMENT '所持证书',
+  `shop_address` varchar(255) DEFAULT NULL COMMENT '店铺地址',
+  `level_type` tinyint(4) DEFAULT NULL COMMENT '1为正常 2星级信息 3为置顶信息',
+  `top_start_time` bigint(20) DEFAULT NULL COMMENT '置顶开始时间',
+  `top_end_time` bigint(20) DEFAULT NULL COMMENT '置顶结束时间',
+  `security_deposit` int(11) DEFAULT NULL COMMENT '保证金',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为正常使用 0为已成交',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pdzg_dwcb
+-- ----------------------------
+INSERT INTO `pdzg_dwcb` VALUES ('0', '2', '福建', '一个月', '店铺对外承包，有能力的来001', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了002', null, '乐先生', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_dwcb` VALUES ('1', '2', '福建', '一个月', '店铺对外承包，有能力的来001', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了002', null, '乐先生', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_dwcb` VALUES ('2', '2', '福建', '一个月', '店铺对外承包，有能力的来002', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了003', null, '乐先生', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_dwcb` VALUES ('3', '3', '河北', '一个月', '店铺对外承包，有能力的来003', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了004', null, '小乐', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_dwcb` VALUES ('4', '3', '浙江', '一个月', '店铺对外承包，有能力的来004', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了005', null, '小乐', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_dwcb` VALUES ('5', '3', '福建', '一个月', '店铺对外承包，有能力的来005', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了006', null, '小乐', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for `pdzg_item_relevance`
@@ -292,6 +364,136 @@ CREATE TABLE `pdzg_news` (
 -- Records of pdzg_news
 -- ----------------------------
 
+-- ----------------------------
+-- Table structure for `pdzg_qtwp`
+-- ----------------------------
+DROP TABLE IF EXISTS `pdzg_qtwp`;
+CREATE TABLE `pdzg_qtwp` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `province` varchar(30) DEFAULT NULL COMMENT '省份',
+  `valid_period` varchar(30) DEFAULT NULL COMMENT '有效期',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `new_old` varchar(30) DEFAULT NULL COMMENT '新旧程度',
+  `content` text COMMENT '详情',
+  `img_id` bigint(20) DEFAULT NULL COMMENT '多对多引入3表 表一图片id 表二图片urlid 表三关联',
+  `contact_name` varchar(20) DEFAULT NULL COMMENT '联系人',
+  `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系人电话',
+  `contact_qq` varchar(20) DEFAULT NULL COMMENT '联系人QQ',
+  `location` varchar(255) DEFAULT NULL COMMENT '地址信息',
+  `level_type` tinyint(4) DEFAULT NULL COMMENT '1为正常 2星级信息 3为置顶信息',
+  `top_start_time` bigint(20) DEFAULT NULL COMMENT '置顶开始时间',
+  `top_end_time` bigint(20) DEFAULT NULL COMMENT '置顶结束时间',
+  `security_deposit` int(11) DEFAULT NULL COMMENT '保证金',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为正常使用 0为已成交',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pdzg_qtwp
+-- ----------------------------
+INSERT INTO `pdzg_qtwp` VALUES ('0', '2', '福建', '一个月', '出售小吃设备002', '全新', '好马配好鞍，好的小吃设备配好店', null, '乐先生', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qtwp` VALUES ('1', '2', '福建', '一个月', '出售小吃设备002', '全新', '好马配好鞍，好的小吃设备配好店', null, '乐先生', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qtwp` VALUES ('2', '2', '福建', '一个月', '出售小吃设备003', '全新', '好马配好鞍，好的小吃设备配好店', null, '乐先生', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qtwp` VALUES ('3', '3', '上海', '一个月', '出售小吃设备004', '全新', '好马配好鞍，好的小吃设备配好店', null, '小乐', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qtwp` VALUES ('4', '3', '广东', '一个月', '出售小吃设备005', '全新', '好马配好鞍，好的小吃设备配好店', null, '小乐', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qtwp` VALUES ('5', '3', '广西', '一个月', '出售小吃设备006', '全新', '好马配好鞍，好的小吃设备配好店', null, '小乐', '18960501805', '764448863', null, '1', null, null, null, null, null, '1');
+
+-- ----------------------------
+-- Table structure for `pdzg_qzdp`
+-- ----------------------------
+DROP TABLE IF EXISTS `pdzg_qzdp`;
+CREATE TABLE `pdzg_qzdp` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `province` varchar(30) DEFAULT NULL COMMENT '省份',
+  `valid_period` varchar(30) DEFAULT NULL COMMENT '有效期',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `monthly_rent` varchar(30) DEFAULT NULL COMMENT '月租金',
+  `day_turnover` varchar(30) DEFAULT NULL COMMENT '日营业额',
+  `transfer_fee` varchar(30) DEFAULT NULL COMMENT '转让费',
+  `content` text COMMENT '详情',
+  `img_id` bigint(20) DEFAULT NULL COMMENT '多对多引入3表 表一图片id 表二图片urlid 表三关联',
+  `contact_name` varchar(20) DEFAULT NULL COMMENT '联系人',
+  `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系人电话',
+  `contact_qq` varchar(20) DEFAULT NULL COMMENT '联系人QQ',
+  `location` varchar(255) DEFAULT NULL COMMENT '地址信息',
+  `shop_area` varchar(255) DEFAULT NULL COMMENT '店铺面积',
+  `water_electricity` varchar(30) DEFAULT NULL COMMENT '水电费',
+  `to_serve` varchar(30) DEFAULT NULL COMMENT '送餐',
+  `surroundings` varchar(30) DEFAULT NULL COMMENT '周边环境',
+  `shop_facilities` varchar(30) DEFAULT NULL COMMENT '店铺设施',
+  `hold_credentials` varchar(30) DEFAULT NULL COMMENT '所持证书',
+  `shop_address` varchar(255) DEFAULT NULL COMMENT '店铺地址',
+  `level_type` tinyint(4) DEFAULT NULL COMMENT '1为正常 2星级信息 3为置顶信息',
+  `top_start_time` bigint(20) DEFAULT NULL COMMENT '置顶开始时间',
+  `top_end_time` bigint(20) DEFAULT NULL COMMENT '置顶结束时间',
+  `security_deposit` int(11) DEFAULT NULL COMMENT '保证金',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为正常使用 0为已成交',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pdzg_qzdp
+-- ----------------------------
+INSERT INTO `pdzg_qzdp` VALUES ('0', '2', '福建', '长期有效', '有没有大店需要转让的001', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电燃气宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qzdp` VALUES ('1', '2', '福建', '长期有效', '有没有大店需要转让的002', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qzdp` VALUES ('2', '2', '福建', '长期有效', '有没有大店需要转让的003', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '3', null, null, null, '1498879915', '149879915', '1');
+INSERT INTO `pdzg_qzdp` VALUES ('3', '3', '福建', '长期有效', '有没有大店需要转让的004', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '小乐', '18960501805', '764448863', null, '100平', '1500以上', '没有外卖', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '3', null, null, null, '1498879915', '1499879915', '1');
+INSERT INTO `pdzg_qzdp` VALUES ('4', '3', '福建', '长期有效', '有没有大店需要转让的005', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '小乐', '18960501805', '764448863', null, '100平', '1500以上', '没有外卖', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qzdp` VALUES ('5', '3', '福建', '长期有效', '有没有大店需要转让的006', '5000-7000元', '3000-5000元', '15万以上', '大店求转绝对好店 不会令你失望', null, '小乐', '18960501805', '764448863', null, '100平', '1500以上', '偶尔', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+
+-- ----------------------------
+-- Table structure for `pdzg_qzxx`
+-- ----------------------------
+DROP TABLE IF EXISTS `pdzg_qzxx`;
+CREATE TABLE `pdzg_qzxx` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `province` varchar(30) DEFAULT NULL COMMENT '省份',
+  `valid_period` varchar(30) DEFAULT NULL COMMENT '有效期',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `monthly_salary` varchar(30) DEFAULT NULL COMMENT '月薪',
+  `sex` varchar(30) DEFAULT NULL COMMENT '性别',
+  `work_experience` varchar(30) DEFAULT NULL COMMENT '工作经验',
+  `work_skill` varchar(30) DEFAULT NULL COMMENT '工作技能',
+  `work_hours` varchar(30) DEFAULT NULL COMMENT '工作时长',
+  `age` varchar(30) DEFAULT NULL COMMENT '年龄',
+  `health_status` varchar(30) DEFAULT NULL COMMENT '健康状况',
+  `cash_pledge` varchar(30) DEFAULT NULL COMMENT '押金要求',
+  `live_conditions` varchar(30) DEFAULT NULL COMMENT '居住条件',
+  `takeaway_status` varchar(30) DEFAULT NULL COMMENT '外卖情况',
+  `open_hours` varchar(30) DEFAULT NULL COMMENT '开门时间',
+  `close_hours` varchar(30) DEFAULT NULL COMMENT '打烊时间',
+  `content` text COMMENT '详情',
+  `img_id` bigint(20) DEFAULT NULL COMMENT '多对多引入3表 表一图片id 表二图片urlid 表三关联',
+  `contact_name` varchar(20) DEFAULT NULL COMMENT '联系人',
+  `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系人电话',
+  `contact_qq` varchar(20) DEFAULT NULL COMMENT '联系人QQ',
+  `contact_email` varchar(20) DEFAULT NULL COMMENT '联系人邮箱',
+  `level_type` tinyint(4) DEFAULT NULL COMMENT '1为正常 2星级信息 3为置顶信息',
+  `top_start_time` bigint(20) DEFAULT NULL COMMENT '置顶开始时间',
+  `top_end_time` bigint(20) DEFAULT NULL COMMENT '置顶结束时间',
+  `security_deposit` int(11) DEFAULT NULL COMMENT '保证金',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为正常使用 0为已成交',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pdzg_qzxx
+-- ----------------------------
+INSERT INTO `pdzg_qzxx` VALUES ('0', '2', '福建', '一周', '求一份工作001', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '6:00-7:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '乐先生', '18960501805', '764448863', '764448863@qq.com', '3', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qzxx` VALUES ('1', '2', '福建', '一周', '求一份工作002', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '6:00-7:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '乐先生', '18960501805', '764448863', '764448863@qq.com', '3', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qzxx` VALUES ('2', '2', '福建', '一周', '求一份工作003', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '6:00-7:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '乐先生', '18960501805', '764448863', '764448863@qq.com', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qzxx` VALUES ('3', '3', '浙江', '一周', '求一份工作004', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '7:00-8:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '小乐', '123456', '764448863', '764448863@qq.com', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qzxx` VALUES ('4', '3', '浙江', '一周', '求一份工作005', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '7:00-8:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '小乐', '123456', '764448863', '764448863@qq.com', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_qzxx` VALUES ('5', '3', '浙江', '一周', '求一份工作006', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '7:00-8:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '小乐', '123456', '764448863', '764448863@qq.com', '1', null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for `pdzg_small_item`
@@ -516,14 +718,109 @@ CREATE TABLE `pdzg_user` (
   `id_card` varchar(30) DEFAULT NULL COMMENT '身份证号码',
   `last_ip` varchar(255) DEFAULT NULL COMMENT '最后访问IP',
   `qq` bigint(20) DEFAULT NULL COMMENT 'QQ号',
-  `level` tinyint(4) DEFAULT NULL COMMENT '区分 普通会员 vip用户',
+  `level` tinyint(4) DEFAULT NULL COMMENT '区分 1 普通会员 2 vip用户',
   `credit_num` int(11) DEFAULT NULL COMMENT '信用点',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1为使用 0为停止',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pdzg_user
 -- ----------------------------
+INSERT INTO `pdzg_user` VALUES ('2', 'lgy', '123456', '18960501805', '764448863@qq.com', '999', '乐广烨', null, null, '764448863', '1', '10', null, null, '1');
+INSERT INTO `pdzg_user` VALUES ('3', 'lgy002', '123456', '123456', '123456@qq.com', '888', '小乐', null, null, '123456', '1', '20', null, null, '1');
+
+-- ----------------------------
+-- Table structure for `pdzg_xqcb`
+-- ----------------------------
+DROP TABLE IF EXISTS `pdzg_xqcb`;
+CREATE TABLE `pdzg_xqcb` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `province` varchar(30) DEFAULT NULL COMMENT '省份',
+  `valid_period` varchar(30) DEFAULT NULL COMMENT '有效期',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `monthly_rent` varchar(30) DEFAULT NULL COMMENT '月租金',
+  `day_turnover` varchar(30) DEFAULT NULL COMMENT '日营业额',
+  `content` text COMMENT '详情',
+  `img_id` bigint(20) DEFAULT NULL COMMENT '多对多引入3表 表一图片id 表二图片urlid 表三关联',
+  `contact_name` varchar(30) DEFAULT NULL COMMENT '联系人',
+  `contact_phone` varchar(30) DEFAULT NULL COMMENT '联系人电话',
+  `contact_qq` varchar(30) DEFAULT NULL COMMENT '联系人QQ',
+  `location` varchar(30) DEFAULT NULL COMMENT '地址信息',
+  `shop_area` varchar(30) DEFAULT NULL COMMENT '店铺面积',
+  `water_electricity` varchar(30) DEFAULT NULL COMMENT '水电费',
+  `to_serve` varchar(30) DEFAULT NULL COMMENT '送餐',
+  `surroundings` varchar(30) DEFAULT NULL COMMENT '周边环境',
+  `shop_facilities` varchar(30) DEFAULT NULL COMMENT '店铺设施',
+  `hold_credentials` varchar(30) DEFAULT NULL COMMENT '所持证书',
+  `shop_address` varchar(255) DEFAULT NULL COMMENT '店铺地址',
+  `level_type` tinyint(4) DEFAULT NULL COMMENT '1为正常 2星级信息 3为置顶信息',
+  `top_start_time` bigint(20) DEFAULT NULL COMMENT '置顶开始时间',
+  `top_end_time` bigint(20) DEFAULT NULL COMMENT '置顶结束时间',
+  `security_deposit` int(11) DEFAULT NULL COMMENT '保证金',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为正常使用 0为已成交',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pdzg_xqcb
+-- ----------------------------
+INSERT INTO `pdzg_xqcb` VALUES ('0', '2', '福建', '一个月', '想找个店铺做一下有做累的吗001', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了', null, '乐先生', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_xqcb` VALUES ('1', '2', '福建', '一个月', '想找个店铺做一下有做累的吗002', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了002', null, '乐先生', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_xqcb` VALUES ('2', '2', '福建', '一个月', '想找个店铺做一下有做累的吗003', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了003', null, '乐先生', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '3', null, null, null, null, null, '1');
+INSERT INTO `pdzg_xqcb` VALUES ('3', '3', '河北', '一个月', '想找个店铺做一下有做累的吗004', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了004', null, '小乐', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '3', null, null, null, null, null, '1');
+INSERT INTO `pdzg_xqcb` VALUES ('4', '3', '浙江', '一个月', '想找个店铺做一下有做累的吗005', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了005', null, '小乐', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_xqcb` VALUES ('5', '3', '福建', '一个月', '想找个店铺做一下有做累的吗006', '2500-5000元', '1000-1500元', '真心求一个店做，没钱赚在家都快废了006', null, '小乐', '18960501805', '764448863', null, '60', null, null, null, '水电,燃气,宽带WiFi', null, '福建省三明市沙县电商城', '1', null, null, null, null, null, '1');
+
+-- ----------------------------
+-- Table structure for `pdzg_zgxx`
+-- ----------------------------
+DROP TABLE IF EXISTS `pdzg_zgxx`;
+CREATE TABLE `pdzg_zgxx` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `province` varchar(30) DEFAULT NULL COMMENT '省份',
+  `valid_period` varchar(30) DEFAULT NULL COMMENT '有效期',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `monthly_salary` varchar(30) DEFAULT NULL COMMENT '月薪',
+  `sex` varchar(30) DEFAULT NULL COMMENT '性别',
+  `work_experience` varchar(30) DEFAULT NULL COMMENT '工作经验',
+  `work_skill` varchar(30) DEFAULT NULL COMMENT '工作技能',
+  `work_hours` varchar(30) DEFAULT NULL COMMENT '工作时长',
+  `age` varchar(30) DEFAULT NULL COMMENT '年龄',
+  `health_status` varchar(30) DEFAULT NULL COMMENT '健康状况',
+  `cash_pledge` varchar(30) DEFAULT NULL COMMENT '押金要求',
+  `live_conditions` varchar(30) DEFAULT NULL COMMENT '居住条件',
+  `takeaway_status` varchar(30) DEFAULT NULL COMMENT '外卖情况',
+  `open_hours` varchar(30) DEFAULT NULL COMMENT '开门时间',
+  `close_hours` varchar(30) DEFAULT NULL COMMENT '打烊时间',
+  `content` text COMMENT '详情',
+  `img_id` bigint(20) DEFAULT NULL COMMENT '多对多引入3表 表一图片id 表二图片urlid 表三关联',
+  `contact_name` varchar(20) DEFAULT NULL COMMENT '联系人',
+  `contact_phone` varchar(20) DEFAULT NULL COMMENT '联系人电话',
+  `contact_qq` varchar(20) DEFAULT NULL COMMENT '联系人QQ',
+  `contact_email` varchar(20) DEFAULT NULL COMMENT '联系人邮箱',
+  `level_type` tinyint(4) DEFAULT NULL COMMENT '1为正常 2星级信息 3为置顶信息',
+  `top_start_time` bigint(20) DEFAULT NULL COMMENT '置顶开始时间',
+  `top_end_time` bigint(20) DEFAULT NULL COMMENT '置顶结束时间',
+  `security_deposit` int(11) DEFAULT NULL COMMENT '保证金',
+  `create_time` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
+  `status` tinyint(4) DEFAULT NULL COMMENT '1为正常使用 0为已成交',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of pdzg_zgxx
+-- ----------------------------
+INSERT INTO `pdzg_zgxx` VALUES ('0', '2', '福建', '一周', '找一个小吃工001', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '6:00-7:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '乐先生', '18960501805', '764448863', '764448863@qq.com', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_zgxx` VALUES ('1', '2', '福建', '一周', '找一个小吃工002', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '6:00-7:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '乐先生', '18960501805', '764448863', '764448863@qq.com', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_zgxx` VALUES ('2', '2', '福建', '一周', '找一个小吃工003', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '6:00-7:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '乐先生', '18960501805', '764448863', '764448863@qq.com', '3', null, null, null, '1498879915', '1498979915', '1');
+INSERT INTO `pdzg_zgxx` VALUES ('3', '3', '浙江', '一周', '找一个小吃工004', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '7:00-8:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '小乐', '123456', '764448863', '764448863@qq.com', '3', null, null, null, '1498879915', '1498779915', '1');
+INSERT INTO `pdzg_zgxx` VALUES ('4', '3', '浙江', '一周', '找一个小吃工005', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '7:00-8:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '小乐', '123456', '764448863', '764448863@qq.com', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_zgxx` VALUES ('5', '3', '浙江', '一周', '找一个小吃工006', '4000-5000', '性别不限', '两年', '沙县小吃', '10-12小时', '35', '身强体壮', '不需要', '单间', '有', '7:00-8:00', '22:00-23:00', '肯干就行，不要偷奸耍滑的，手机党勿扰', null, '小乐', '123456', '764448863', '764448863@qq.com', '1', null, null, null, null, null, '1');

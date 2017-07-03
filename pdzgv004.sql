@@ -10,13 +10,13 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-06-30 17:36:03
+Date: 2017-07-03 10:16:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `pdzg_admin` 管理员表
+-- Table structure for `pdzg_admin`
 -- ----------------------------
 DROP TABLE IF EXISTS `pdzg_admin`;
 CREATE TABLE `pdzg_admin` (
@@ -93,8 +93,6 @@ INSERT INTO `pdzg_big_item` VALUES ('10', '需求承包', '2', '3', '2147483647'
 INSERT INTO `pdzg_big_item` VALUES ('11', '餐具设备', '2', '4', '2147483647', '1498699351000', '1');
 INSERT INTO `pdzg_big_item` VALUES ('12', '其他物品', '2', '4', '2147483647', '1498699351000', '1');
 
-
-
 -- ----------------------------
 -- Table structure for `pdzg_collection`
 -- ----------------------------
@@ -140,8 +138,9 @@ CREATE TABLE `pdzg_comment` (
 -- ----------------------------
 DROP TABLE IF EXISTS `pdzg_info`;
 CREATE TABLE `pdzg_info` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL COMMENT '用户id',
+  `big_item_id` int(11) DEFAULT NULL COMMENT '大类型id',
   `province` varchar(30) DEFAULT NULL COMMENT '省份',
   `valid_period` varchar(30) DEFAULT NULL COMMENT '有效期',
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
@@ -182,12 +181,18 @@ CREATE TABLE `pdzg_info` (
   `update_time` bigint(20) DEFAULT NULL COMMENT '更新时间',
   `status` tinyint(4) DEFAULT NULL COMMENT '1为正常使用 0为已成交',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pdzg_info
 -- ----------------------------
-
+INSERT INTO `pdzg_info` VALUES ('1', '2', '5', '福建', '长期有效', '大店转让绝对给力', '5000-7000元', '3000-5000元', '15万以上', '2000-3000', '男', '一年', '沙县小吃', '8-10小时', '20-30岁', '身强体壮', '需要', '单间', '有', '6:00-7:00', '22:00-23:00', '全新', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_info` VALUES ('2', '6', '6', '福建', '长期有效', '大店转让绝对给力', '5000-7000元', '3000-5000元', '15万以上', '2000-3000', '男', '三年以上', '套餐饭', '8-10小时', '20-30岁', '身强体壮', '需要', '单间', '有', '6:00-7:00', '21:00-22:00', '全新', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_info` VALUES ('3', '2', '7', '福建', '长期有效', '大店转让绝对给力', '5000-7000元', '3000-5000元', '15万以上', '2000-3000', '男', '三年以上', '黄焖鸡', '8-10小时', '20-30岁', '身强体壮', '需要', '单间', '有', '6:00-7:00', '22:00-23:00', '全新', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '3', null, null, null, null, null, '1');
+INSERT INTO `pdzg_info` VALUES ('4', '3', '8', '福建', '长期有效', '大店转让绝对给力', '5000-7000元', '3000-5000元', '15万以上', '2000-3000', '男', '两年', '沙县小吃', '12小时以上', '20-30岁', '状态良好', '需要', '阁楼', '有', '5:00-5:00', '21:00-22:00', '全新', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '3', null, null, null, null, null, '1');
+INSERT INTO `pdzg_info` VALUES ('5', '2', '9', '福建', '长期有效', '大店转让绝对给力', '5000-7000元', '3000-5000元', '15万以上', '5000-6000', '男', '三年以上', '沙县小吃', '8-10小时', '30-40岁', '状态良好', '不需要', '单间', '没有', '6:00-7:00', '22:00-23:00', '9成新', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '3', null, null, null, null, null, '1');
+INSERT INTO `pdzg_info` VALUES ('6', '3', '10', '福建', '长期有效', '大店转让绝对给力', '5000-7000元', '3000-5000元', '15万以上', '4000-5000', '女', '三年以上', '沙县小吃', '10-12小时', '40岁以上', '状态良好', '不需要', '集体', '没有', '8:00-9:00', '22:00-23:00', '9成新', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '1', null, null, null, null, null, '1');
+INSERT INTO `pdzg_info` VALUES ('7', '2', '11', '福建', '长期有效', '大店转让绝对给力', '5000-7000元', '3000-5000元', '15万以上', '2000-3000', '女', '三年以上', '肯学肯干', '8-10小时', '不限', '状态良好', '不需要', '单间', '没有', '6:00-7:00', '22:00-23:00', '9成新', '大店求转绝对好店 不会令你失望', null, '乐先生', '18960501805', '764448863', null, '100平', '1500以上', '有送餐', '工厂,学校', '水电,燃气,宽带WiFi', '营业执照,卫生许可证', '福建省三明市沙县', '2', null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for `pdzg_item_relevance`
@@ -291,7 +296,6 @@ CREATE TABLE `pdzg_news` (
 -- ----------------------------
 -- Records of pdzg_news
 -- ----------------------------
-
 
 -- ----------------------------
 -- Table structure for `pdzg_small_item`
@@ -522,8 +526,10 @@ CREATE TABLE `pdzg_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1为使用 0为停止',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of pdzg_user
 -- ----------------------------
+INSERT INTO `pdzg_user` VALUES ('2', 'lgy', '5885102', '18960501805', '764448863@qq.com', '100', '乐广烨', '123456', null, '764448863', '1', '1000', null, null, '1');
+INSERT INTO `pdzg_user` VALUES ('3', 'xiaole', '5885102', '123456789', '123456', '200', '小乐', '456789', null, '764448863', '1', null, null, null, '1');
