@@ -53,6 +53,7 @@ class Info extends BaseModel
         $data = Db::field($field)->table('pdzg_info')->alias('i')->join($join)->limit($limit)->where($condition)->order($order)->select();
         return $data;
     }
+
     //获取小吃盘店
     public static function getXcpdInfo($limit=''){
         $field = [
@@ -73,6 +74,7 @@ class Info extends BaseModel
         $data = Db::field($field)->table('pdzg_info')->alias('i')->join($join)->limit($limit)->where($condition)->order($order)->select();
         return $data;
     }
+
     //获取招工求职
     public static function getZgqzInfo($limit=''){
         $field = [
@@ -93,6 +95,7 @@ class Info extends BaseModel
         $data = Db::field($field)->table('pdzg_info')->alias('i')->join($join)->limit($limit)->where($condition)->order($order)->select();
         return $data;
     }
+
     //获取店铺承包
     public static function getDmcbInfo($limit=''){
         $field = [
@@ -113,6 +116,7 @@ class Info extends BaseModel
         $data = Db::field($field)->table('pdzg_info')->alias('i')->join($join)->limit($limit)->where($condition)->order($order)->select();
         return $data;
     }
+
     //获取二手市场
     public static function getEsscInfo($limit=''){
         $field = [
@@ -134,8 +138,12 @@ class Info extends BaseModel
         return $data;
     }
 
-    //测试
-    public function test(){
-        return $this->belongsTo('big_item','big_item_id','id');
+    //根据条件筛选
+    public static function getConditionInfo($condition){
+        $order = [
+            'update_time DESC'
+        ];
+        $data = Db::table('pdzg_info')->where($condition)->order($order)->fetchSql(true)->select();
+        return $data;
     }
 }
