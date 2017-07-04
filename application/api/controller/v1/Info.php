@@ -17,12 +17,7 @@ class Info extends Controller
     public function getConditionInfo(){
         $request = Request::instance();
         $params = $request->param();
-//        $url = explode('&',$params['condition']);
-//        foreach ($url as $item){
-//
-//        }
-//        return json($condition);
-        $condition = $params['condition'];
+        $condition = str_replace('&',' AND ',$params['condition']);
         $data = InfoModel::getConditionInfo($condition);
         return json($data);
     }
