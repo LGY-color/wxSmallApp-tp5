@@ -13,6 +13,7 @@ use think\Db;
 
 class Info extends BaseModel
 {
+    protected $autoWriteTimestamp = true;
 //    获取sql fetchSql(true)->
     //获取置顶信息
     public static function getTopInfo($limit=5){
@@ -129,7 +130,42 @@ class Info extends BaseModel
         return $data;
     }
 
-    public static function InsertInfo(){
-        
+    //数据插入
+    public static function InsertInfo($list){
+        $info = Info::create($list);
+        $result = $info->id;
+        return $result;
     }
+
+    //更新数据
+    public static function UpdateInfo($list){
+        $info = new Info();
+        $condition = [
+            'user_id'=>$list['user_id'],
+            'id'=>$list['id']
+        ];
+        $have = $info->get($condition);
+        if($have){
+            $data = [
+              $list
+            ];
+            $result = $info->saveAll($data);
+            return $result;
+        }
+        return $have;
+    }
+
+    //查询已经个人发布的信息
+    public static function getPublish($id){
+        $info = new Info();
+        $condition = [
+            'user_id' =>$id
+        ];
+        $result = $info->all(function($query) use ($condition){
+            $query->where($condition)->order('update_time','DESC');
+        });
+        return $result;
+    }
+
+
 }

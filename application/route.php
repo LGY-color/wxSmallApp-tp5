@@ -10,7 +10,10 @@
 // +----------------------------------------------------------------------
 
 use think\Route;
-//Route::get('api/:version/test','api/:version.TestDemo/test');
+
+// +----------------------------------------------------------------------
+// | get read
+// +----------------------------------------------------------------------
 //小程序首页
 Route::get('api/:version/index','api/:version.Index/index');
 //分类页面
@@ -21,8 +24,26 @@ Route::get('api/:version/sitem','api/:version.Item/getSmallItem');
 Route::get('api/:version/sitem/:id','api/:version.Item/getFilterItem');
 //根据筛选条件获取数据
 Route::get('api/:version/info/:condition','api/:version.Info/getConditionInfo');
-//根据筛选条件获取数据
-Route::post('api/:version/info','api/:version.Info/getConditionInfo');
+//根据筛选条件获取数据 中文get会转码
+Route::post('api/:version/info/getInfo','api/:version.Info/getConditionInfo');
 //根据id 进入详情
 Route::get('api/:version/base/:id','api/:version.Base/getIdInfo');
-//Route::get('api/:version/index/:id','api/:version.Index/index');
+//获取用户已发布的信息
+Route::get('api/:version/info/getPublish/:id','api/:version.Info/getPublish');
+//获取用户已收藏信息
+Route::get('api/:version/info/getCollection/:id','api/:version.Info/getCollection');
+// +----------------------------------------------------------------------
+// | post create update 暂定不用put
+// +----------------------------------------------------------------------
+//插入数据 到info表
+Route::post('api/:version/info/InsertInfo','api/:version.Info/InsertInfo');
+//更新数据 到info表
+Route::post('api/:version/info/UpdateInfo','api/:version.Info/UpdateInfo');
+
+// +----------------------------------------------------------------------
+// | put update
+// +----------------------------------------------------------------------
+
+// +----------------------------------------------------------------------
+// | delete delete
+// +----------------------------------------------------------------------
