@@ -15,10 +15,9 @@ use app\api\model\Info as InfoModel;
 class Info extends Controller
 {
     public function getConditionInfo(){
-        $request = Request::instance();
-        $params = $request->param();
-        $condition = str_replace('&',' AND ',$params['condition']);
-        $data = InfoModel::getConditionInfo($condition);
+        $request =Request::instance();
+        $params = $request->post();
+        $data = InfoModel::getConditionInfo($params);
         return json($data);
     }
 }

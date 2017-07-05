@@ -14,7 +14,7 @@ use app\api\validate\TestValidate;
 use think\Controller;
 use think\Validate;
 
-class Index extends Controller
+class Index extends Base
 {
     public function index(){
         $data['banner_img'] = Banner::getBannerImgUrl();
@@ -27,4 +27,5 @@ class Index extends Controller
         $data['essc_info'] = Info::getEsscInfo();
         return json($data);
     }
+
 }

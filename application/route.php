@@ -21,4 +21,8 @@ Route::get('api/:version/sitem','api/:version.Item/getSmallItem');
 Route::get('api/:version/sitem/:id','api/:version.Item/getFilterItem');
 //根据筛选条件获取数据
 Route::get('api/:version/info/:condition','api/:version.Info/getConditionInfo');
+//根据筛选条件获取数据
+Route::post('api/:version/info','api/:version.Info/getConditionInfo');
+//根据id 进入详情
+Route::get('api/:version/base/:id','api/:version.Base/getIdInfo');
 //Route::get('api/:version/index/:id','api/:version.Index/index');

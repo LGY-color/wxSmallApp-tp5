@@ -128,8 +128,4 @@ class Info extends BaseModel
         $data = Db::field($field)->table('pdzg_info')->alias('i')->join($join)->where($condition)->select();
         return $data;
     }
-
-    public static function InsertInfo(){
-        
-    }
 }
