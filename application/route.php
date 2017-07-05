@@ -39,7 +39,8 @@ Route::get('api/:version/info/getCollection/:id','api/:version.Info/getCollectio
 Route::post('api/:version/info/InsertInfo','api/:version.Info/InsertInfo');
 //更新数据 到info表
 Route::post('api/:version/info/UpdateInfo','api/:version.Info/UpdateInfo');
-
+//用code换取openid ==
+Route::post('api/:version/token','api/:version.Token/getToken');
 // +----------------------------------------------------------------------
 // | put update
 // +----------------------------------------------------------------------

@@ -15,9 +15,9 @@ use app\api\validate\TokenGet;
 class Token
 {
     public function getToken($code=''){
-        (new TokenGet())->gochek();
-        $user_token = new UserToken();
-        $token = $user_token->get($code);
+        (new TokenGet())->goCheck();
+        $user_token = new UserToken($code);
+        $token = $user_token->get();
         return $token;
     }
 }

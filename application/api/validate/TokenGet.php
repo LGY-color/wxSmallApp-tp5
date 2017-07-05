@@ -9,9 +9,9 @@
 namespace app\api\validate;
 
 
-use app\api\model\BaseModel;
 
-class TokenGet extends BaseModel
+
+class TokenGet extends BaseValidate
 {
     protected $rule = [
       'code' => 'require|isNotEmpty'
