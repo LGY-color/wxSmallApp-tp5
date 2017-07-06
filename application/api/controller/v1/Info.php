@@ -9,6 +9,7 @@
 namespace app\api\controller\v1;
 
 
+use app\api\model\Comment;
 use app\api\validate\IDMustBePositiveInt;
 use think\Controller;
 use app\api\model\Collection as ColModel;
@@ -16,6 +17,7 @@ use think\Request;
 use app\api\model\Info as InfoModel;
 class Info extends Controller
 {
+    //筛选条件获取信息
     public function getConditionInfo(){
         $request =Request::instance();
         $params = $request->post();
@@ -49,4 +51,11 @@ class Info extends Controller
         $result = ColModel::getCollection($id);
         return json($result);
     }
+    //获取当前用户评论信息
+    public function getUserComment($id){
+        (new IDMustBePositiveInt())->goCheck();
+        $result = Comment::getUserComment($id);
+        return json($result);
+    }
+
 }

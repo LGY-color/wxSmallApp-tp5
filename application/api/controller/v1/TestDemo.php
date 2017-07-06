@@ -10,6 +10,7 @@ namespace app\api\controller\v1;
 
 
 use app\api\model\Info;
+use app\api\model\News;
 use think\Controller;
 
 class TestDemo extends Controller
@@ -17,5 +18,9 @@ class TestDemo extends Controller
     public function test(){
         $data = Info::all([],'test');
         return json($data);
+    }
+    public function testNoReadNum($id){
+        $result = News::noReadNum($id);
+        return json($result);
     }
 }
