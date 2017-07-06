@@ -27,11 +27,13 @@ Route::get('api/:version/info/:condition','api/:version.Info/getConditionInfo');
 //根据筛选条件获取数据 中文get会转码
 Route::post('api/:version/info/getInfo','api/:version.Info/getConditionInfo');
 //根据id 进入详情
-Route::get('api/:version/base/:id','api/:version.Base/getIdInfo');
+Route::get('api/:version/base/getIdInfo/:id','api/:version.Base/getIdInfo');
 //获取用户已发布的信息
 Route::get('api/:version/info/getPublish/:id','api/:version.Info/getPublish');
 //获取用户已收藏信息
 Route::get('api/:version/info/getCollection/:id','api/:version.Info/getCollection');
+//获取用户评论信息
+Route::get('api/:version/info/getUserComment/:id','api/:version.Info/getUserComment');
 // +----------------------------------------------------------------------
 // | post create update 暂定不用put
 // +----------------------------------------------------------------------
@@ -41,6 +43,8 @@ Route::post('api/:version/info/InsertInfo','api/:version.Info/InsertInfo');
 Route::post('api/:version/info/UpdateInfo','api/:version.Info/UpdateInfo');
 //用code换取openid ==
 Route::post('api/:version/token','api/:version.Token/getToken');
+//回复功能
+Route::post('api/:version/base/replyUser','api/:version.Base/replyUser');
 // +----------------------------------------------------------------------
 // | put update
 // +----------------------------------------------------------------------
@@ -48,3 +52,9 @@ Route::post('api/:version/token','api/:version.Token/getToken');
 // +----------------------------------------------------------------------
 // | delete delete
 // +----------------------------------------------------------------------
+
+// +----------------------------------------------------------------------
+// | 测试专用
+// +----------------------------------------------------------------------
+
+Route::get('api/:version/test/:id','api/:version.TestDemo/testNoReadNum');

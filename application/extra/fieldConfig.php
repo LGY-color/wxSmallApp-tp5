@@ -8,7 +8,7 @@
 return [
     'FIELD' => [
         'i.*',
-        'bi.item_name,bi.id as bi_id',
+        'bi.item_name,bi.id as bi_id'
     ],
     'JOIN'=>[
         ['pdzg_big_item bi','bi.id=i.big_item_id','LEFT'],
