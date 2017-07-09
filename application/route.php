@@ -58,3 +58,9 @@ Route::post('api/:version/base/replyUser','api/:version.Base/replyUser');
 // +----------------------------------------------------------------------
 
 Route::get('api/:version/test/:id','api/:version.TestDemo/testNoReadNum');
+
+// +----------------------------------------------------------------------
+// | 后台专用
+// +----------------------------------------------------------------------
+Route::get('admin/index/index','admin/Index/index');
+Route::get('admin/welcome/index','admin/Welcome/welcome');
