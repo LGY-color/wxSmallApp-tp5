@@ -9,7 +9,11 @@
 namespace app\admin\controller;
 
 
-class ListInfo
-{
+use think\Controller;
 
+class ListInfo extends Controller
+{
+    public function listInfo(){
+        return $this->fetch('ListInfo/listInfo');
+    }
 }
