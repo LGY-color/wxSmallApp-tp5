@@ -1,417 +1,164 @@
-{include file="Base/header" /}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>首页--layui后台管理模板</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_tnyc012u2rlwstt9.css" media="all" />
+	<link rel="stylesheet" href="../css/main.css" media="all" />
+</head>
+<body class="childrenBody">
+	<div class="panel_box row">
+		<div class="panel col">
+			<a href="javascript:;" data-url="page/message/message.html">
+				<div class="panel_icon">
+					<i class="layui-icon" data-icon="&#xe63a;">&#xe63a;</i>
+				</div>
+				<div class="panel_word newMessage">
+					<span></span>
+					<cite>新消息</cite>
+				</div>
+			</a>
+		</div>
+		<div class="panel col">
+			<a href="javascript:;" data-url="page/user/allUsers.html">
+				<div class="panel_icon" style="background-color:#FF5722;">
+					<i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>
+				</div>
+				<div class="panel_word userAll">
+					<span></span>
+					<cite>新增人数</cite>
+				</div>
+			</a>
+		</div>
+		<div class="panel col">
+			<a href="javascript:;" data-url="page/user/allUsers.html">
+				<div class="panel_icon" style="background-color:#009688;">
+					<i class="layui-icon" data-icon="&#xe613;">&#xe613;</i>
+				</div>
+				<div class="panel_word userAll">
+					<span></span>
+					<cite>用户总数</cite>
+				</div>
+			</a>
+		</div>
+		<div class="panel col">
+			<a href="javascript:;" data-url="page/img/images.html">
+				<div class="panel_icon" style="background-color:#5FB878;">
+					<i class="layui-icon" data-icon="&#xe64a;">&#xe64a;</i>
+				</div>
+				<div class="panel_word imgAll">
+					<span></span>
+					<cite>图片总数</cite>
+				</div>
+			</a>
+		</div>
+		<div class="panel col">
+			<a href="javascript:;" data-url="page/news/newsList.html">
+				<div class="panel_icon" style="background-color:#F7B824;">
+					<i class="iconfont icon-wenben" data-icon="icon-wenben"></i>
+				</div>
+				<div class="panel_word waitNews">
+					<span></span>
+					<cite>待审核文章</cite>
+				</div>
+			</a>
+		</div>
+		<div class="panel col max_panel">
+			<a href="javascript:;" data-url="page/news/newsList.html">
+				<div class="panel_icon" style="background-color:#2F4056;">
+					<i class="iconfont icon-text" data-icon="icon-text"></i>
+				</div>
+				<div class="panel_word allNews">
+					<span></span>
+					<em>文章总数</em>
+					<cite>文章列表</cite>
+				</div>
+			</a>
+		</div>
+	</div>
+	<blockquote class="layui-elem-quote explain">
+		<p>本模板基于Layui实现，支持除LayIM外所有的Layui组件。<a href="http://layim.layui.com/" target="_blank" class="layui-btn layui-btn-mini">前往获取LayIM授权</a><a href="https://git.oschina.net/layuicms/layuicms" target="_blank" class="layui-btn layui-btn-mini layui-btn-danger">码云下载</a><a href="https://github.com/BrotherMa/layuiCMS" target="_blank" class="layui-btn layui-btn-mini layui-btn-danger">GitHub下载</a>　<span style="color:#1E9FFF;">郑重提示：网站所有数据均为静态数据，无数据库，除打开的窗口和部分小改动外所有操作刷新后无效，关闭窗口或清除缓存后，所有操作无效，请知悉</span></p>
+		<p>开发文档地址：<a class="layui-btn layui-btn-mini" target="_blank" href="http://www.layui.com/doc">点此跳转</a> <a class="layui-btn layui-btn-mini layui-btn-danger" target="_blank" href="http://fly.layui.com/case/u/3198216">我要点赞</a>　技术交流QQ群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=8b7dd3ea73528c1e46c5d4e522426d60deed355caefdf481c1eacdd1b7b73bfd"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="layui后台管理模版" title="layui后台管理模版"></a>（添加时请注明来自本框架） <span style="color:#f00;">注：本框架未引入任何第三方组件（天气信息除外），单纯的layui+js实现的各种功能【本框架仅作为学习交流使用，如需用作商业用途，请联系作者授权，谢谢】</span></p>
+	</blockquote>
+	<div class="row">
+		<div class="sysNotice col">
+			<blockquote class="layui-elem-quote title">更新日志</blockquote>
+			<div class="layui-elem-quote layui-quote-nm">
+				<h3># v1.0.1（优化） - 2017-06-25</h3>
+				<p>* 修改刚进入页面无任何操作时按回车键提示“请输入解锁密码！”</p>
+				<p>* 优化关闭弹窗按钮的提示信息位置问题【可能是因为加载速度的原因，造成这个问题，所以将提示信息做了一个延时】</p>
+				<p>* “个人资料”提供修改功能</p>
+				<p>* 顶部天气信息自动判断位置【忘记之前是怎么想的做成北京的了，可能是我在大首都吧，哈哈。。。如果感觉页面打开速度太慢可以把这块代码注释掉】</p>
+				<p>* 优化“用户列表”无法查询到新添加的用户【竟然是因为我把key值写错了，该死。。。】</p>
+				<p>* 将左侧菜单做成json方式调用，而不是js调用，方便开发使用，同时添加了参数配置和非窗口模式打开的判断，【如登录页面】</p>
+				<p>* 优化部分页面样式问题</p>
+				<br />
+				<p># v1.0.1（新增） - 2017-07-05</p>
+				<p>* 增加“用户列表”批量删除功能【可能当时忘记添加了吧。。。】</p>
+				<p style="color:#f00;">* 顶部窗口导航添加“关闭其他”、“关闭全部”功能，同时修改菜单窗口过多的展示效果【在此感谢larryCMS给予的启发】</p>
+				<p>* 添加可隐藏左侧菜单功能【之前考虑没必要添加，但是很多朋友要求加上，那就加上吧，嘿嘿。。。】</p>
+				<p>* 增加换肤功能【之前就想添加的，但是一直没有找到好的方式（好吧，其实是我忘记了），此方法相对简单，不是普遍适用，只简单的做个功能，如果实际用到建议单独写一套样式，将边框颜色、按钮颜色等统一调整，此处为保证代码的简洁性，只做简单的功能，不做赘述，另外“自定义”颜色中未做校验，所以要写入正确的色值。如“#f00”】</p>
+				<p style="color:#f00;">* 增加登录页面【背景视频仅作样式参考，实际使用中请自行更换为其他视频或图片，否则造成的任何问题使用者本人承担。】</p>
+				<p>* 新增打开窗口的动画效果</p>
+			</div>
+		</div>
+		<div class="sysNotice col">
+			<blockquote class="layui-elem-quote title">系统基本参数</blockquote>
+			<table class="layui-table">
+				<colgroup>
+					<col width="150">
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<td>当前版本</td>
+						<td class="version"></td>
+					</tr>
+					<tr>
+						<td>开发作者</td>
+						<td class="author"></td>
+					</tr>
+					<tr>
+						<td>网站首页</td>
+						<td class="homePage"></td>
+					</tr>
+					<tr>
+						<td>服务器环境</td>
+						<td class="server"></td>
+					</tr>
+					<tr>
+						<td>数据库版本</td>
+						<td class="dataBase"></td>
+					</tr>
+					<tr>
+						<td>最大上传限制</td>
+						<td class="maxUpload"></td>
+					</tr>
+					<tr>
+						<td>当前用户权限</td>
+						<td class="userRights"></td>
+					</tr>
+				</tbody>
+			</table>
+			<blockquote class="layui-elem-quote title">最新文章<i class="iconfont icon-new1"></i></blockquote>
+			<table class="layui-table" lay-skin="line">
+				<colgroup>
+					<col>
+					<col width="110">
+				</colgroup>
+				<tbody class="hot_news"></tbody>
+			</table> 
+		</div>
+	</div>
 
-<body>
-<div class="container-fluid larry-wrapper">
-    <!--顶部统计数据预览 -->
-    <!--基本用户信息-->
-    <div class="row">
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-blue"><i class="iconfont">&#xe672;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="用户总量"><i
-                            class="iconfont " data-icon='&#xe672;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="用户总量"> <i
-                            class="iconfont " data-icon='&#xe672;'></i><span>用户总量</span></a>
-
-                </div>
-            </section>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-commred"><i class="iconfont">&#xe674;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日注册"> <i
-                            class="iconfont " data-icon='&#xe674;'></i>
-                        <h1>10</h1>
-                    </a>
-
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日注册"> <i
-                            class="iconfont " data-icon='&#xe674;'></i><span>今日注册</span></a>
-
-                </div>
-            </section>
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-dark-green"><i class="iconfont">&#xe6bc;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="文章总数"> <i
-                            class="iconfont " data-icon='&#xe6bc;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="文章总数"> <i
-                            class="iconfont " data-icon='&#xe6bc;'></i><span>文章总数</span></a>
-                </div>
-            </section>
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-yellow-green"><i class="iconfont">&#xe649;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日新增"> <i
-                            class="iconfont " data-icon='&#xe649;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日新增"> <i
-                            class="iconfont " data-icon='&#xe649;'></i><span>今日新增</span></a>
-                </div>
-            </section>
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-orange"><i class="iconfont">&#xe638;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="评论总数"> <i
-                            class="iconfont " data-icon='&#xe638;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="评论总数"> <i
-                            class="iconfont " data-icon='&#xe638;'></i><span>评论总数</span></a>
-                </div>
-            </section>
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-yellow"><i class="iconfont">&#xe669;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日评论"> <i
-                            class="iconfont " data-icon='&#xe669;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日评论"> <i
-                            class="iconfont " data-icon='&#xe669;'></i><span>今日评论</span></a>
-                </div>
-            </section>
-        </div>
-
-    </div>
-    <!--用户充值信息-->
-    <div class="row">
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-blue"><i class="iconfont">&#xe672;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="用户总量"><i
-                            class="iconfont " data-icon='&#xe672;'></i>
-                        <h1>10</h1>
-                    </a>
-
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="用户总量"> <i
-                            class="iconfont " data-icon='&#xe672;'></i><span>用户总量</span></a>
-
-                </div>
-            </section>
-        </div>
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-commred"><i class="iconfont">&#xe674;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日注册"> <i
-                            class="iconfont " data-icon='&#xe674;'></i>
-                        <h1>10</h1>
-                    </a>
-
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日注册"> <i
-                            class="iconfont " data-icon='&#xe674;'></i><span>今日注册</span></a>
-
-                </div>
-            </section>
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-dark-green"><i class="iconfont">&#xe6bc;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="文章总数"> <i
-                            class="iconfont " data-icon='&#xe6bc;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="文章总数"> <i
-                            class="iconfont " data-icon='&#xe6bc;'></i><span>文章总数</span></a>
-                </div>
-            </section>
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-yellow-green"><i class="iconfont">&#xe649;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日新增"> <i
-                            class="iconfont " data-icon='&#xe649;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日新增"> <i
-                            class="iconfont " data-icon='&#xe649;'></i><span>今日新增</span></a>
-                </div>
-            </section>
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-orange"><i class="iconfont">&#xe638;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="评论总数"> <i
-                            class="iconfont " data-icon='&#xe638;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="评论总数"> <i
-                            class="iconfont " data-icon='&#xe638;'></i><span>评论总数</span></a>
-                </div>
-            </section>
-        </div>
-
-        <div class="col-xs-6 col-sm-4 col-md-2">
-            <section class="panel">
-                <div class="symbol bgcolor-yellow"><i class="iconfont">&#xe669;</i>
-                </div>
-                <div class="value tab-menu">
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日评论"> <i
-                            class="iconfont " data-icon='&#xe669;'></i>
-                        <h1>10</h1>
-                    </a>
-                    <a href="javascript:;" data-url="user-info.html" data-parent="true" data-title="今日评论"> <i
-                            class="iconfont " data-icon='&#xe669;'></i><span>今日评论</span></a>
-                </div>
-            </section>
-        </div>
-
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-md-6">
-            <section class="panel">
-                <div class="panel-heading">
-                    网站信息
-                    <a href="javascript:;" class="pull-right panel-toggle"><i class="iconfont">&#xe604;</i></a>
-                </div>
-                <div class="panel-body">
-                    <table class="layui-table">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <strong>软件名称</strong>：
-
-                            </td>
-                            <td>
-                                <a href="http://jqadmin.jqcool.net">jqadmin后台模板</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>软件版本</strong>：
-
-                            </td>
-                            <td>
-                                V1.3.4r1
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>开发作者</strong>：
-
-                            </td>
-                            <td>Paco</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>软件官网</strong>：
-                            </td>
-                            <td>
-                                <a href="http://jqadmin.jqcool.net" target="_blank">jqadmin</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>模板下载</strong>：
-                            </td>
-                            <td><a href="https://git.oschina.net/jqcool/jqadmin" target="_blank"
-                                   class="layui-btn layui-btn-small">码云下载</a>
-                                <a href="http://jqadmin.jqcool.net/jqadmin-1.3.4r2.zip"
-                                   class="layui-btn layui-btn-small">本地下载</a>
-                                <a href="http://jqadmin.jqcool.net/jqadmin-no-ssi-1.3.4r2.zip"
-                                   class="layui-btn layui-btn-small">本地下载无ssi版</a>
-                                <a href="http://fly.layui.com/case/2017/" target="_blank"
-                                   class="layui-btn layui-btn-small layui-btn-danger">我要点赞</a></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>QQ讨论群</strong>：
-                            </td>
-                            <td>
-                                <a target="_blank"
-                                   href="//shang.qq.com/wpa/qunwpa?idkey=bb0dbfcf87d269f825807a1ba7ff6a1c09d07b98b724192ed325e840284b4821"><img
-                                        border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="jQ酷"
-                                        title="jQ酷"></a> 入群答案：jqadmin
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>服务器环境</strong>：
-                            </td>
-                            <td>windows</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            <section class="panel log">
-                <div class="panel-heading">
-                    更新日志
-                    <a href="javascript:;" class="pull-right panel-toggle"><i class="iconfont">&#xe604;</i></a>
-                </div>
-                <div class="panel-body">
-
-                    <h2>jQadmin后台模板v1.3.4r2 2017-05-09</h2>
-                    <ul>
-                        <li> 修复弹窗过高，挣出屏幕BUG</li>
-                    </ul>
-
-                    <h2>jQadmin后台模板v1.3.4r1 2017-05-08</h2>
-                    <ul>
-                        <li> 修复火狐刷新打开菜单列表出错BUG</li>
-                    </ul>
-
-                    <h2>jQadmin后台模板v1.3.4r 2017-05-05</h2>
-                    <ul>
-                        <li> 修复列表编辑时异步没有提交值错误</li>
-                        <li> 添加打开页面时加载动画效果</li>
-                    </ul>
-
-                    <h2>jQadmin后台模板v1.3.4</h2>
-                    <ul>
-                        <li> 修复列表页搜索时分页不跳转到第一页的BUG</li>
-                        <li> 添加表格按字段排序功能</li>
-                        <li> 添加表格编辑框</li>
-                        <li> 添加ajax回调时是否关闭回调参数</li>
-                        <li> 添加弹窗标题自定义</li>
-                        <li> 添加异步后是否刷新列表参数，列表刷新不支持iframe模式</li>
-                        <li> 改进表单数据填充方式</li>
-                        <li> 添加刷新后重新打开原来打开的窗口</li>
-                        <li> 添加打开窗口列表，便于快捷切换</li>
-                        <li> 所有ajax请求改为请求json数据</li>
-                        <li> 修正弹窗后表单不重置错误</li>
-                    </ul>
-                    <h2>jQadmin后台模板v1.3.3 2017-03-22 </h2>
-                    <ul>
-                        <li> 修复表单提交关闭不了窗口的BUG</li>
-                        <li> 修正菜单选项卡不能关闭BUG</li>
-                        <li> 修正菜单右键弹出菜单bug</li>
-                        <li> 修复首页的统计链接</li>
-                        <li> 添加看云使用手册</li>
-                    </ul>
-                    <p>更多帮助文档请移步到 <a href="http://www.kancloud.cn/jqcool/jqadmin" target="_blank"
-                                     class="layui-btn layui-btn-small">使用手册</a></p>
-                </div>
-            </section>
-        </div>
-
-
-        <div class="col-xs-12 col-md-6">
-
-
-            <section class="panel">
-                <div class="panel-heading">
-                    最新文章
-                    <a href="javascript:;" class="pull-right panel-toggle"><i class="iconfont">&#xe604;</i></a>
-                </div>
-                <div class="panel-body">
-                    <table class="layui-table" lay-even>
-                        <colgroup>
-                            <col>
-                            <col width="100">
-                            <col width="120">
-                            <col width="80">
-                            <col width="150">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th>标题</th>
-                            <th>作者</th>
-                            <th>时间</th>
-                            <th>审核</th>
-                            <th>操作</th>
-
-                        </tr>
-                        </thead>
-                        <tbody class="layui-form">
-                        <tr>
-                            <td>人生就像是一场修行</td>
-                            <td>Paco</td>
-                            <td>2016-11-29</td>
-                            <td>
-                                <input type="checkbox" name="close" lay-text="ON|OFF" lay-skin="switch"
-                                       lay-filter="ajax" data-params='{"url":"/php/success.php","loading":"false"}'>
-                            </td>
-
-                            <td>
-                                <button class="layui-btn layui-btn-mini modal-full"
-                                        data-params='{"content":"add-article.html","title":"编辑文章"}'>
-                                    <i class="iconfont">&#xe653;</i>编辑
-                                </button>
-                                <button class="layui-btn layui-btn-mini layui-btn-danger ajax"
-                                        data-params='{"url":"/php/test.php","data":"id=1&name=jqcool"}'>
-                                    <i class="iconfont">&#xe626;</i>删除
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>人生就像是一场修行</td>
-                            <td>Paco</td>
-                            <td>2016-11-29</td>
-                            <td>
-                                <input type="checkbox" name="close" lay-skin="switch">
-                            </td>
-                            <td>
-                                <button class="layui-btn layui-btn-mini modal-catch"
-                                        data-params='{"content":".testcatch","title":"编辑人生就像是一场修行","type":"1"}'>
-                                    <i class="iconfont">&#xe653;</i>编辑
-                                </button>
-                                <button class="layui-btn layui-btn-mini layui-btn-danger">
-                                    <i class="iconfont">&#xe626;</i>删除
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-            <section class="panel">
-                <div class="panel-heading">
-                    数据统计
-                    <a href="javascript:;" class="pull-right panel-toggle"><i class="iconfont">&#xe604;</i></a>
-                </div>
-                <div class="panel-body">
-                    <div class="echarts" id="echarts"></div>
-                </div>
-            </section>
-
-        </div>
-    </div>
-
-</div>
-
-<div class="testcatch" style="display: none;">
-    <p>这是一个捕获弹窗</p>
-</div>
+	<script type="text/javascript" src="../layui/layui.js"></script>
+	<script type="text/javascript" src="../js/main.js"></script>
 </body>
-{include file="Base/footer" /}
-<script>
-    layui.use(['main', 'echart']);
-</script>
+</html>
