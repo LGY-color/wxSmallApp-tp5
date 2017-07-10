@@ -68,3 +68,4 @@ Route::get('admin/index/index','admin/Index/index');
 Route::get('admin/welcome/index','admin/Welcome/welcome');
 //发布信息浏览页
 Route::get('admin/listinfo/listinfo','admin/ListInfo/listInfo');
+//返回主页数据
