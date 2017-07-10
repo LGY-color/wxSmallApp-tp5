@@ -2,23 +2,20 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2017/7/9
- * Time: 8:14
+ * Date: 2017/7/10
+ * Time: 17:43
  */
 
 namespace app\admin\controller;
 
 
-use think\Controller;
-class Index extends Controller
+use app\admin\model\User as UserModel;
+
+class Index
 {
     public function index(){
-//        return view('upload');当前控制下的upload.php
-//        public/upload 目录下upload.php  admin\view\public\upload.html
-//        return view('public/upload');
-        $data['email'] = '764448863@qq.com';
-        $data['phone'] = 18960501805;
-        $this->assign('data',$data);
-        return $this->fetch();
+//        $result['user_count'] = UserModel::getUserCount();
+        $result['user_new_count'] = UserModel::getUserTodayNew();
+        return json($result);
     }
 }

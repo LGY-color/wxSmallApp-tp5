@@ -15,4 +15,5 @@ class User extends BaseModel
         $user = User::where('openid','=',$openid)->find();
         return $user;
     }
+
 }
