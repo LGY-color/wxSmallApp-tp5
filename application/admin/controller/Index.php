@@ -21,6 +21,7 @@ class Index
         $result['info_new_count'] = InfoModel::getInfoTodayNew();
         $result['comment_count'] = CommentModel::getCommentCount();
         $result['comment_new_count'] = CommentModel::getCommentTodayNew();
+        $result['info_new'] = UserModel::getNewInfo();
         return json($result);
     }
 }

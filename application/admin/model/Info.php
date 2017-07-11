@@ -32,4 +32,15 @@ class Info extends BaseModel
         $count = Db::table('pdzg_info')->where($condition)->count();
         return $count;
     }
+    //获取最新文章
+    public static function getNewInfo($limit=5){
+        $condition = [
+            'status'=>'1'
+        ];
+        $order = [
+            'update_time'=>'DESC'
+        ];
+        $result = Db::table('pdzg_info')->where($condition)->limit($limit)->order($order)->select();
+        return $result;
+    }
 }
