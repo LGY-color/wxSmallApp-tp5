@@ -1,0 +1,358 @@
+{include file="Base/header" /}
+<body class="main_body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶部 -->
+    {include file="Base/top" /}
+    <!-- 左侧导航 -->
+    {include file="Base/left" /}
+    <!-- 右侧内容 -->
+    <div class="layui-body layui-form">
+        <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
+            <ul class="layui-tab-title top_tab" id="top_tabs">
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+            </ul>
+            <!--<ul class="layui-nav closeBox">-->
+                <!--<li class="layui-nav-item">-->
+                    <!--<a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>-->
+                    <!--<dl class="layui-nav-child">-->
+                        <!--<dd><a href="javascript:;" class="closePageOther"><i class="iconfont icon-prohibit"></i>-->
+                            <!--关闭其他</a></dd>-->
+                        <!--<dd><a href="javascript:;" class="closePageAll"><i class="iconfont icon-guanbi"></i> 关闭全部</a>-->
+                        <!--</dd>-->
+                    <!--</dl>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <div class="layui-tab-content clildFrame">
+                <div class="layui-tab-item layui-show">
+                    <div class="childrenBody">
+                        <!--用户基本信息-->
+                        <div class="panel_box row">
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/message/message.html">
+                                    <div class="panel_icon">
+                                        <i class="layui-icon" data-icon="&#xe63a;">&#xe63a;</i>
+                                    </div>
+                                    <div class="panel_word newMessage">
+                                        <span>{$result['user_count']}</span>
+                                        <cite>用户总数</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/user/allUsers.html">
+                                    <div class="panel_icon" style="background-color:#FF5722;">
+                                        <i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>
+                                    </div>
+                                    <div class="panel_word userAll">
+                                        <span>{$result['user_new_count']}</span>
+                                        <cite>今日新增</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/user/allUsers.html">
+                                    <div class="panel_icon" style="background-color:#009688;">
+                                        <i class="layui-icon" data-icon="&#xe613;">&#xe613;</i>
+                                    </div>
+                                    <div class="panel_word userAll">
+                                        <span>{$result['info_count']}</span>
+                                        <cite>发布总数</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/img/images.html">
+                                    <div class="panel_icon" style="background-color:#5FB878;">
+                                        <i class="layui-icon" data-icon="&#xe64a;">&#xe64a;</i>
+                                    </div>
+                                    <div class="panel_word imgAll">
+                                        <span>{$result['info_new_count']}</span>
+                                        <cite>今日发布</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/news/newsList.html">
+                                    <div class="panel_icon" style="background-color:#F7B824;">
+                                        <i class="iconfont icon-wenben" data-icon="icon-wenben"></i>
+                                    </div>
+                                    <div class="panel_word waitNews">
+                                        <span>{$result['comment_count']}</span>
+                                        <cite>评论总数</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col max_panel">
+                                <a href="javascript:;" data-url="page/news/newsList.html">
+                                    <div class="panel_icon" style="background-color:#2F4056;">
+                                        <i class="iconfont icon-text" data-icon="icon-text"></i>
+                                    </div>
+                                    <div class="panel_word allNews">
+                                        <span>{$result['comment_new_count']}</span>
+                                        <em>今日评论</em>
+                                        <cite>今日评论</cite>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <!--充值基本信息-->
+                        <div class="panel_box row">
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/message/message.html">
+                                    <div class="panel_icon">
+                                        <i class="layui-icon" data-icon="&#xe63a;">&#xe63a;</i>
+                                    </div>
+                                    <div class="panel_word newMessage">
+                                        <span>110</span>
+                                        <cite>今日充值</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/user/allUsers.html">
+                                    <div class="panel_icon" style="background-color:#FF5722;">
+                                        <i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>
+                                    </div>
+                                    <div class="panel_word userAll">
+                                        <span>121</span>
+                                        <cite>置顶数</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/user/allUsers.html">
+                                    <div class="panel_icon" style="background-color:#009688;">
+                                        <i class="layui-icon" data-icon="&#xe613;">&#xe613;</i>
+                                    </div>
+                                    <div class="panel_word userAll">
+                                        <span>12</span>
+                                        <cite>刷新数</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/img/images.html">
+                                    <div class="panel_icon" style="background-color:#5FB878;">
+                                        <i class="layui-icon" data-icon="&#xe64a;">&#xe64a;</i>
+                                    </div>
+                                    <div class="panel_word imgAll">
+                                        <span>44</span>
+                                        <cite>套红数</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col">
+                                <a href="javascript:;" data-url="page/news/newsList.html">
+                                    <div class="panel_icon" style="background-color:#F7B824;">
+                                        <i class="iconfont icon-wenben" data-icon="icon-wenben"></i>
+                                    </div>
+                                    <div class="panel_word waitNews">
+                                        <span>20</span>
+                                        <cite>加粗数</cite>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="panel col max_panel">
+                                <a href="javascript:;" data-url="page/news/newsList.html">
+                                    <div class="panel_icon" style="background-color:#2F4056;">
+                                        <i class="iconfont icon-text" data-icon="icon-text"></i>
+                                    </div>
+                                    <div class="panel_word allNews">
+                                        <span>10</span>
+                                        <em>解绑数</em>
+                                        <cite>解绑数</cite>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <blockquote class="layui-elem-quote explain">
+
+                        </blockquote>
+                        <div class="row">
+                            <div class="sysNotice col">
+                                <blockquote class="layui-elem-quote title">最新发布<i class="iconfont icon-new1"></i></blockquote>
+                                <table class="layui-table" lay-even="" lay-skin="row">
+                                    <colgroup>
+                                        <col>
+                                        <col width="150">
+                                        <col width="150">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>标题</th>
+                                        <th>发布者</th>
+                                        <th>发布时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>人生似修行</td>
+                                        <td>贤心</td>
+                                        <td>1989-10-14</td>
+                                    </tr>
+                                    <tr>
+                                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
+                                        <td>张爱玲</td>
+                                        <td>1920-09-30</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Life is either a daring adventure or nothing.</td>
+                                        <td>Helen Keller</td>
+                                        <td>1880-06-27</td>
+                                    </tr>
+                                    <tr>
+                                        <td>教科书再滥改，也抹不去“民族英雄”的事实</td>
+                                        <td>岳飞</td>
+                                        <td>1103-北宋崇宁二年</td>
+                                    </tr>
+                                    <tr>
+                                        <td>猿强，则国强。国强，则猿更强！</td>
+                                        <td>孟子</td>
+                                        <td>公元前-372年</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="sysNotice col">
+                                <blockquote class="layui-elem-quote title">最新评论<i class="iconfont icon-new1"></i></blockquote>
+                                <table class="layui-table" lay-even="" lay-skin="row">
+                                    <colgroup>
+                                        <col>
+                                        <col width="150">
+                                        <col width="150">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>回复内容</th>
+                                        <th>发布者</th>
+                                        <th>发布时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>人生似修行</td>
+                                        <td>贤心</td>
+                                        <td>1989-10-14</td>
+                                    </tr>
+                                    <tr>
+                                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
+                                        <td>张爱玲</td>
+                                        <td>1920-09-30</td>
+                                    </tr>
+                                    <tr>
+                                        <td> Life is either a daring adventure or nothing.</td>
+                                        <td>Helen Keller</td>
+                                        <td>1880-06-27</td>
+                                    </tr>
+                                    <tr>
+                                        <td>教科书再滥改，也抹不去“民族英雄”的事实</td>
+                                        <td>岳飞</td>
+                                        <td>1103-北宋崇宁二年</td>
+                                    </tr>
+                                    <tr>
+                                        <td>猿强，则国强。国强，则猿更强！</td>
+                                        <td>孟子</td>
+                                        <td>公元前-372年</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="sysNotice col">
+                                <blockquote class="layui-elem-quote title">最新充值<i class="iconfont icon-new1"></i></blockquote>
+                                <table class="layui-table" lay-even="" lay-skin="row">
+                                    <colgroup>
+                                        <col width="200">
+                                        <col width="200">
+                                        <col>
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>充值金额</th>
+                                        <th>充值人</th>
+                                        <th>充值时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>99</td>
+                                        <td>贤心</td>
+                                        <td>1989-10-14</td>
+                                    </tr>
+                                    <tr>
+                                        <td>99</td>
+                                        <td>贤心</td>
+                                        <td>1989-10-14</td>
+                                    </tr>
+                                    <tr>
+                                        <td>99</td>
+                                        <td>贤心</td>
+                                        <td>1989-10-14</td>
+                                    </tr>
+                                    <tr>
+                                        <td>99</td>
+                                        <td>贤心</td>
+                                        <td>1989-10-14</td>
+                                    </tr>
+                                    <tr>
+                                        <td>99</td>
+                                        <td>贤心</td>
+                                        <td>1989-10-14</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="sysNotice col">
+                                <blockquote class="layui-elem-quote title">系统基本参数</blockquote>
+                                <table class="layui-table">
+                                    <colgroup>
+                                        <col width="150">
+                                        <col>
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <td>当前版本</td>
+                                        <td class="version"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>开发作者</td>
+                                        <td class="author"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>网站首页</td>
+                                        <td class="homePage"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>服务器环境</td>
+                                        <td class="server"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>数据库版本</td>
+                                        <td class="dataBase"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>最大上传限制</td>
+                                        <td class="maxUpload"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>当前用户权限</td>
+                                        <td class="userRights"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div class="layui-footer footer">
+        <p>copyright @2017</p>
+    </div>
+</div>
+
+<!-- 移动导航 -->
+<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
+<div class="site-mobile-shade"></div>
+</body>
+{include file="Base/footer" /}

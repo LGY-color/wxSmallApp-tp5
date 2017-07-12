@@ -30,4 +30,15 @@ class Comment extends BaseModel
         $count = Db::table('pdzg_comment')->where($condition)->count();
         return $count;
     }
+    //获取最新评论
+    public static function getNewComment($limit=5){
+        $condition = [
+            'status'=>'1'
+        ];
+        $order = [
+            'update_time'=>'DESC'
+        ];
+        $result = Db::table('pdzg_comment')->where($condition)->limit($limit)->order($order)->select();
+        return $result;
+    }
 }
