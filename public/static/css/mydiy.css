@@ -1,0 +1,8 @@
+ul.pagination li{
+    float: left;
+}
+
+ul.pagination li.active span{
+    background-color: #009688;
+    color: #ffffff;
+}

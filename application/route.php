@@ -66,6 +66,6 @@ Route::get('api/:version/test/:id','api/:version.TestDemo/testNoReadNum');
 Route::get('admin/index/index','admin/Index/index');
 //发布信息列表页
 Route::get('admin/info/info','admin/Info/info');
-//发布信息浏览页
-Route::get('admin/listinfo/listinfo','admin/ListInfo/listInfo');
+//发布信息详细页面
+Route::get('admin/info/detail/:id','admin/Info/detail');
 //返回主页数据

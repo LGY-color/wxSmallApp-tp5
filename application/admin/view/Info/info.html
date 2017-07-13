@@ -11,20 +11,10 @@
             <ul class="layui-tab-title top_tab" id="top_tabs">
                 <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
             </ul>
-            <!--<ul class="layui-nav closeBox">-->
-            <!--<li class="layui-nav-item">-->
-            <!--<a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>-->
-            <!--<dl class="layui-nav-child">-->
-            <!--<dd><a href="javascript:;" class="closePageOther"><i class="iconfont icon-prohibit"></i>-->
-            <!--关闭其他</a></dd>-->
-            <!--<dd><a href="javascript:;" class="closePageAll"><i class="iconfont icon-guanbi"></i> 关闭全部</a>-->
-            <!--</dd>-->
-            <!--</dl>-->
-            <!--</li>-->
-            <!--</ul>-->
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
                     <div class="childrenBody">
+                        <!--内容主体-->
                         <blockquote class="layui-elem-quote news_search">
                             <div class="layui-inline">
                                 <div class="layui-input-inline">
@@ -74,16 +64,29 @@
                                 </tr>
                                 </thead>
                                 <tbody class="news_content">
+                                {volist name="$result['info_list']" id="vo"}
                                 <tr>
                                     <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
                                         <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
                                                 class="layui-icon"></i></div>
                                     </td>
-                                    <td align="left">css3用transition实现边框动画效果</td>
-                                    <td>请叫我马哥</td>
-                                    <td>店铺转让</td>
-                                    <td>置顶</td>
-                                    <td>2017-04-14 10:21</td>
+                                    <td align="left"><a href="">{$vo.title}</a></td>
+                                    <td>{$vo.username}</td>
+                                    <td>
+                                        {$vo.item_name}
+                                    </td>
+                                    <td>
+                                        {eq name="vo.level_type" value="1" }
+                                            正常
+                                        {/eq}
+                                        {eq name="vo.level_type" value="2" }
+                                            置顶
+                                        {/eq}
+                                        {eq name="vo.level_type" value="3" }
+                                            星级
+                                        {/eq}
+                                    </td>
+                                    <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
                                     <td>
                                         <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
                                         <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
@@ -97,180 +100,13 @@
                                                 class="layui-icon"></i>删除</a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
-                                                class="layui-icon"></i></div>
-                                    </td>
-                                    <td align="left">css3用transition实现边框动画效果</td>
-                                    <td>请叫我马哥</td>
-                                    <td>店铺转让</td>
-                                    <td>置顶</td>
-                                    <td>2017-04-14</td>
-                                    <td>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i> 置顶</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>刷新</a>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i>套红</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i>加粗</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>删除</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
-                                                class="layui-icon"></i></div>
-                                    </td>
-                                    <td align="left">css3用transition实现边框动画效果</td>
-                                    <td>请叫我马哥</td>
-                                    <td>店铺转让</td>
-                                    <td>置顶</td>
-                                    <td>2017-04-14</td>
-                                    <td>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i> 置顶</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>刷新</a>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i>套红</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i>加粗</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>删除</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
-                                                class="layui-icon"></i></div>
-                                    </td>
-                                    <td align="left">css3用transition实现边框动画效果</td>
-                                    <td>请叫我马哥</td>
-                                    <td>店铺转让</td>
-                                    <td>置顶</td>
-                                    <td>2017-04-14</td>
-                                    <td>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i> 置顶</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>刷新</a>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i>套红</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i>加粗</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>删除</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
-                                                class="layui-icon"></i></div>
-                                    </td>
-                                    <td align="left">css3用transition实现边框动画效果</td>
-                                    <td>请叫我马哥</td>
-                                    <td>店铺转让</td>
-                                    <td>置顶</td>
-                                    <td>2017-04-14</td>
-                                    <td>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i> 置顶</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>刷新</a>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i>套红</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i>加粗</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>删除</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
-                                                class="layui-icon"></i></div>
-                                    </td>
-                                    <td align="left">css3用transition实现边框动画效果</td>
-                                    <td>请叫我马哥</td>
-                                    <td>店铺转让</td>
-                                    <td>置顶</td>
-                                    <td>2017-04-14</td>
-                                    <td>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i> 置顶</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>刷新</a>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i>套红</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i>加粗</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>删除</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
-                                                class="layui-icon"></i></div>
-                                    </td>
-                                    <td align="left">css3用transition实现边框动画效果</td>
-                                    <td>请叫我马哥</td>
-                                    <td>店铺转让</td>
-                                    <td>置顶</td>
-                                    <td>2017-04-14</td>
-                                    <td>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i> 置顶</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>刷新</a>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i>套红</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i>加粗</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>删除</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
-                                                class="layui-icon"></i></div>
-                                    </td>
-                                    <td align="left">css3用transition实现边框动画效果</td>
-                                    <td>请叫我马哥</td>
-                                    <td>店铺转让</td>
-                                    <td>置顶</td>
-                                    <td>2017-04-14</td>
-                                    <td>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i> 置顶</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>刷新</a>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i>套红</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i>加粗</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>删除</a>
-                                    </td>
-                                </tr>
-
+                                {/volist}
                                 </tbody>
                             </table>
                         </div>
                         <div id="page">
-                            <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
-			<span class="layui-laypage-curr">
-            <em class="layui-laypage-em"></em>
-            <em>1</em>
-        </span>
-                                <a href="javascript:;" data-page="2">2</a>
-                                <a href="javascript:;" data-page="3">3</a>
-                                <a href="javascript:;" class="layui-laypage-next" data-page="2">下一页</a>
+                            <div class="layui-box layui-laypage layui-laypage-default">
+                                {$page}
                             </div>
                         </div>
                     </div>

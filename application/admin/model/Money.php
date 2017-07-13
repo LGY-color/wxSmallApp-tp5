@@ -32,7 +32,7 @@ class Money extends BaseModel
         return $result;
     }
 
-    //获取今日充值信息
+    //获取今日充值总金额数
     public static function getTodayMoney(){
         $beginToday=mktime(0,0,0,date('m'),date('d'),date('Y'));
         $field = [
