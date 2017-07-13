@@ -12,15 +12,15 @@
                 <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
             </ul>
             <!--<ul class="layui-nav closeBox">-->
-                <!--<li class="layui-nav-item">-->
-                    <!--<a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>-->
-                    <!--<dl class="layui-nav-child">-->
-                        <!--<dd><a href="javascript:;" class="closePageOther"><i class="iconfont icon-prohibit"></i>-->
-                            <!--关闭其他</a></dd>-->
-                        <!--<dd><a href="javascript:;" class="closePageAll"><i class="iconfont icon-guanbi"></i> 关闭全部</a>-->
-                        <!--</dd>-->
-                    <!--</dl>-->
-                <!--</li>-->
+            <!--<li class="layui-nav-item">-->
+            <!--<a href="javascript:;"><i class="iconfont icon-caozuo"></i> 页面操作</a>-->
+            <!--<dl class="layui-nav-child">-->
+            <!--<dd><a href="javascript:;" class="closePageOther"><i class="iconfont icon-prohibit"></i>-->
+            <!--关闭其他</a></dd>-->
+            <!--<dd><a href="javascript:;" class="closePageAll"><i class="iconfont icon-guanbi"></i> 关闭全部</a>-->
+            <!--</dd>-->
+            <!--</dl>-->
+            <!--</li>-->
             <!--</ul>-->
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
@@ -103,7 +103,7 @@
                                         <i class="layui-icon" data-icon="&#xe63a;">&#xe63a;</i>
                                     </div>
                                     <div class="panel_word newMessage">
-                                        <span>110</span>
+                                        <span>{$result['money_sum'][0]['money']}</span>
                                         <cite>今日充值</cite>
                                     </div>
                                 </a>
@@ -114,7 +114,7 @@
                                         <i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>
                                     </div>
                                     <div class="panel_word userAll">
-                                        <span>121</span>
+                                        <span>{$result['count_order_format']['top']}</span>
                                         <cite>置顶数</cite>
                                     </div>
                                 </a>
@@ -125,7 +125,7 @@
                                         <i class="layui-icon" data-icon="&#xe613;">&#xe613;</i>
                                     </div>
                                     <div class="panel_word userAll">
-                                        <span>12</span>
+                                        <span>{$result['count_order_format']['refresh']}</span>
                                         <cite>刷新数</cite>
                                     </div>
                                 </a>
@@ -136,7 +136,7 @@
                                         <i class="layui-icon" data-icon="&#xe64a;">&#xe64a;</i>
                                     </div>
                                     <div class="panel_word imgAll">
-                                        <span>44</span>
+                                        <span>{$result['count_order_format']['red']}</span>
                                         <cite>套红数</cite>
                                     </div>
                                 </a>
@@ -147,7 +147,7 @@
                                         <i class="iconfont icon-wenben" data-icon="icon-wenben"></i>
                                     </div>
                                     <div class="panel_word waitNews">
-                                        <span>20</span>
+                                        <span>{$result['count_order_format']['blod']}</span>
                                         <cite>加粗数</cite>
                                     </div>
                                 </a>
@@ -158,7 +158,7 @@
                                         <i class="iconfont icon-text" data-icon="icon-text"></i>
                                     </div>
                                     <div class="panel_word allNews">
-                                        <span>10</span>
+                                        <span>{$result['count_order_format']['unlocked']}</span>
                                         <em>解绑数</em>
                                         <cite>解绑数</cite>
                                     </div>
@@ -170,7 +170,8 @@
                         </blockquote>
                         <div class="row">
                             <div class="sysNotice col">
-                                <blockquote class="layui-elem-quote title">最新发布<i class="iconfont icon-new1"></i></blockquote>
+                                <blockquote class="layui-elem-quote title">最新发布<i class="iconfont icon-new1"></i>
+                                </blockquote>
                                 <table class="layui-table" lay-even="" lay-skin="row">
                                     <colgroup>
                                         <col>
@@ -185,36 +186,19 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {volist name="result['info_new']" id="vo"}
                                     <tr>
-                                        <td>人生似修行</td>
-                                        <td>贤心</td>
-                                        <td>1989-10-14</td>
+                                        <td><a href="{$vo.id}">{$vo.title}</a></td>
+                                        <td><a href="{$vo.uid}">{$vo.username}</a></td>
+                                        <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
                                     </tr>
-                                    <tr>
-                                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                                        <td>张爱玲</td>
-                                        <td>1920-09-30</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Life is either a daring adventure or nothing.</td>
-                                        <td>Helen Keller</td>
-                                        <td>1880-06-27</td>
-                                    </tr>
-                                    <tr>
-                                        <td>教科书再滥改，也抹不去“民族英雄”的事实</td>
-                                        <td>岳飞</td>
-                                        <td>1103-北宋崇宁二年</td>
-                                    </tr>
-                                    <tr>
-                                        <td>猿强，则国强。国强，则猿更强！</td>
-                                        <td>孟子</td>
-                                        <td>公元前-372年</td>
-                                    </tr>
+                                    {/volist}
                                     </tbody>
                                 </table>
                             </div>
                             <div class="sysNotice col">
-                                <blockquote class="layui-elem-quote title">最新评论<i class="iconfont icon-new1"></i></blockquote>
+                                <blockquote class="layui-elem-quote title">最新评论<i class="iconfont icon-new1"></i>
+                                </blockquote>
                                 <table class="layui-table" lay-even="" lay-skin="row">
                                     <colgroup>
                                         <col>
@@ -223,42 +207,26 @@
                                     </colgroup>
                                     <thead>
                                     <tr>
-                                        <th>回复内容</th>
+                                        <th>评论内容</th>
                                         <th>发布者</th>
                                         <th>发布时间</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {volist name="result['comment_new']" id="vo"}
                                     <tr>
-                                        <td>人生似修行</td>
-                                        <td>贤心</td>
-                                        <td>1989-10-14</td>
+                                        <td><a href="">{$vo.runame? '回复:'.$vo.runame.' ' : ''}</a><a href="">{$vo.content}</a>
+                                        </td>
+                                        <td><a href="">{$vo.uname}</a></td>
+                                        <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
                                     </tr>
-                                    <tr>
-                                        <td>于千万人之中遇见你所遇见的人，于千万年之中，时间的无涯的荒野里…</td>
-                                        <td>张爱玲</td>
-                                        <td>1920-09-30</td>
-                                    </tr>
-                                    <tr>
-                                        <td> Life is either a daring adventure or nothing.</td>
-                                        <td>Helen Keller</td>
-                                        <td>1880-06-27</td>
-                                    </tr>
-                                    <tr>
-                                        <td>教科书再滥改，也抹不去“民族英雄”的事实</td>
-                                        <td>岳飞</td>
-                                        <td>1103-北宋崇宁二年</td>
-                                    </tr>
-                                    <tr>
-                                        <td>猿强，则国强。国强，则猿更强！</td>
-                                        <td>孟子</td>
-                                        <td>公元前-372年</td>
-                                    </tr>
+                                    {/volist}
                                     </tbody>
                                 </table>
                             </div>
                             <div class="sysNotice col">
-                                <blockquote class="layui-elem-quote title">最新充值<i class="iconfont icon-new1"></i></blockquote>
+                                <blockquote class="layui-elem-quote title">最新充值<i class="iconfont icon-new1"></i>
+                                </blockquote>
                                 <table class="layui-table" lay-even="" lay-skin="row">
                                     <colgroup>
                                         <col width="200">
@@ -273,31 +241,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {volist name="$result['money_new']" id="vo"}
                                     <tr>
-                                        <td>99</td>
-                                        <td>贤心</td>
-                                        <td>1989-10-14</td>
+                                        <td>{$vo.money}</td>
+                                        <td>{$vo.username}</td>
+                                        <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
                                     </tr>
-                                    <tr>
-                                        <td>99</td>
-                                        <td>贤心</td>
-                                        <td>1989-10-14</td>
-                                    </tr>
-                                    <tr>
-                                        <td>99</td>
-                                        <td>贤心</td>
-                                        <td>1989-10-14</td>
-                                    </tr>
-                                    <tr>
-                                        <td>99</td>
-                                        <td>贤心</td>
-                                        <td>1989-10-14</td>
-                                    </tr>
-                                    <tr>
-                                        <td>99</td>
-                                        <td>贤心</td>
-                                        <td>1989-10-14</td>
-                                    </tr>
+                                    {/volist}
                                     </tbody>
                                 </table>
                             </div>
@@ -340,6 +290,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -350,6 +301,7 @@
         <p>copyright @2017</p>
     </div>
 </div>
+
 
 <!-- 移动导航 -->
 <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>

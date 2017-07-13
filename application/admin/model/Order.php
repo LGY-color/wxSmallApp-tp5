@@ -18,7 +18,7 @@ class Order extends BaseModel
         $beginToday=mktime(0,0,0,date('m'),date('d'),date('Y'));
         $field = [
             'order_style',
-            'count(*) AS num'
+            'COUNT(*) AS num'
         ];
         $condition = [
             'status'=>1,

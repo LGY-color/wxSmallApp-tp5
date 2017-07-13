@@ -32,13 +32,22 @@ class Comment extends BaseModel
     }
     //获取最新评论
     public static function getNewComment($limit=5){
+        $field = [
+            'c.id,c.content,c.info_id,c.update_time',
+            'u.id AS uid,u.username AS uname',
+            'ru.id AS ruid,ru.username As runame'
+        ];
+        $join = [
+            ['pdzg_user u','u.id = c.user_id','LEFT'],
+            ['pdzg_user ru','ru.id = c.reply_user_id','LEFT']
+        ];
         $condition = [
-            'status'=>'1'
+            'c.status'=>'1'
         ];
         $order = [
             'update_time'=>'DESC'
         ];
-        $result = Db::table('pdzg_comment')->where($condition)->limit($limit)->order($order)->select();
+        $result = Db::field($field)->table('pdzg_comment')->alias('c')->join($join)->where($condition)->limit($limit)->order($order)->select();
         return $result;
     }
 }

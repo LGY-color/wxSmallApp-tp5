@@ -34,13 +34,20 @@ class Info extends BaseModel
     }
     //获取最新文章
     public static function getNewInfo($limit=5){
+        $field = [
+            'i.id,i.title,i.update_time',
+            'u.id AS uid,u.username',
+        ];
         $condition = [
-            'status'=>'1'
+            'i.status'=>'1'
+        ];
+        $join = [
+            ['pdzg_user u','u.id=i.user_id','LEFT'],
         ];
         $order = [
             'update_time'=>'DESC'
         ];
-        $result = Db::table('pdzg_info')->where($condition)->limit($limit)->order($order)->select();
+        $result = Db::field($field)->table('pdzg_info')->alias('i')->where($condition)->join($join)->limit($limit)->order($order)->select();
         return $result;
     }
 }
