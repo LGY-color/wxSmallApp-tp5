@@ -1,0 +1,184 @@
+{include file="Base/header" /}
+{include file="Base/imgupload" /}
+<body class="main_body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶部 -->
+    {include file="Base/top" /}
+    <!-- 左侧导航 -->
+    {include file="Base/left" /}
+
+    <!-- 右侧内容 -->
+    <!-- 右侧内容 -->
+    <div class="layui-body layui-form">
+        <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
+            <ul class="layui-tab-title top_tab" id="top_tabs">
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>消息状态等级修改</cite></li>
+            </ul>
+            <div class="layui-tab-content clildFrame">
+                <div class="layui-tab-item layui-show">
+                    <div class="childrenBody">
+                        <blockquote class="layui-elem-quote">友情提示：如果你不需要更新置顶时间请不要点击置顶时间，要不然会刷新开始置顶时间</blockquote>
+                        <form class="layui-form" action="">
+                            <input type="text" style="display: none" name="lv_id" value="{$result.id}">
+                            <input type="text" style="display: none" name="info_id" value="{$result.info_id}">
+                            <input type="text" style="display: none" name="user_id" value="{$result.user_id}">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">所属类别</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" name="top" lay-filter="topcheck" value="{$result.top}"
+                                               title="置顶" {if condition="$result.top == 1"}checked="checked"{/if}>
+                                        <input type="checkbox" name="red" lay-filter="redcheck" value="{$result.red}"
+                                               title="套红" {if condition="$result.red == 1"}checked="checked"{/if}>
+                                        <input type="checkbox" name="blood" lay-filter="bloodcheck" value="{$result.blood}"
+                                               title="加粗" {if condition="$result.blood == 1"}checked="checked"{/if}>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">置顶开始时间</label>
+                                    <div class="layui-input-inline">
+                                        <input class="layui-input" value="{$result.top_start_time|date='Y-m-d H:i:s',###}" name="top_start_time" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">置顶结束时间</label>
+                                    <div class="layui-input-inline">
+                                        <input class="layui-input" value="{$result.top_end_time|date='Y-m-d H:i:s',###}" name="top_end_time" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">置顶时间</label>
+                                    <div class="layui-input-inline">
+                                        <select name="top_time" class="newsLook">
+                                            <option value="0" selected="selected">请选择置顶时间</option>
+                                            <option value="1">1天</option>
+                                            <option value="3">3天</option>
+                                            <option value="10">10天</option>
+                                            <option value="20">20天</option>
+                                            <option value="30">30天</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">浏览权限</label>
+                                    <div class="layui-input-inline">
+                                        <select name="star" class="newsLook">
+                                            <option value="0">开放浏览</option>
+                                            <option value="1">星级信息</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="updateBtn">更新</button>
+                                    <button type="back" class="layui-btn layui-btn-primary" onclick="javascript:history.go(-1);">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div class="layui-footer footer">
+        <p>copyright @2017</p>
+    </div>
+</div>
+
+
+<!-- 移动导航 -->
+<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
+<div class="site-mobile-shade"></div>
+
+</body>
+
+
+
+<script>
+    $(function () {
+        //提交表单
+        layui.use(['layer', 'form', 'laydate'], function(){
+            var layer = layui.layer
+                ,form = layui.form()
+                ,laydate = layui.laydate();
+            form.on("submit(updateBtn)",function(data){
+                console.log(JSON.stringify(data.field));
+                var ajData = data.field;
+                var updateLevel = "{:url('admin/Level/updateLevelType')}";
+                $.ajax({
+                    type: 'POST',
+                    url: updateLevel,
+                    data: ajData,
+                    success: function(res){
+                        var data = $.parseJSON(res);
+
+                            //询问框
+                            layer.confirm('操作成功', {
+                                btn: ['确定'] //按钮
+                            }, function(){
+                                window.location.href = "{:url('admin/info/info')}";
+                            });
+
+                        console.log(res);
+                    },
+                    error:function (res) {
+                        var data = $.parseJSON(res.responseText);
+//                        console.log(data.msg);
+                        layer.confirm(data.msg, {
+                            btn: ['确定'] //按钮
+                        }, function(){
+                            layer.alert('跳转到充值界面');
+                        });
+
+                    },
+                    dataType: 'json'
+                });
+                return false;
+
+            });
+            form.on('checkbox(topcheck)', function(data){
+                console.log(data.elem.checked);
+                console.log(data.elem.value);
+                if(data.elem.checked){
+                    data.elem.value = 1;
+                }else{
+                    data.elem.value = 0;
+                }
+            });
+            form.on('checkbox(redcheck)', function(data){
+                console.log(data.elem.checked);
+                console.log(data.elem.value);
+                if(data.elem.checked){
+                    data.elem.value = 1;
+                }else{
+                    data.elem.value = 0;
+                }
+            });
+            form.on('checkbox(bloodcheck)', function(data){
+                console.log(data.elem.checked);
+                console.log(data.elem.value);
+                if(data.elem.checked){
+                    data.elem.value = 1;
+                }else{
+                    data.elem.value = 0;
+                }
+            });
+        });
+
+
+
+    });
+    //获取checkbox的值
+    function getCheckBox(ele) {
+        var box_array=new Array();
+        $("input[name='"+ele+"']:checked").each(function(){
+            box_array.push($(this).val());//向数组中添加元素
+        });
+        var box_str=box_array.join(',');//将数组元素连接起来以构建一个字符串
+//        console.log(idstr);
+        return box_str;
+    }
+
+</script>

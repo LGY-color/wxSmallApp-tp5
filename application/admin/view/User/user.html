@@ -1,0 +1,242 @@
+{include file="Base/header" /}
+<body class="main_body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶部 -->
+    {include file="Base/top" /}
+    <!-- 左侧导航 -->
+    {include file="Base/left" /}
+    <!-- 右侧内容 -->
+    <div class="layui-body layui-form">
+        <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
+            <ul class="layui-tab-title top_tab" id="top_tabs">
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+            </ul>
+            <div class="layui-tab-content clildFrame">
+                <div class="layui-tab-item layui-show">
+                    <div class="childrenBody">
+                        <!--内容主体-->
+                        <blockquote class="layui-elem-quote news_search">
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
+                                </div>
+                                <a class="layui-btn search_btn">查询</a>
+                            </div>
+                            <div class="layui-inline">
+                                <a class="layui-btn layui-btn-normal" href="{:url('admin/info/addNews')}">发布消息</a>
+                            </div>
+                            <!--<div class="layui-inline">-->
+                                <!--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>-->
+                            <!--</div>-->
+                            <!--<div class="layui-inline">-->
+                                <!--<a class="layui-btn audit_btn">审核文章</a>-->
+                            <!--</div>-->
+                            <!--<div class="layui-inline">-->
+                                <!--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>-->
+                            <!--</div>-->
+                            <!--<div class="layui-inline">-->
+                                <!--<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>-->
+                            <!--</div>-->
+                        </blockquote>
+                        <div class="layui-form news_list">
+                            <table class="layui-table">
+                                <colgroup>
+                                    <col width="50">
+                                    <col>
+                                    <col width="9%">
+                                    <col width="9%">
+                                    <col width="12%">
+                                    <col width="9%">
+                                    <col width="24%">
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" name="" lay-skin="primary" lay-filter="allChoose" id="allChoose">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon"></i></div>
+                                    </th>
+                                    <th style="text-align:left;">文章标题</th>
+                                    <th>发布人</th>
+                                    <th>所属栏目</th>
+                                    <th>所属状态</th>
+                                    <th>发布时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody class="news_content">
+                                {volist name="$result['info_list']" id="vo"}
+                                <tr>
+                                    <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
+                                                class="layui-icon"></i></div>
+                                    </td>
+                                    <td align="left"><a href="">{$vo.title}</a></td>
+                                    <td>{$vo.username}</td>
+                                    <td>
+                                        {$vo.item_name}
+                                    </td>
+                                    <td>
+                                        {$vo.top == 1 ? '置顶':''}
+                                        {$vo.star==1 ? '星级':''}
+                                        {$vo.red ==1 ? '套红':''}
+                                        {$vo.blood ==1 ? '加粗':''}
+                                    </td>
+                                    <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
+                                    <td>
+                                        <a class="layui-btn layui-btn-mini" href="{:url('admin/Info/detail')}/{$vo.i_id}"><i class="iconfont icon-edit"></i> 编辑</a>
+                                        <a class="layui-btn layui-btn-mini" href="{:url('admin/Level/setLevelType')}/{$vo.i_id}?lv_id={$vo.lv_id}&user_id={$vo.uid}" >
+                                            <i class="iconfont icon-edit"></i> 修改状态
+                                        </a>
+                                        <button class="layui-btn layui-btn-mini refresh" data-infoid="{$vo.i_id}" data-userid="{$vo.uid}">
+                                            <i class="iconfont icon-edit"></i>刷新
+                                        </button>
+                                        <button class="layui-btn layui-btn-danger layui-btn-mini del" data-infoid="{$vo.i_id}"><i
+                                                class="layui-icon"></i>删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                {/volist}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="page">
+                            <div class="layui-box layui-laypage layui-laypage-default">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div class="layui-footer footer">
+        <p>copyright @2017</p>
+    </div>
+</div>
+
+
+<!-- 移动导航 -->
+<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
+<div class="site-mobile-shade"></div>
+
+</body>
+{include file="Base/footer" /}
+<script>
+    function ajaxRefresh(info_id,user_id) {
+        var url = "{:url('admin/info/refresh')}",
+            data = {
+                "info_id":info_id,
+                "user_id":user_id
+            };
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function(res){
+                var data = $.parseJSON(res);
+                if(data.code == 1){
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        window.location.href = "{:url('admin/info/info')}";
+                    });
+
+                }else{
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        layer.msg('没有更新成功');
+                    });
+                }
+                console.log(res);
+            },
+            error:function (res) {
+                var data = $.parseJSON(res.responseText);
+                layer.confirm(data.msg, {
+                    btn: ['确定'] //按钮
+                }, function(){
+                    layer.alert('跳转到充值界面');
+                });
+
+            },
+            dataType: 'json'
+        })
+    }
+    function ajaxDel(info_id) {
+        var url = "{:url('admin/info/del')}",
+            data = {
+                "info_id":info_id
+            };
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function(res){
+                var data = $.parseJSON(res);
+                if(data.code == 1){
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        window.location.href = "{:url('admin/info/info')}";
+                    });
+
+                }else{
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        layer.msg('没有更新成功');
+                    });
+                }
+                console.log(res);
+            },
+            error:function (res) {
+                var data = $.parseJSON(res.responseText);
+                layer.confirm(data.msg, {
+                    btn: ['确定'] //按钮
+                }, function(){
+                    layer.alert('跳转到充值界面');
+                });
+
+            },
+            dataType: 'json'
+        })
+    }
+    $(function () {
+        layui.use(['layer'], function(){
+            var layer = layui.layer;
+            $('.refresh').click(function () {
+                var that = $(this);
+                layer.confirm('是否刷新', {
+                    btn: ['确定', '取消'] //可以无限个按钮
+                }, function(index, layero){
+                    //按钮【按钮一】的回调
+                    var info_id = that.data('infoid');
+                    var user_id = that.data('userid');
+                    ajaxRefresh(info_id,user_id);
+                }, function(index){
+                    //按钮【按钮二】的回调
+                });
+
+            });
+            $('.del').click(function () {
+                var that = $(this);
+                layer.confirm('是否删除', {
+                    btn: ['确定', '取消'] //可以无限个按钮
+                }, function(index, layero){
+                    //按钮【按钮一】的回调
+                    var info_id = that.data('infoid');
+                    ajaxDel(info_id);
+                }, function(index){
+                    //按钮【按钮二】的回调
+                });
+
+            });
+        });
+    });
+</script>

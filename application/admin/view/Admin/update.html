@@ -1,0 +1,137 @@
+{include file="Base/header" /}
+{include file="Base/imgupload" /}
+<body class="main_body">
+<div class="layui-layout layui-layout-admin">
+    <!-- 顶部 -->
+    {include file="Base/top" /}
+    <!-- 左侧导航 -->
+    {include file="Base/left" /}
+
+    <!-- 右侧内容 -->
+    <!-- 右侧内容 -->
+    <div class="layui-body layui-form">
+        <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
+            <ul class="layui-tab-title top_tab" id="top_tabs">
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>消息状态等级修改</cite></li>
+            </ul>
+            <div class="layui-tab-content clildFrame">
+                <div class="layui-tab-item layui-show">
+                    <div class="childrenBody">
+                        <blockquote class="layui-elem-quote">友情提示：请不要选择比自己搞权限的选项，那是不会成功的。</blockquote>
+                        <form class="layui-form" action="">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">管理员名称</label>
+                                    <div class="layui-input-inline">
+                                        <input class="layui-input" value="" name="add_admin" type="text" lay-verify="required">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">密码</label>
+                                    <div class="layui-input-inline">
+                                        <input class="layui-input" value="" name="add_password" type="password" lay-verify="required">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">联系方式</label>
+                                    <div class="layui-input-inline">
+                                        <input class="layui-input" value="" name="phone" type="text">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">权限选择</label>
+                                    <div class="layui-input-inline">
+                                        <select name="level" class="newsLook" lay-verify="required">
+                                            <option value="128">客服</option>
+                                            <option value="256">管理员</option>
+                                            <option value="512">总管理员</option>
+                                            <option value="1024">老板</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="addBtn">新增</button>
+                                    <button type="back" class="layui-btn layui-btn-primary" onclick="javascript:history.go(-1);">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div class="layui-footer footer">
+        <p>copyright @2017</p>
+    </div>
+</div>
+
+
+<!-- 移动导航 -->
+<div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
+<div class="site-mobile-shade"></div>
+
+</body>
+
+
+
+<script>
+    $(function () {
+        //提交表单
+        layui.use(['layer', 'form', 'laydate'], function(){
+            var layer = layui.layer
+                ,form = layui.form()
+                ,laydate = layui.laydate();
+            form.on("submit(addBtn)",function(data){
+                console.log(JSON.stringify(data.field));
+                var ajData = data.field;
+                var addAdmin = "{:url('admin/admin/addAdmin')}";
+                $.ajax({
+                    type: 'POST',
+                    url: addAdmin,
+                    data: ajData,
+                    success: function(res){
+                        var data = $.parseJSON(res);
+                        if(data.code == 1){
+                            //询问框
+                            layer.confirm('操作成功', {
+                                btn: ['确定'] //按钮
+                            }, function(){
+                                window.location.href = "{:url('admin/admin/admin')}";
+                            });
+                        }else{
+                            layer.alert('操作失败，请重试!');
+                        }
+
+
+                        console.log(res);
+                    },
+                    error:function(res){
+                        var data = $.parseJSON(res.responseText);
+                        layer.alert(data.msg);
+                        console.log(res);
+                    },
+                    dataType: 'json'
+                });
+                return false;
+
+            });
+        });
+
+
+
+    });
+    //获取checkbox的值
+    function getCheckBox(ele) {
+        var box_array=new Array();
+        $("input[name='"+ele+"']:checked").each(function(){
+            box_array.push($(this).val());//向数组中添加元素
+        });
+        var box_str=box_array.join(',');//将数组元素连接起来以构建一个字符串
+//        console.log(idstr);
+        return box_str;
+    }
+
+</script>
