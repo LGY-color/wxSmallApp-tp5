@@ -9,24 +9,24 @@
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
             <ul class="layui-tab-title top_tab" id="top_tabs">
-                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite id="switch_left">管理员列表</cite></li>
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite id="switch_left">管理员操作记录</cite></li>
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
                     <div class="childrenBody">
                         <!--内容主体-->
                         <blockquote class="layui-elem-quote news_search">
-                            <div class="layui-inline">
-                                <form action="{:url('admin/Admin/searchAdmin')}" method="post">
-                                    <div class="layui-input-inline">
-                                        <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input" name="user">
-                                    </div>
-                                    <button type="submit" class="layui-btn search_btn">查询</button>
-                                </form>
-                            </div>
-                            <div class="layui-inline">
-                                <a class="layui-btn layui-btn-normal" href="{:url('admin/admin/addList')}">添加管理员</a>
-                            </div>
+                            <!--<div class="layui-inline">-->
+                                <!--<form action="{:url('admin/Admin/searchAdmin')}" method="post">-->
+                                    <!--<div class="layui-input-inline">-->
+                                        <!--<input type="text" value="" placeholder="请输入关键字" class="layui-input search_input" name="user">-->
+                                    <!--</div>-->
+                                    <!--<button type="submit" class="layui-btn search_btn">查询</button>-->
+                                <!--</form>-->
+                            <!--</div>-->
+                            <!--<div class="layui-inline">-->
+                                <!--<a class="layui-btn layui-btn-normal" href="{:url('admin/admin/addList')}">添加管理员</a>-->
+                            <!--</div>-->
                             <!--<div class="layui-inline">-->
                                 <!--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>-->
                             <!--</div>-->
@@ -44,11 +44,11 @@
                             <table class="layui-table">
                                 <colgroup>
                                     <col width="50">
-                                    <col>
                                     <col width="9%">
                                     <col width="9%">
                                     <col width="12%">
                                     <col width="9%">
+                                    <col>
                                     <col width="24%">
                                 </colgroup>
                                 <thead>
@@ -58,11 +58,11 @@
                                                 class="layui-icon"></i></div>
                                     </th>
                                     <th style="text-align:left;">管理员名称</th>
-                                    <th>手机号</th>
-                                    <th>等级</th>
-                                    <th>上次登录时间</th>
-                                    <th>上次登录ip</th>
-                                    <th>操作</th>
+                                    <th>用户名称</th>
+                                    <th>加金币数</th>
+                                    <th>倍率</th>
+                                    <th>备注</th>
+                                    <th>时间</th>
                                 </tr>
                                 </thead>
                                 <tbody class="news_content">
@@ -72,20 +72,17 @@
                                         <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
                                                 class="layui-icon"></i></div>
                                     </td>
-                                    <td align="left"><a href="">{$vo.user}</a></td>
-                                    <td>{$vo.phone}</td>
+                                    <td align="left"><a href="">{$vo.admin_name}</a></td>
+                                    <td>{$vo.user_name}</td>
                                     <td>
-                                        {$vo.level|countUserLevel}
+                                        {$vo.money}
                                     </td>
                                     <td>
-                                        {$vo.last_time|date='Y-m-d H:i:s',###}
+                                        {$vo.multiply}
                                     </td>
-                                    <td>{$vo.last_ip}</td>
+                                    <td>{$vo.explain}</td>
                                     <td>
-                                        <a class="layui-btn layui-btn-mini" href="{:url('admin/Admin/updateList')}/{$vo.id}"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <button class="layui-btn layui-btn-danger layui-btn-mini del" data-userid="{$vo.id}"><i
-                                                class="layui-icon"></i>删除
-                                        </button>
+                                        {$vo.create_time|date='Y-m-d H:i:s',###}
                                     </td>
                                 </tr>
                                 {/volist}
@@ -116,64 +113,3 @@
 
 </body>
 {include file="Base/footer" /}
-<script>
-    function ajaxDel(user_id) {
-        var url = "{:url('admin/user/delUser')}",
-            data = {
-                "user_id":user_id
-            };
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            success: function(res){
-                var data = $.parseJSON(res);
-                if(data.code == 1){
-                    //询问框
-                    layer.confirm(data.msg, {
-                        btn: ['确定'] //按钮
-                    }, function(){
-                        window.location.href = "{:url('admin/user/user')}";
-                    });
-
-                }else{
-                    //询问框
-                    layer.confirm(data.msg, {
-                        btn: ['确定'] //按钮
-                    }, function(){
-                        layer.msg('没有删除成功');
-                    });
-                }
-                console.log(res);
-            },
-            error:function (res) {
-                var data = $.parseJSON(res.responseText);
-                layer.confirm(data.msg, {
-                    btn: ['确定'] //按钮
-                }, function(){
-                    window.location.href = "{:url('admin/user/user')}";
-                });
-
-            },
-            dataType: 'json'
-        })
-    }
-    $(function () {
-        layui.use(['layer'], function(){
-            var layer = layui.layer;
-            $('.del').click(function () {
-                var that = $(this);
-                layer.confirm('是否删除', {
-                    btn: ['确定', '取消'] //可以无限个按钮
-                }, function(index, layero){
-                    //按钮【按钮一】的回调
-                    var user_id = that.data('userid');
-                    ajaxDel(user_id);
-                }, function(index){
-                    //按钮【按钮二】的回调
-                });
-
-            });
-        });
-    });
-</script>

@@ -9,7 +9,12 @@
 namespace app\admin\validate;
 
 
-class MoneyMustBePositiveInt
+class MoneyMustBePositiveInt extends BaseValidate
 {
-
+    protected $rule = [
+        'money'=>'require|isPositiveInteger'
+    ];
+    protected $message = [
+        'money'=>'加的金币必须是正整数.'
+    ];
 }

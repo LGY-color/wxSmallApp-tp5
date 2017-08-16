@@ -9,6 +9,7 @@
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+use Qiniu\Auth;
 // 应用公共文件
 /**
  * @param string $url get请求地址
@@ -36,11 +37,151 @@ function getRandChar($length)
     $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     $max = strlen($strPol) - 1;
 
-    for ($i = 0;
-         $i < $length;
-         $i++) {
+    for ($i = 0;$i < $length;$i++) {
         $str .= $strPol[rand(0, $max)];
     }
 
     return $str;
 }
+
+//后台管理返回
+function adminRes($code,$msg,$url=''){
+    $res = [
+        'code'=>$code,
+        'msg'=>$msg,
+        'url'=>$url
+    ];
+    return json_encode($res);
+}
+
+//计算消费
+function countExpenses($params=[]){
+    $cost = 0;
+    if(array_key_exists('top',$params)){
+        switch ($params['top_time']){
+            case 1:
+                $cost+=config('expenses.day_1');
+                break;
+            case 3:
+                $cost+=config('expenses.day_3');
+                break;
+            case 10:
+                $cost+=config('expenses.day_10');
+                break;
+            case 20:
+                $cost+=config('expenses.day_20');
+                break;
+            case 30:
+                $cost+=config('expenses.day_30');
+        }
+    }
+    if(array_key_exists('red',$params)){
+        $cost+=config('expenses.red');
+    }
+    if(array_key_exists('bold',$params)){
+        $cost+=config('expenses.bold');
+    }
+    if(array_key_exists('refresh',$params)){
+        $cost+=config('expenses.refresh');
+    }
+    return $cost;
+}
+//计算置顶费用
+function countTopMoney($params=[]){
+    $cost = 0;
+    if(array_key_exists('top',$params)){
+        switch ($params['top_time']){
+            case 1:
+                $cost+=config('expenses.day_1');
+                break;
+            case 3:
+                $cost+=config('expenses.day_3');
+                break;
+            case 10:
+                $cost+=config('expenses.day_10');
+                break;
+            case 20:
+                $cost+=config('expenses.day_20');
+                break;
+            case 30:
+                $cost+=config('expenses.day_30');
+        }
+    }
+    return $cost;
+}
+//查看用户等级
+function countUserLevel($level){
+    $lv = '普通用户';
+    if($level > 8){
+        $lv = '普通会员';
+    }
+    if($level > 16){
+        $lv = '高级会员';
+    }
+    if($level > 32){
+        $lv = '超级会员';
+    }
+    if($level > 64){
+        $lv = '客服';
+    }
+    if($level > 128){
+        $lv = '管理员';
+    }
+    if($level > 256){
+        $lv = '总管理员';
+    }
+    if($level > 512){
+        $lv = '老板';
+    }
+    if($level > 1024){
+        $lv = '如同神一般';
+    }
+    return $lv;
+
+}
+
+//检查用户设置是否超越权限
+
+//设置密码混淆
+function psMD5($password){
+    $password = $password+'xcpdlgy';
+    return md5($password);
+}
+//获取用户
+function getAdminName(){
+    return \think\Session::get('admin_sxxcpd_user');
+}
+
+// 定义一个函数获取客户端IP地址
+function getIP(){
+    global $ip;
+    if (getenv("HTTP_CLIENT_IP")){
+        $ip = getenv("HTTP_CLIENT_IP");
+    }else if(getenv("HTTP_X_FORWARDED_FOR")){
+        $ip = getenv("HTTP_X_FORWARDED_FOR");
+    }else if(getenv("REMOTE_ADDR")){
+        $ip = getenv("REMOTE_ADDR");
+    }else{
+        $ip = "Unknow IP";
+    }
+    return $ip;
+}
+
+//获取七牛云的Token
+function getQiniuToken(){
+    require_once APP_PATH . '/../vendor/qiniu/autoload.php';
+    $accessKey = config('qiniu.ACCESSKEY');
+    $secretKey = config('qiniu.SECRETKEY');
+//        $auth = new Auth($accessKey, $secretKey);
+    $auth = new Auth($accessKey, $secretKey);
+    $bucket = config('qiniu.BUCKET');
+    $upToken = $auth->uploadToken($bucket);
+    $filename = 'img'.date('YmdHis',time()).rand(10,100);
+    $res = [
+        'uploadToken'=>$upToken,
+        'filename'=>$filename
+    ];
+    return json($res);
+}
+
+

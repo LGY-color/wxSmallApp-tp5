@@ -6,5 +6,5 @@
  * Time: 21:34
  */
 return[
-    'token_expire_in'=>7200
+    'token_expire_in'=>7200,
 ];

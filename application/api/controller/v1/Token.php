@@ -18,8 +18,6 @@ class Token
         (new TokenGet())->goCheck();
         $user_token = new UserToken($code);
         $token = $user_token->get();
-        return [
-            'token'=>$token
-        ];
+        return json($token);
     }
 }

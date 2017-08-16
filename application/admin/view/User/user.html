@@ -9,7 +9,7 @@
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
             <ul class="layui-tab-title top_tab" id="top_tabs">
-                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite id="switch_left">会员管理</cite></li>
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
@@ -17,14 +17,16 @@
                         <!--内容主体-->
                         <blockquote class="layui-elem-quote news_search">
                             <div class="layui-inline">
-                                <div class="layui-input-inline">
-                                    <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-                                </div>
-                                <a class="layui-btn search_btn">查询</a>
+                                <form action="{:url('admin/User/searchUser')}" method="post">
+                                    <div class="layui-input-inline">
+                                        <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input" name="username">
+                                    </div>
+                                    <button type="submit" class="layui-btn search_btn">查询</button>
+                                </form>
                             </div>
-                            <div class="layui-inline">
-                                <a class="layui-btn layui-btn-normal" href="{:url('admin/info/addNews')}">发布消息</a>
-                            </div>
+                            <!--<div class="layui-inline">-->
+                                <!--<a class="layui-btn layui-btn-normal" href="{:url('admin/info/addNews')}">发布消息</a>-->
+                            <!--</div>-->
                             <!--<div class="layui-inline">-->
                                 <!--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>-->
                             <!--</div>-->
@@ -55,43 +57,35 @@
                                         <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
                                                 class="layui-icon"></i></div>
                                     </th>
-                                    <th style="text-align:left;">文章标题</th>
-                                    <th>发布人</th>
-                                    <th>所属栏目</th>
-                                    <th>所属状态</th>
-                                    <th>发布时间</th>
+                                    <th style="text-align:left;">用户昵称</th>
+                                    <th>手机号</th>
+                                    <th>code_id</th>
+                                    <th>金币数</th>
+                                    <th>用户等级</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody class="news_content">
-                                {volist name="$result['info_list']" id="vo"}
+                                {volist name="$result" id="vo"}
                                 <tr>
                                     <td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose">
                                         <div class="layui-unselect layui-form-checkbox" lay-skin="primary"><i
                                                 class="layui-icon"></i></div>
                                     </td>
-                                    <td align="left"><a href="">{$vo.title}</a></td>
-                                    <td>{$vo.username}</td>
+                                    <td align="left"><a href="{:url('admin/user/detail')}/{$vo.id}">{$vo.username}</a></td>
+                                    <td>{$vo.phone}</td>
                                     <td>
-                                        {$vo.item_name}
+                                        {$vo.code_id}
                                     </td>
                                     <td>
-                                        {$vo.top == 1 ? '置顶':''}
-                                        {$vo.star==1 ? '星级':''}
-                                        {$vo.red ==1 ? '套红':''}
-                                        {$vo.blood ==1 ? '加粗':''}
+                                        {$vo.gold_coin}
                                     </td>
-                                    <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
+                                    <td>{$vo.level|countUserLevel}</td>
                                     <td>
-                                        <a class="layui-btn layui-btn-mini" href="{:url('admin/Info/detail')}/{$vo.i_id}"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-mini" href="{:url('admin/Level/setLevelType')}/{$vo.i_id}?lv_id={$vo.lv_id}&user_id={$vo.uid}" >
-                                            <i class="iconfont icon-edit"></i> 修改状态
-                                        </a>
-                                        <button class="layui-btn layui-btn-mini refresh" data-infoid="{$vo.i_id}" data-userid="{$vo.uid}">
-                                            <i class="iconfont icon-edit"></i>刷新
+                                        <a class="layui-btn layui-btn-mini" href="{:url('admin/User/detail')}/{$vo.id}"><i class="iconfont icon-edit"></i> 编辑</a>
+                                        <button class="layui-btn layui-btn-mini addMoney" data-userid="{$vo.id}" data-userid="{$vo.id}" data-username="{$vo.username}"><i class="iconfont icon-edit"></i> 加金币
                                         </button>
-                                        <button class="layui-btn layui-btn-danger layui-btn-mini del" data-infoid="{$vo.i_id}"><i
-                                                class="layui-icon"></i>删除
+                                        <button class="layui-btn layui-btn-danger layui-btn-mini del" data-userid="{$vo.id}"><i class="layui-icon"></i>删除
                                         </button>
                                     </td>
                                 </tr>
@@ -124,10 +118,9 @@
 </body>
 {include file="Base/footer" /}
 <script>
-    function ajaxRefresh(info_id,user_id) {
-        var url = "{:url('admin/info/refresh')}",
+    function ajaxDel(user_id) {
+        var url = "{:url('admin/user/delUser')}",
             data = {
-                "info_id":info_id,
                 "user_id":user_id
             };
         $.ajax({
@@ -141,7 +134,7 @@
                     layer.confirm(data.msg, {
                         btn: ['确定'] //按钮
                     }, function(){
-                        window.location.href = "{:url('admin/info/info')}";
+                        window.location.href = "{:url('admin/user/user')}";
                     });
 
                 }else{
@@ -149,7 +142,7 @@
                     layer.confirm(data.msg, {
                         btn: ['确定'] //按钮
                     }, function(){
-                        layer.msg('没有更新成功');
+                        layer.msg('没有删除成功');
                     });
                 }
                 console.log(res);
@@ -159,48 +152,7 @@
                 layer.confirm(data.msg, {
                     btn: ['确定'] //按钮
                 }, function(){
-                    layer.alert('跳转到充值界面');
-                });
-
-            },
-            dataType: 'json'
-        })
-    }
-    function ajaxDel(info_id) {
-        var url = "{:url('admin/info/del')}",
-            data = {
-                "info_id":info_id
-            };
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: data,
-            success: function(res){
-                var data = $.parseJSON(res);
-                if(data.code == 1){
-                    //询问框
-                    layer.confirm(data.msg, {
-                        btn: ['确定'] //按钮
-                    }, function(){
-                        window.location.href = "{:url('admin/info/info')}";
-                    });
-
-                }else{
-                    //询问框
-                    layer.confirm(data.msg, {
-                        btn: ['确定'] //按钮
-                    }, function(){
-                        layer.msg('没有更新成功');
-                    });
-                }
-                console.log(res);
-            },
-            error:function (res) {
-                var data = $.parseJSON(res.responseText);
-                layer.confirm(data.msg, {
-                    btn: ['确定'] //按钮
-                }, function(){
-                    layer.alert('跳转到充值界面');
+                    window.location.href = "{:url('admin/user/user')}";
                 });
 
             },
@@ -210,33 +162,45 @@
     $(function () {
         layui.use(['layer'], function(){
             var layer = layui.layer;
-            $('.refresh').click(function () {
-                var that = $(this);
-                layer.confirm('是否刷新', {
-                    btn: ['确定', '取消'] //可以无限个按钮
-                }, function(index, layero){
-                    //按钮【按钮一】的回调
-                    var info_id = that.data('infoid');
-                    var user_id = that.data('userid');
-                    ajaxRefresh(info_id,user_id);
-                }, function(index){
-                    //按钮【按钮二】的回调
-                });
-
-            });
             $('.del').click(function () {
                 var that = $(this);
                 layer.confirm('是否删除', {
                     btn: ['确定', '取消'] //可以无限个按钮
                 }, function(index, layero){
                     //按钮【按钮一】的回调
-                    var info_id = that.data('infoid');
-                    ajaxDel(info_id);
+                    var user_id = that.data('userid');
+                    ajaxDel(user_id);
                 }, function(index){
                     //按钮【按钮二】的回调
                 });
 
             });
+            $('.addMoney').click(function () {
+                var that = this;
+                var userid = $(that).data('userid');
+                var username = $(that).data('username');
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    ,title: '加金币操作'
+                    ,area: ['700px', '600px']
+                    ,shade: 0
+                    ,offset: [ //为了演示，随机坐标
+                        ($(window).height()-700)/2
+                        ,($(window).width()-600)/2
+                    ]
+                    ,maxmin: true
+                    ,content: 'money.html?userid='+userid+'&username='+username
+                    ,btn: ['全部关闭'] //只是为了演示
+                    ,yes: function(){
+                        layer.closeAll();
+                    }
+                    ,zIndex: layer.zIndex //重点1
+                    ,success: function(layero){
+                        layer.setTop(layero); //重点2
+                    }
+                });
+            });
+
         });
     });
 </script>

@@ -18,7 +18,7 @@ class Item extends Controller
 {
     //获取大分类
     public function getBigItem(){
-        $data = BigItem::getBigItem();
+        $data = $this->dealBigItem(BigItem::getBigItem());
         return json($data);
     }
     //大分类下的子分类
@@ -31,6 +31,26 @@ class Item extends Controller
         (new IDMustBePositiveInt())->goCheck();
         $data = SmallItem::getFilterItem($id);
         return json($data);
+    }
+    //根据分类名获取具体的子分类下的条件
+    public function getItemByName($id){
+        (new IDMustBePositiveInt())->goCheck();
+        $data = SmallItem::getItemByName($id);
+        array_unshift($data,[
+            's_id'=>0,
+            's_name'=>'不限',
+            'checked'=>true
+        ]);
+        return json($data);
+    }
+
+    //处理子分类
+    public function dealBigItem($data){
+        foreach ($data as $k=>$v){
+            $data[$k]['s_name'] = explode(',',$v['s_name']);
+            $data[$k]['s_id'] = explode(',',$v['s_id']);
+        }
+        return $data;
     }
 
 }

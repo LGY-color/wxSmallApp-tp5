@@ -1,10 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+{include file="Base/header" /}
 <body>
-$END$
+<!--<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">-->
+<!--<legend>方框风格的表单集合</legend>-->
+<!--</fieldset>-->
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="" class="layui-input" value="{$Think.get.username}" disabled>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">金币数量</label>
+            <div class="layui-input-inline">
+                <input type="number" lay-verify="required|number" autocomplete="off" class="layui-input" value="" name="money">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">赠送倍率</label>
+        <div class="layui-input-inline">
+            <div class="layui-input-inline">
+                <input type="number" lay-verify="required" autocomplete="off" class="layui-input" value="1" name="multiply">
+            </div>
+        </div>
+        <div class="layui-form-mid layui-word-aux">默认是一倍，例如充值100*1=100，如果是1.2倍则100*1.2=120</div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注说明</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容" class="layui-textarea" name="explain"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <button class="layui-btn" lay-submit="" lay-filter="updateBtn">确认添加</button>
+    </div>
+</form>
 </body>
-</html>
+{include file="Base/footer" /}
+<script>
+    $(function () {
+        layui.use(['layer', 'form'], function () {
+            var layer = layui.layer,
+                form = layui.form();
+            form.on("submit(updateBtn)", function (data) {
+                console.log(JSON.stringify(data.field));
+                var ajData = data.field;
+                var ajId = {
+                    "userid":"{$Think.get.userid}"
+                }
+                $.extend(ajData, ajId);
+                var updateUser = "{:url('admin/User/addMoney')}";
+                console.log(ajData);
+                $.ajax({
+                    type: 'POST',
+                    url: updateUser,
+                    data: ajData,
+                    success: function (res) {
+                        var data = $.parseJSON(res);
+
+                        //询问框
+                        layer.confirm('操作成功', {
+                            btn: ['确定'] //按钮
+                        }, function () {
+                            layer.alert('成功了，请关闭');
+                        });
+
+                        console.log(res);
+                    },
+                    error: function (res) {
+                        var data = $.parseJSON(res.responseText);
+//                        console.log(data.msg);
+                        layer.confirm(data.msg, {
+                            btn: ['确定'] //按钮
+                        }, function () {
+                            layer.alert('请重试');
+                        });
+
+                    },
+                    dataType: 'json'
+                });
+                return false;
+
+            });
+        });
+    });
+</script>

@@ -21,7 +21,7 @@ class Info extends Controller
     public function getConditionInfo(){
         $request =Request::instance();
         $params = $request->post();
-        $data = InfoModel::getConditionInfo($params);
+        $data = $this->dealData(InfoModel::getConditionInfo($params));
         return json($data);
     }
     //发布信息
@@ -44,7 +44,6 @@ class Info extends Controller
         $data = InfoModel::getPublish($id);
         return json($data);
     }
-
     //获取用户收藏信息
     public function getCollection($id){
         (new IDMustBePositiveInt())->goCheck();
@@ -57,5 +56,69 @@ class Info extends Controller
         $result = Comment::getUserComment($id);
         return json($result);
     }
+    //根据id进入详细
+    public function getIdInfo($id){
+        (new IDMustBePositiveInt())->goCheck();
+        $data['info'] = $this->dealData(InfoModel::getIdInfo($id));
+        $data['comment'] = $this->dealTime(Comment::getComment($id));
+        return json($data);
+    }
+    //根据分类获取信息
+    public function getInfoByItem($id){
+        (new IDMustBePositiveInt())->goCheck();
+        $style = input('style');
+        $start = input('page');
+        $data = $this->dealData(InfoModel::getInfoByItem($id,$style,$start));
+        return json($data);
+    }
+    //获取更多置顶信息
+    public function getMoreTop($page){
+        $result = $this->dealData(InfoModel::getTopInfo($page));
+        return json($result);
+    }
+    //获取更多星级信息
+    public function getMoreStar($page){
+        $result = $this->dealData(InfoModel::getStarInfo($page));
+        return json($result);
+    }
+    //获取更多最新信息
+    public function getMoreNew($page){
+        $result = $this->dealData(InfoModel::getNewInfo($page));
+        return json($result);
+    }
+    //获取更多小吃盘店信息
+    public function getMoreXcpd($page){
+        $result = InfoModel::getXcpdInfo($page);
+        return json($result);
+    }
+    //获取更多招工求职信息
+    public function getMoreZgqz($page){
+        $result = InfoModel::getZgqzInfo($page);
+        return json($result);
+    }
+    //获取更多店面承包信息
+    public function getMoreDmcb($page){
+        $result = InfoModel::getDmcbInfo($page);
+        return json($result);
+    }
+    //获取更多店面承包信息
+    public function getMoreEssc($page){
+        $result = InfoModel::getEsscInfo($page);
+        return json($result);
+    }
 
+    //处理获得数据
+    public function dealData($data){
+        foreach ($data as $k=>$value){
+            $data[$k]['update_time']= date('Y-m-d H:i:s',$value['update_time']);
+            $data[$k]['img_url'] = explode(',',$value['img_url']);
+        }
+        return $data;
+    }
+    public function dealTime($data){
+        foreach ($data as $k=>$value){
+            $data[$k]['update_time']= date('Y-m-d H:i:s',$value['update_time']);
+        }
+        return $data;
+    }
 }

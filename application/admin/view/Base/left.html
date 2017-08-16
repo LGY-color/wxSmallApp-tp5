@@ -1,73 +1,79 @@
 <!-- 左侧导航 -->
 <div class="layui-side layui-bg-black">
     <div class="user-photo">
-        <a class="img" title="我的头像"><img src="images/face.jpg"></a>
-        <p>你好！<span class="userName">请叫我马哥</span>, 欢迎登录</p>
+        <a class="img" title="我的头像"><img src="http://cdn2.image.apk.gfan.com/asdf/PImages/2015/7/16/ldpi_1021425_229413720-9d68-48b9-9959-d22bacb565a5.png"></a>
+        <p>你好！<span class="userName">{$Think.session.admin_sxxcpd_user}</span>, 欢迎登录</p>
     </div>
     <div class="navBar layui-side-scroll" style="height: 641px;">
         <ul class="layui-nav layui-nav-tree">
-            <li class="layui-nav-item">
-                <a href="javascript:;" data-url="page/main.html">
+            <li class="layui-nav-item left-which-one htsy">
+                <a href="{:url('admin/index/index')}" data-url="">
                     <i class="iconfont icon-computer" data-icon="icon-computer"></i>
                     <cite>后台首页</cite>
                 </a>
             </li>
-            <li class="layui-nav-item layui-this">
-                <a href="javascript:;" data-url="page/news/newsList.html">
+            <li class="layui-nav-item left-which-one fblb">
+                <a href="{:url('admin/info/info')}" data-url="">
                 <i class="iconfont icon-text" data-icon="icon-text"></i>
-                <cite>发布列表</cite>
+                <cite>信息管理</cite>
                 </a>
             </li>
-            <li class="layui-nav-item">
-                <a href="javascript:;" data-url="page/user/allUsers.html">
+            <li class="layui-nav-item left-which-one yhlb">
+                <a href="{:url('admin/user/user')}" data-url="page/user/allUsers.html">
                 <i class="layui-icon" data-icon=""></i>
-                    <cite>会员列表</cite>
+                    <cite>会员管理</cite>
                 </a>
             </li>
-            <li class="layui-nav-item">
-                <a href="javascript:;" data-url="page/links/linksList.html">
+            <li class="layui-nav-item left-which-one pllb">
+                <a href="{:url('admin/comment/comment')}" data-url="page/links/linksList.html">
                     <i class="layui-icon" data-icon=""></i>
                     <cite>评论列表</cite>
                 </a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item left-which-one czjl">
                 <a href="javascript:;" data-url="page/money/money.html">
                     <i class="layui-icon" data-icon=""></i>
                     <cite>充值记录</cite>
                 </a>
             </li>
-            <li class="layui-nav-item">
-                <a href="javascript:;" data-url="page/admin/admin.html">
+            <li class="layui-nav-item left-which-one glylb">
+                <a href="{:url('admin/admin/admin')}" data-url="page/admin/admin.html">
                     <i class="layui-icon" data-icon=""></i>
                     <cite>管理员列表</cite>
                 </a>
             </li>
-            <li class="layui-nav-item">
+            <li class="layui-nav-item left-which-one glyczjl">
+                <a href="{:url('admin/Record/record')}" data-url="">
+                    <i class="layui-icon" data-icon=""></i>
+                    <cite>管理员操作记录</cite>
+                </a>
+            </li>
+            <li class="layui-nav-item left-which-one xtjbcs">
                 <a href="javascript:;" data-url="page/systemParameter/systemParameter.html">
                     <i class="layui-icon" data-icon=""></i>
                     <cite>系统基本参数</cite>
                 </a>
             </li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <i class="layui-icon" data-icon=""></i>
-                    <cite>其他页面</cite>
-                    <span class="layui-nav-more"></span>
-                </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="page/404.html">
-                        <i class="layui-icon" data-icon=""></i>
-                        <cite>404页面</cite>
-                    </a>
-                    </dd>
-                    <dd>
-                        <a href="javascript:;" data-url="page/login/login.html" target="_blank">
-                            <i class="layui-icon" data-icon=""></i>
-                            <cite>登录</cite>
-                        </a>
-                    </dd>
-                </dl>
-            </li>
+            <!--<li class="layui-nav-item left-which-one">-->
+                <!--<a href="javascript:;">-->
+                    <!--<i class="layui-icon" data-icon=""></i>-->
+                    <!--<cite>其他页面</cite>-->
+                    <!--<span class="layui-nav-more"></span>-->
+                <!--</a>-->
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd><a href="javascript:;" data-url="page/404.html">-->
+                        <!--<i class="layui-icon" data-icon=""></i>-->
+                        <!--<cite>404页面</cite>-->
+                    <!--</a>-->
+                    <!--</dd>-->
+                    <!--<dd>-->
+                        <!--<a href="javascript:;" data-url="page/login/login.html" target="_blank">-->
+                            <!--<i class="layui-icon" data-icon=""></i>-->
+                            <!--<cite>登录</cite>-->
+                        <!--</a>-->
+                    <!--</dd>-->
+                <!--</dl>-->
+            <!--</li>-->
             <span class="layui-nav-bar" style="top: 22.5px; height: 0px; opacity: 0;"></span></ul>
     </div>
 </div>

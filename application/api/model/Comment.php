@@ -16,7 +16,7 @@ class Comment extends BaseModel
     //根据当前信息获取评论信息
     public static function getComment($infoId){
         $field = [
-            'c.id as c_id,u.username as u_name,u.code_id,c.update_time,c.content,ur.username as ur_name'
+            'c.id as c_id,u.username as u_name,u.id as uid,u.code_id,c.update_time,c.content,ur.username as ur_name,ur.id as urid'
         ];
         $condition = [
             'c.info_id'=>$infoId,

@@ -8,61 +8,25 @@
         <div class="layui-form component">
             <select name="modules" lay-verify="required" lay-search="">
                 <option value="">直接选择或搜索选择</option>
-                <option value="1">layer</option>
-                <option value="2">form</option>
-                <option value="3">layim</option>
-                <option value="4">element</option>
-                <option value="5">laytpl</option>
-                <option value="6">upload</option>
-                <option value="7">laydate</option>
-                <option value="8">laypage</option>
-                <option value="9">flow</option>
-                <option value="10">util</option>
-                <option value="11">code</option>
-                <option value="12">tree</option>
-                <option value="13">layedit</option>
-                <option value="14">nav</option>
-                <option value="15">tab</option>
-                <option value="16">table</option>
-                <option value="17">select</option>
-                <option value="18">checkbox</option>
-                <option value="19">switch</option>
-                <option value="20">radio</option>
             </select>
             <i class="layui-icon">&#xe615;</i>
         </div>
         <!-- 顶部右侧菜单 -->
         <ul class="layui-nav top_menu">
-            <li class="layui-nav-item showNotice" id="showNotice" pc>
+            <li class="layui-nav-item showNotice" id="showNotice">
                 <a href="javascript:;"><i class="iconfont icon-gonggao"></i><cite>系统公告</cite></a>
             </li>
-            <li class="layui-nav-item" mobile>
-                <a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1"
-                                                                              data-icon="icon-shezhi1"></i><cite>设置</cite></a>
-            </li>
-            <li class="layui-nav-item" mobile>
-                <a href="page/login/login.html"><i class="iconfont icon-loginout"></i> 退出</a>
-            </li>
-            <li class="layui-nav-item lockcms" pc>
-                <a href="javascript:;"><i class="iconfont icon-lock1"></i><cite>锁屏</cite></a>
-            </li>
-            <li class="layui-nav-item" pc>
+            <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="images/face.jpg" class="layui-circle" width="35" height="35">
-                    <cite>请叫我马哥</cite>
+                    <img src="http://cdn2.image.apk.gfan.com/asdf/PImages/2015/7/16/ldpi_1021425_229413720-9d68-48b9-9959-d22bacb565a5.png" class="layui-circle" width="35" height="35">
+                    <cite>{$Think.session.admin_sxxcpd_user}</cite>
                 </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="iconfont icon-zhanghu"
-                                                                                     data-icon="icon-zhanghu"></i><cite>个人资料</cite></a>
-                    </dd>
-                    <dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1"
-                                                                                      data-icon="icon-shezhi1"></i><cite>修改密码</cite></a>
-                    </dd>
-                    <dd><a href="javascript:;" class="changeSkin"><i
-                            class="iconfont icon-huanfu"></i><cite>更换皮肤</cite></a></dd>
-                    <dd><a href="page/login/login.html"><i class="iconfont icon-loginout"></i><cite>退出</cite></a>
-                    </dd>
-                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="{:url('admin/admin/updateList')}/{$Think.session.admin_sxxcpd_id}" data-url=""><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="{:url('admin/admin/logoutAdmin')}"><i class="iconfont icon-loginout"></i> 退出</a>
             </li>
         </ul>
     </div>

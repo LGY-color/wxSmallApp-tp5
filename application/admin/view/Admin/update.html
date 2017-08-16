@@ -12,36 +12,38 @@
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
             <ul class="layui-tab-title top_tab" id="top_tabs">
-                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>消息状态等级修改</cite></li>
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>管理员修改</cite></li>
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
                     <div class="childrenBody">
                         <blockquote class="layui-elem-quote">友情提示：请不要选择比自己搞权限的选项，那是不会成功的。</blockquote>
                         <form class="layui-form" action="">
+                            <input type="text" value="{$result.id}" name="id" style="display: none;">
                             <div class="layui-form-item">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">管理员名称</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" value="" name="add_admin" type="text" lay-verify="required">
+                                        <input class="layui-input" value="{$result.user}" name="add_admin" type="text" lay-verify="required">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label">密码</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" value="" name="add_password" type="password" lay-verify="required">
+                                        <input class="layui-input" value="" name="add_password" type="password" placeholder="如果你不要修改密码请不要填写">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label">联系方式</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" value="" name="phone" type="text">
+                                        <input class="layui-input" value="{$result.phone}" name="phone" type="text">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
                                     <label class="layui-form-label">权限选择</label>
                                     <div class="layui-input-inline">
-                                        <select name="level" class="newsLook" lay-verify="required">
+                                        <select name="level" class="newsLook">
+                                            <option value="">{$result.level|countUserLevel}</option>
                                             <option value="128">客服</option>
                                             <option value="256">管理员</option>
                                             <option value="512">总管理员</option>
@@ -52,7 +54,7 @@
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit="" lay-filter="addBtn">新增</button>
+                                    <button class="layui-btn" lay-submit="" lay-filter="updateBtn">更新</button>
                                     <button type="back" class="layui-btn layui-btn-primary" onclick="javascript:history.go(-1);">取消</button>
                                 </div>
                             </div>
@@ -84,13 +86,13 @@
             var layer = layui.layer
                 ,form = layui.form()
                 ,laydate = layui.laydate();
-            form.on("submit(addBtn)",function(data){
+            form.on("submit(updateBtn)",function(data){
                 console.log(JSON.stringify(data.field));
                 var ajData = data.field;
-                var addAdmin = "{:url('admin/admin/addAdmin')}";
+                var updateAdmin = "{:url('admin/admin/updateAdmin')}";
                 $.ajax({
                     type: 'POST',
-                    url: addAdmin,
+                    url: updateAdmin,
                     data: ajData,
                     success: function(res){
                         var data = $.parseJSON(res);

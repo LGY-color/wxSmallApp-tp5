@@ -1,5 +1,4 @@
 {include file="Base/header" /}
-{include file="Base/imgupload" /}
 <body class="main_body">
 <div class="layui-layout layui-layout-admin">
     <!-- 顶部 -->
@@ -21,20 +20,20 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">标题</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input newsName" name="title" placeholder="请输入文章标题" value="{$result['detail'][0]['title']}">
-                                    <input type="text" style="display: none" name="i_id" value="{$result['detail'][0]['i_id']}" id="infoId">
-                                    <input type="text" style="display: none" name="lv_id" value="{$result['detail'][0]['lv_id']}">
-                                    <input type="text" style="display: none" name="user_id" value="{$result['detail'][0]['user_id']}">
+                                    <input type="text" class="layui-input" name="title" placeholder="请输入文章标题" value="" lay-verify="required">
+                                    <input type="text" style="display: none" name="i_id" value="" id="infoId">
+                                    <input type="text" style="display: none" name="lv_id" value="">
+                                    <input type="text" style="display: none" name="user_id" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-inline">
                                     <label class="layui-form-label">发布栏目</label>
                                     <div class="layui-input-inline">
-                                        <select name="big_item">
-                                            <!--<option value="">所属地区</option>-->
+                                        <select name="big_item" lay-verify="required">
+                                            <option value="">所属地区</option>
                                             {volist name="$result['big_item']" id="vo"}
-                                            <option value="{$vo.item_name}" {if condition="$result['detail'][0]['big_item_name'] == $vo.item_name"} selected="selected" {/if}>{$vo.item_name}</option>
+                                            <option value="{$vo.bi_id}">{$vo.item_name}</option>
                                             {/volist}
                                         </select>
                                     </div>
@@ -48,14 +47,11 @@
                                     <label class="layui-form-label">{$vo.f_item}</label>
                                     <div class="layui-input-inline">
                                         <select name="{$vo.f_item_en}">
-                                            {volist name="$result['detail']" id="do" key="dk"}
-                                            <option value="" selected="selected" disabled="disabled">{$do[$vo.f_item_en]}</option>
+                                            <option value="" selected="selected">{$vo.f_item}</option>
                                             {volist name="$vo.s_item" id="lo"}
-                                            <option value="{$lo}"
-                                                    {if condition="($do[$vo.f_item_en] == $lo)"} selected="selected"{/if}
-                                            >{$lo}</option>
+                                            <option value="{$lo}">{$lo}</option>
                                             {/volist}
-                                            {/volist}
+
                                         </select>
                                     </div>
                                 </div>
@@ -70,14 +66,7 @@
                                 <label class="layui-form-label">{$vo.f_item}</label>
                                 <div class="layui-input-block">
                                     {volist name="$vo.s_item" id="lo" key='k'}
-                                    <input type="checkbox" name="{$vo.f_item_en}" lay-skin="primary" title="{$lo}" value="{$lo}"
-                                     {php}
-                                           for($i=0;$i<count($result['detail'][0]['shop_facilities']);$i++){
-                                                if($lo == $result['detail'][0]['shop_facilities'][$i]){
-                                                    echo 'checked';
-                                                }
-                                           }
-                                     {/php}>
+                                    <input type="checkbox" name="{$vo.f_item_en}" lay-skin="primary" title="{$lo}" value="{$lo}">
                                     {/volist}
 
                                 </div>
@@ -87,14 +76,7 @@
                                 <label class="layui-form-label">{$vo.f_item}</label>
                                 <div class="layui-input-block">
                                     {volist name="$vo.s_item" id="lo" key='k'}
-                                    <input type="checkbox" name="{$vo.f_item_en}" lay-skin="primary" title="{$lo}" value="{$lo}"
-                                           {php}
-                                           for($i=0;$i<count($result['detail'][0]['hold_credentials']);$i++){
-                                           if($lo == $result['detail'][0]['hold_credentials'][$i]){
-                                    echo 'checked';
-                                    }
-                                    }
-                                    {/php}>
+                                    <input type="checkbox" name="{$vo.f_item_en}" lay-skin="primary" title="{$lo}" value="{$lo}">
                                     {/volist}
 
                                 </div>
@@ -104,14 +86,7 @@
                                 <label class="layui-form-label">{$vo.f_item}</label>
                                 <div class="layui-input-block">
                                     {volist name="$vo.s_item" id="lo" key='k'}
-                                    <input type="checkbox" name="{$vo.f_item_en}" lay-skin="primary" title="{$lo}" value="{$lo}"
-                                           {php}
-                                           for($i=0;$i<count($result['detail'][0]['surroundings']);$i++){
-                                           if($lo == $result['detail'][0]['surroundings'][$i]){
-                                    echo 'checked';
-                                    }
-                                    }
-                                    {/php}>
+                                    <input type="checkbox" name="{$vo.f_item_en}" lay-skin="primary" title="{$lo}" value="{$lo}">
                                     {/volist}
 
                                 </div>
@@ -124,86 +99,85 @@
                                 <div class="layui-inline">
                                     <label class="layui-form-label">发布人</label>
                                     <div class="layui-input-inline">
-                                        <input type="text" class="layui-input newsAuthor" lay-verify="required" value="{$result['detail'][0]['username']}" disabled="disabled">
+                                        <input type="text" class="layui-input" value="">
                                     </div>
                                 </div>
-                                <!--<div class="layui-inline">
-                                    <label class="layui-form-label">发布时间</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" class="layui-input newsTime" lay-verify="date" onclick="layui.laydate({elem:this})">
-                                    </div>
-                                </div>-->
-                                <!--<div class="layui-inline">-->
-                                    <!--<label class="layui-form-label">浏览权限</label>-->
-                                    <!--<div class="layui-input-inline">-->
-                                        <!--<select name="star" class="newsLook">-->
-                                            <!--<option value="0"  {if condition="$result['detail'][0]['star'] == 0"} selected="selected" {/if}>开放浏览</option>-->
-                                            <!--<option value="1"  {if condition="$result['detail'][0]['star'] == 1"} selected="selected" {/if}>星级信息</option>-->
-                                        <!--</select>-->
-                                    <!--</div>-->
-                                <!--</div>-->
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">联系人</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input"  name="contact_name" placeholder="请输入文章关键字" value="{$result['detail'][0]['contact_name']}">
+                                    <input type="text" class="layui-input" lay-verify="required" name="contact_name" placeholder="请输入文章关键字" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">联系电话</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input" name="contact_phone" placeholder="请输入文章关键字" value="{$result['detail'][0]['contact_phone']}">
+                                    <input type="text" class="layui-input" lay-verify="required" name="contact_phone" placeholder="请输入文章关键字" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">联系QQ</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input" name="contact_qq" placeholder="请输入文章关键字" value="{$result['detail'][0]['contact_qq']}">
+                                    <input type="text" class="layui-input" name="contact_qq" placeholder="请输入文章关键字" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label">电子邮箱</label>
+                                <label class="layui-form-label">微信</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input" name="email" placeholder="请输入文章关键字" value="{$result['detail'][0]['email']}">
+                                    <input type="text" class="layui-input" name="contact_wx" placeholder="请输入文章关键字" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">店铺面积</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input" name="shop_area" placeholder="请输入文章关键字" value="{$result['detail'][0]['shop_area']}">
+                                    <input type="text" class="layui-input" name="shop_area" placeholder="请输入文章关键字" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">店铺地址</label>
                                 <div class="layui-input-block">
-                                    <input type="text" class="layui-input" name="shop_address" placeholder="请输入文章关键字" value="{$result['detail'][0]['shop_address']}">
-                                </div>
-                            </div>
-                            <div class="layui-form-item">
-                                <label class="layui-form-label">已有图片</label>
-                                <div class="layui-input-block">
-                                    {volist name="$result['detail'][0]['img_url']" id="vo" key="k"}
-                                    <a style="height:100px;width:120px;" class="add_imgBox" href="javascript:void(0)" id="haveImg_{$result['detail'][0]['id_url'][$k-1]}">
-                                        <div class="uploadImg" style="width:105px">
-                                            <img class="upload_image" src="{$vo}" style="">
-                                        </div>
-                                        <button class="layui-btn layui-btn-mini layui-btn-danger">删除</button>
-                                    </a>
-                                    {/volist}
+                                    <input type="text" class="layui-input" name="shop_address" placeholder="请输入文章关键字" value="">
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">上传图片</label>
+                                <style>
+                                    .imgBox{
+                                        width: 80%;
+                                        min-height: 158px;
+                                        border: 1px solid #9d9d9d;
+                                    }
+                                    .imgBox div{
+                                        display: inline-block;
+                                    }
+                                    .imgBox div button{
+                                        display: block;
+                                        margin: 0 auto;
+                                    }
+                                    img.imgUrl{
+                                        margin: 5px 10px;
+                                        width: 150px;
+                                        height: 120px;
+                                    }
+                                </style>
                                 <div class="layui-input-block">
-                                    <div id="imgUpload" class="demo">
+                                    <div class="btn-wraper" id="container">
+                                        <div class="imgBox" id="imgBox">
+
+                                        </div>
+                                        <button type="button" id="pickfiles" class="layui-btn layui-btn-primary">选择文件</button>
+                                        <button type="button" id="uploadfiles" class="layui-btn layui-btn-primary">上传</button>
+                                        <ul id="file-list">
+                                        </ul>
                                     </div>
+
                                 </div>
 
                             </div>
                             <div class="layui-form-item layui-form-text">
                                 <label class="layui-form-label">详细内容</label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="请输入内容" class="layui-textarea" name="content">{$result['detail'][0]['content']}</textarea>
+                                    <textarea placeholder="请输入内容" class="layui-textarea" name="content" lay-verify="required"></textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -231,55 +205,122 @@
 
 </body>
 
+<script src="https://cdn.staticfile.org/jquery/2.2.4/jquery.js"></script>
+<script src="https://cdn.staticfile.org/plupload/2.1.9/plupload.full.min.js"></script>
+<script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+<script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
+<script>
+    //引入Plupload 、qiniu.js后
+    var uploader = Qiniu.uploader({
+        runtimes: 'html5,flash,html4',      // 上传模式，依次退化
+        browse_button: 'pickfiles',         // 上传选择的点选按钮，必需
+        // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
+        // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
+        // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
+        uptoken : getTokenMessage().token, // uptoken是上传凭证，由其他程序生成
+//         uptoken_url: "{:url('admin/Info/uploadImg')}",         // Ajax请求uptoken的Url，强烈建议设置（服务端提供）
+        // uptoken_func: function(){    // 在需要获取uptoken时，该方法会被调用
+        //    // do something
+        //    return uptoken;
+        // },
+        get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的uptoken
+        // downtoken_url: '/downtoken',
+        // Ajax请求downToken的Url，私有空间时使用，JS-SDK将向该地址POST文件的key和domain，服务端返回的JSON必须包含url字段，url值为该文件的下载地址
+//         unique_names: true,              // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+        // save_key: true,                  // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+        domain: '{$Think.config.qiniu.DOMAIN}',     // bucket域名，下载资源时用到，必需
+        container: 'container',             // 上传区域DOM ID，默认是browser_button的父元素
+        max_file_size: '100mb',             // 最大文件体积限制
+        flash_swf_url: 'path/of/plupload/Moxie.swf',  //引入flash，相对路径
+        max_retries: 3,                     // 上传失败最大重试次数
+        dragdrop: true,                     // 开启可拖曳上传
+        drop_element: 'container',          // 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+        chunk_size: '4mb',                  // 分块上传时，每块的体积
+        auto_start: true,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+        //x_vars : {
+        //    查看自定义变量
+        //    'time' : function(up,file) {
+        //        var time = (new Date()).getTime();
+        // do something with 'time'
+        //        return time;
+        //    },
+        //    'size' : function(up,file) {
+        //        var size = file.size;
+        // do something with 'size'
+        //        return size;
+        //    }
+        //},
+        init: {
+            'FilesAdded': function(up, files) {
+                plupload.each(files, function(file) {
+                    // 文件添加进队列后，处理相关的事情
+                });
+            },
+            'BeforeUpload': function(up, file) {
+                // 每个文件上传前，处理相关的事情
+            },
+            'UploadProgress': function(up, file) {
+                // 每个文件上传时，处理相关的事情
+            },
+            'FileUploaded': function(up, file, info) {
+                // 每个文件上传成功后，处理相关的事情
+                // 其中info是文件上传成功后，服务端返回的json，形式如：
+                // {
+                //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                //    "key": "gogopher.jpg"
+                //  }
+                // 查看简单反馈
+                // var domain = up.getOption('domain');
+                var res = $.parseJSON(info);
+                $('#imgBox')[0].innerHTML += '<div><img class="imgUrl" src="http://{$Think.config.qiniu.DOMAIN}/'+res.key+'" alt=""><button type="button" class="layui-btn layui-btn-mini layui-btn-danger removeImg" >删除</button></div>';
+                console.log(info);
+                console.log(res);
+                console.log(res.key);
+                // var sourceLink = domain +"/"+ res.key; 获取上传成功后的文件的Url
+            },
+            'Error': function(up, err, errTip) {
+                //上传出错时，处理相关的事情
+            },
+            'UploadComplete': function() {
+                //队列文件处理完毕后，处理相关的事情
+            },
+            'Key': function(up, file) {
+                // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                // 该配置必须要在unique_names: false，save_key: false时才生效
+                var key = getTokenMessage().filename;
+                // do something with key here
+                return key
+            }
+        }
+    });
+    // domain为七牛空间对应的域名，选择某个空间后，可通过 空间设置->基本设置->域名设置 查看获取
+    // uploader为一个plupload对象，继承了所有plupload的方法
 
+
+    function getTokenMessage() {
+        var token = {};
+        $.ajax({
+            url: "{:url('admin/Info/uploadImg')}",
+            async: false,
+            success: function (data) {
+                token.token = data.uploadToken;
+                token.filename = data.filename;
+            }
+        })
+        return token;
+    }
+    $('.imgBox').on('click','.removeImg',function () {
+        $(this).siblings().remove();
+        $(this).remove();
+    });
+    document.getElementById('uploadfiles').onclick = function () {
+        uploader.start();
+    };
+</script>
 
 <script>
-    //定义url
-    var updateInfo = "{:url('admin/info/updateInfo')}";
-//        deleteImg = 123,
-//        uploadImg = 123;
     $(function () {
         // 初始化插件 图片上传插件
-        $("#imgUpload").zyUpload({
-            width: "650px",                 // 宽度
-            height: "200px",                      // 高度
-            itemWidth: "120px",                 // 文件项的宽度
-            itemHeight: "100px",                 // 文件项的高度
-            //url              :   "/upload/UploadAction",  // 上传文件的路径
-            url: "./up.php",
-            multiple: true,                    // 是否可以多个文件上传
-            dragDrop: false,                    // 是否可以拖动上传文件
-            del: true,                    // 是否可以删除文件
-            finishDel: false,  				  // 是否在上传文件完成后删除预览
-            /* 外部获得的回调接口 */
-            onSelect: function (selectFiles, allFiles) {    // 选择文件的回调方法  selectFile:当前选中的文件  allFiles:还没上传的全部文件
-                console.info("当前选择了以下文件：");
-                console.info(selectFiles);
-            },
-            onProgress: function (file, loaded, total) {    // 正在上传的进度的回调方法
-                console.info("当前正在上传此文件：");
-                console.info(file.name);
-                console.info("进度等信息如下：");
-                console.info(loaded);
-                console.info(total);
-            },
-            onDelete: function (file, files) {              // 删除一个文件的回调方法 file:当前删除的文件  files:删除之后的文件
-                console.info("当前删除了此文件：");
-                console.info(file.name);
-            },
-            onSuccess: function (file, response) {          // 文件上传成功的回调方法
-                console.info("此文件上传成功：");
-                console.info(file.name);
-            },
-            onFailure: function (file, response) {          // 文件上传失败的回调方法
-                console.info("此文件上传失败：");
-                console.info(file.name);
-            },
-            onComplete: function (response) {           	  // 上传完成的回调方法
-                console.info("文件上传完成");
-                console.info(response);
-            }
-        });
         //提交表单
         layui.use(['layer', 'form', 'laydate'], function(){
             var layer = layui.layer
@@ -289,14 +330,18 @@
                 var shop_facilities = getCheckBox('shop_facilities');
                 var hold_credentials = getCheckBox('hold_credentials');
                 var surroundings = getCheckBox('surroundings');
+                var img_url = getImgUrl();
+                console.log(img_url);
                 data.field.shop_facilities = shop_facilities;
                 data.field.hold_credentials = hold_credentials;
                 data.field.surroundings = surroundings;
+                data.field.img_url = img_url;
                 console.log(JSON.stringify(data.field));
                 var ajData = data.field;
+                var addUrl = "{:url('admin/info/insertNews')}";
                 $.ajax({
                     type: 'POST',
-                    url: updateInfo,
+                    url: addUrl,
                     data: ajData,
                     success: function(res){
                         var data = $.parseJSON(res);
@@ -313,7 +358,7 @@
                             layer.confirm(data.msg, {
                                 btn: ['确定'] //按钮
                             }, function(){
-                                layer.msg('你并没有更新，检查一下吧');
+                                layer.msg('新增失败，请再次重试');
                             });
                         }
                         console.log(res);
@@ -344,7 +389,7 @@
                     data.elem.value = 0;
                 }
             });
-            form.on('checkbox(bloodcheck)', function(data){
+            form.on('checkbox(boldcheck)', function(data){
                 console.log(data.elem.checked);
                 console.log(data.elem.value);
                 if(data.elem.checked){
@@ -358,6 +403,16 @@
 
 
     });
+    //获取imgUrl
+    function getImgUrl() {
+        var img_array = new Array();
+        var length = $('.imgUrl').length;
+        for(var i=0;i<length;i++){
+            img_array.push($('.imgUrl')[i].src);
+        }
+        var img_str=img_array.join(',');//将数组元素连接起来以构建一个字符串
+        return img_str;
+    }
     //获取checkbox的值
     function getCheckBox(ele) {
         var box_array=new Array();
@@ -368,5 +423,16 @@
 //        console.log(idstr);
         return box_str;
     }
-
+    //从后端获取七牛云token
+    function getToken() {
+        $.ajax({
+            type: 'POST',
+            url: "{:url('admin/Info/uploadImg')}",
+            data: '',
+            success: function(res){
+                console.log(res);
+            },
+            dataType: 'json'
+        });
+    }
 </script>

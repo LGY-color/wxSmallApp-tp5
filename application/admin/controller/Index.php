@@ -14,9 +14,8 @@ use app\admin\model\Info as InfoModel;
 use app\admin\model\Comment as CommentModel;
 use app\admin\model\Order as OrderModel;
 use app\admin\model\Money as MoneyModel;
-use think\Controller;
 
-class Index extends Controller
+class Index extends BaseController
 {
     public function index(){
         //统计字段
@@ -40,9 +39,15 @@ class Index extends Controller
     }
     //格式化类型 统计
     private function formatOrder($arr=[]){
-        $result = [];
+        $result = [
+            'top'=>0,
+            'red'=>0,
+            'blod'=>0,
+            'refresh'=>0,
+            'unlocked'=>0
+        ];
         for($i=0;$i<count($arr);$i++){
-            switch ($arr[$i]['order_style']){
+            switch ($arr[$i]['level_type']){
                 case 1:
                     $result['top'] =  $arr[$i]['num'];
                     break;

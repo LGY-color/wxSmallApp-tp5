@@ -9,7 +9,7 @@ return[
     //1置顶 2套红 3加粗 4刷新 5解绑
     'top'=>1,
     'red'=>2,
-    'blod'=>3,
+    'bold'=>3,
     'refresh'=>4,
     'unlocked'=>5
 ];

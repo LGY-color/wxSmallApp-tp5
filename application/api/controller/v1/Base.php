@@ -22,8 +22,8 @@ class Base extends Controller
     //根据id进入详细
     public function getIdInfo($id){
         (new IDMustBePositiveInt())->goCheck();
-        $data['info'] = InfoModel::getIdInfo($id);
-        $data['comment'] = Comment::getComment($id);
+        $data['info'] = $this->dealData(InfoModel::getIdInfo($id));
+        $data['comment'] = $this->dealData(Comment::getComment($id));
         return json($data);
     }
 
@@ -34,4 +34,6 @@ class Base extends Controller
         $result = News::replyUser($params);
         return json($result);
     }
+
+
 }

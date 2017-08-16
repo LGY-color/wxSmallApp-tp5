@@ -12,6 +12,6 @@ namespace app\lib\exception;
 class DbException extends BaseException
 {
     public $code = 404;
-    public $msg = '数据插入不成功';
+    public $msg = '数据库异常，请重试。';
     public $errorCode = 100004;
 }

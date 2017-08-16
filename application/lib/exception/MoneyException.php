@@ -9,7 +9,9 @@
 namespace app\lib\exception;
 
 
-class MoneyException
+class MoneyException extends BaseException
 {
-
+    public $code = 400;
+    public $msg = '您的金币不足';
+    public $errorCode = 10000;
 }

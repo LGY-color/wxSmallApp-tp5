@@ -9,7 +9,9 @@
 namespace app\lib\exception;
 
 
-class adminException
+class AdminException extends BaseException
 {
-
+    public $code = 400;
+    public $msg = '超越权限使用权力，严重不合法';
+    public $errorCode = 10000;
 }

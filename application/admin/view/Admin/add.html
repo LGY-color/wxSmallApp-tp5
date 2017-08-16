@@ -17,61 +17,42 @@
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
                     <div class="childrenBody">
-                        <blockquote class="layui-elem-quote">友情提示：如果你不需要更新置顶时间请不要点击置顶时间，要不然会刷新开始置顶时间</blockquote>
+                        <blockquote class="layui-elem-quote">友情提示：请不要选择比自己搞权限的选项，那是不会成功的。</blockquote>
                         <form class="layui-form" action="">
-                            <input type="text" style="display: none" name="lv_id" value="{$result.id}">
-                            <input type="text" style="display: none" name="info_id" value="{$result.info_id}">
-                            <input type="text" style="display: none" name="user_id" value="{$result.user_id}">
                             <div class="layui-form-item">
                                 <div class="layui-inline">
-                                    <label class="layui-form-label">所属类别</label>
-                                    <div class="layui-input-block">
-                                        <input type="checkbox" name="top" lay-filter="topcheck" value="{$result.top}"
-                                               title="置顶" {if condition="$result.top == 1"}checked="checked"{/if}>
-                                        <input type="checkbox" name="red" lay-filter="redcheck" value="{$result.red}"
-                                               title="套红" {if condition="$result.red == 1"}checked="checked"{/if}>
-                                        <input type="checkbox" name="blood" lay-filter="bloodcheck" value="{$result.blood}"
-                                               title="加粗" {if condition="$result.blood == 1"}checked="checked"{/if}>
+                                    <label class="layui-form-label">管理员名称</label>
+                                    <div class="layui-input-inline">
+                                        <input class="layui-input" value="" name="add_admin" type="text" lay-verify="required">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
-                                    <label class="layui-form-label">置顶开始时间</label>
+                                    <label class="layui-form-label">密码</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" value="{$result.top_start_time|date='Y-m-d H:i:s',###}" name="top_start_time" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                                        <input class="layui-input" value="" name="add_password" type="password" lay-verify="required">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
-                                    <label class="layui-form-label">置顶结束时间</label>
+                                    <label class="layui-form-label">联系方式</label>
                                     <div class="layui-input-inline">
-                                        <input class="layui-input" value="{$result.top_end_time|date='Y-m-d H:i:s',###}" name="top_end_time" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                                        <input class="layui-input" value="" name="phone" type="text">
                                     </div>
                                 </div>
                                 <div class="layui-inline">
-                                    <label class="layui-form-label">置顶时间</label>
+                                    <label class="layui-form-label">权限选择</label>
                                     <div class="layui-input-inline">
-                                        <select name="top_time" class="newsLook">
-                                            <option value="0" selected="selected">请选择置顶时间</option>
-                                            <option value="1">1天</option>
-                                            <option value="3">3天</option>
-                                            <option value="10">10天</option>
-                                            <option value="20">20天</option>
-                                            <option value="30">30天</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">浏览权限</label>
-                                    <div class="layui-input-inline">
-                                        <select name="star" class="newsLook">
-                                            <option value="0">开放浏览</option>
-                                            <option value="1">星级信息</option>
+                                        <select name="level" class="newsLook" lay-verify="required">
+                                            <option value="128">客服</option>
+                                            <option value="256">管理员</option>
+                                            <option value="512">总管理员</option>
+                                            <option value="1024">老板</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn" lay-submit="" lay-filter="updateBtn">更新</button>
+                                    <button class="layui-btn" lay-submit="" lay-filter="addBtn">新增</button>
                                     <button type="back" class="layui-btn layui-btn-primary" onclick="javascript:history.go(-1);">取消</button>
                                 </div>
                             </div>
@@ -103,67 +84,39 @@
             var layer = layui.layer
                 ,form = layui.form()
                 ,laydate = layui.laydate();
-            form.on("submit(updateBtn)",function(data){
+            form.on("submit(addBtn)",function(data){
                 console.log(JSON.stringify(data.field));
                 var ajData = data.field;
-                var updateLevel = "{:url('admin/Level/updateLevelType')}";
+                var addAdmin = "{:url('admin/admin/addAdmin')}";
                 $.ajax({
                     type: 'POST',
-                    url: updateLevel,
+                    url: addAdmin,
                     data: ajData,
                     success: function(res){
                         var data = $.parseJSON(res);
-
+                        if(data.code == 1){
                             //询问框
                             layer.confirm('操作成功', {
                                 btn: ['确定'] //按钮
                             }, function(){
-                                window.location.href = "{:url('admin/info/info')}";
+                                window.location.href = "{:url('admin/admin/admin')}";
                             });
+                        }else{
+                            layer.alert('操作失败，请重试!');
+                        }
+
 
                         console.log(res);
                     },
-                    error:function (res) {
+                    error:function(res){
                         var data = $.parseJSON(res.responseText);
-//                        console.log(data.msg);
-                        layer.confirm(data.msg, {
-                            btn: ['确定'] //按钮
-                        }, function(){
-                            layer.alert('跳转到充值界面');
-                        });
-
+                        layer.alert(data.msg);
+                        console.log(res);
                     },
                     dataType: 'json'
                 });
                 return false;
 
-            });
-            form.on('checkbox(topcheck)', function(data){
-                console.log(data.elem.checked);
-                console.log(data.elem.value);
-                if(data.elem.checked){
-                    data.elem.value = 1;
-                }else{
-                    data.elem.value = 0;
-                }
-            });
-            form.on('checkbox(redcheck)', function(data){
-                console.log(data.elem.checked);
-                console.log(data.elem.value);
-                if(data.elem.checked){
-                    data.elem.value = 1;
-                }else{
-                    data.elem.value = 0;
-                }
-            });
-            form.on('checkbox(bloodcheck)', function(data){
-                console.log(data.elem.checked);
-                console.log(data.elem.value);
-                if(data.elem.checked){
-                    data.elem.value = 1;
-                }else{
-                    data.elem.value = 0;
-                }
             });
         });
 

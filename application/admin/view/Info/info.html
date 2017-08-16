@@ -9,7 +9,7 @@
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
             <ul class="layui-tab-title top_tab" id="top_tabs">
-                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite id="switch_left">信息管理</cite></li>
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
@@ -17,26 +17,29 @@
                         <!--内容主体-->
                         <blockquote class="layui-elem-quote news_search">
                             <div class="layui-inline">
-                                <div class="layui-input-inline">
-                                    <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input">
-                                </div>
-                                <a class="layui-btn search_btn">查询</a>
+                                <form action="{:url('admin/Info/searchInfo')}" method="post">
+                                    <div class="layui-input-inline">
+                                        <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input" name="title">
+                                    </div>
+                                    <button type="submit" class="layui-btn search_btn">查询</button>
+                                </form>
+
                             </div>
                             <div class="layui-inline">
-                                <a class="layui-btn layui-btn-normal newsAdd_btn">添加文章</a>
+                                <a class="layui-btn layui-btn-normal" href="{:url('admin/info/addNews')}">发布消息</a>
                             </div>
-                            <div class="layui-inline">
-                                <a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>
-                            </div>
-                            <div class="layui-inline">
-                                <a class="layui-btn audit_btn">审核文章</a>
-                            </div>
-                            <div class="layui-inline">
-                                <a class="layui-btn layui-btn-danger batchDel">批量删除</a>
-                            </div>
-                            <div class="layui-inline">
-                                <div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>
-                            </div>
+                            <!--<div class="layui-inline">-->
+                                <!--<a class="layui-btn recommend" style="background-color:#5FB878">推荐文章</a>-->
+                            <!--</div>-->
+                            <!--<div class="layui-inline">-->
+                                <!--<a class="layui-btn audit_btn">审核文章</a>-->
+                            <!--</div>-->
+                            <!--<div class="layui-inline">-->
+                                <!--<a class="layui-btn layui-btn-danger batchDel">批量删除</a>-->
+                            <!--</div>-->
+                            <!--<div class="layui-inline">-->
+                                <!--<div class="layui-form-mid layui-word-aux">本页面刷新后除新添加的文章外所有操作无效，关闭页面所有数据重置</div>-->
+                            <!--</div>-->
                         </blockquote>
                         <div class="layui-form news_list">
                             <table class="layui-table">
@@ -44,6 +47,8 @@
                                     <col width="50">
                                     <col>
                                     <col width="9%">
+                                    <col width="9%">
+                                    <col width="12%">
                                     <col width="9%">
                                     <col width="9%">
                                     <col width="9%">
@@ -58,7 +63,9 @@
                                     <th style="text-align:left;">文章标题</th>
                                     <th>发布人</th>
                                     <th>所属栏目</th>
-                                    <th>所属类别</th>
+                                    <th>所属状态</th>
+                                    <th>发布渠道</th>
+                                    <th>是否成交</th>
                                     <th>发布时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -71,33 +78,32 @@
                                                 class="layui-icon"></i></div>
                                     </td>
                                     <td align="left"><a href="">{$vo.title}</a></td>
-                                    <td>{$vo.username}</td>
+                                    <td><a href="{:url('admin/user/detail')}/{$vo.uid}">{$vo.username}</a></td>
                                     <td>
                                         {$vo.item_name}
                                     </td>
                                     <td>
-                                        {eq name="vo.level_type" value="1" }
-                                            正常
-                                        {/eq}
-                                        {eq name="vo.level_type" value="2" }
-                                            置顶
-                                        {/eq}
-                                        {eq name="vo.level_type" value="3" }
-                                            星级
-                                        {/eq}
+                                        {$vo.top == 1 ? '置顶':''}
+                                        {$vo.star==1 ? '星级':''}
+                                        {$vo.red ==1 ? '套红':''}
+                                        {$vo.bold ==1 ? '加粗':''}
+                                    </td>
+                                    <td>{$vo.ip}</td>
+                                    <td>
+                                        <input type="checkbox" data-info_id="{$vo.i_id}" data-info_status="{$vo.info_status}" {if condition="$vo.info_status ==1"}checked=""{/if} name="open" lay-skin="switch" lay-filter="switchStatus" lay-text="未成|已成">
                                     </td>
                                     <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
                                     <td>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i> 置顶</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>刷新</a>
-                                        <a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i>套红</a>
-                                        <a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i
-                                                class="layui-icon"></i>加粗</a>
-                                        <a class="layui-btn layui-btn-danger layui-btn-mini news_del" data-id="1"><i
-                                                class="layui-icon"></i>删除</a>
+                                        <a class="layui-btn layui-btn-mini" href="{:url('admin/Info/detail')}/{$vo.i_id}"><i class="iconfont icon-edit"></i> 编辑</a>
+                                        <a class="layui-btn layui-btn-mini" href="{:url('admin/Level/setLevelType')}/{$vo.i_id}?lv_id={$vo.lv_id}&user_id={$vo.uid}" >
+                                            <i class="iconfont icon-edit"></i> 修改状态
+                                        </a>
+                                        <button class="layui-btn layui-btn-mini refresh" data-infoid="{$vo.i_id}" data-userid="{$vo.uid}">
+                                            <i class="iconfont icon-edit"></i>刷新
+                                        </button>
+                                        <button class="layui-btn layui-btn-danger layui-btn-mini del" data-infoid="{$vo.i_id}"><i
+                                                class="layui-icon"></i>删除
+                                        </button>
                                     </td>
                                 </tr>
                                 {/volist}
@@ -128,3 +134,172 @@
 
 </body>
 {include file="Base/footer" /}
+<script>
+    //异步刷新
+    function ajaxRefresh(info_id,user_id) {
+        var url = "{:url('admin/info/refresh')}",
+            data = {
+                "info_id":info_id,
+                "user_id":user_id
+            };
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function(res){
+                var data = $.parseJSON(res);
+                if(data.code == 1){
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        window.location.href = "{:url('admin/info/info')}";
+                    });
+
+                }else{
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        layer.msg('没有更新成功');
+                    });
+                }
+                console.log(res);
+            },
+            error:function (res) {
+                var data = $.parseJSON(res.responseText);
+                layer.confirm(data.msg, {
+                    btn: ['确定'] //按钮
+                }, function(){
+                    layer.alert('跳转到充值界面');
+                });
+
+            },
+            dataType: 'json'
+        })
+    }
+    //异步删除
+    function ajaxDel(info_id) {
+        var url = "{:url('admin/info/del')}",
+            data = {
+                "info_id":info_id
+            };
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function(res){
+                var data = $.parseJSON(res);
+                if(data.code == 1){
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        window.location.href = "{:url('admin/info/info')}";
+                    });
+
+                }else{
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        layer.msg('没有更新成功');
+                    });
+                }
+                console.log(res);
+            },
+            error:function (res) {
+                var data = $.parseJSON(res.responseText);
+                layer.confirm(data.msg, {
+                    btn: ['确定'] //按钮
+                }, function(){
+                    layer.alert('跳转到充值界面');
+                });
+
+            },
+            dataType: 'json'
+        })
+    }
+    //异步设置状态
+    function ajaxStatus(info_id,info_status) {
+        var url = "{:url('admin/Info/updateStatus')}",
+            data = {
+                "info_status":info_status,
+                "info_id":info_id
+            };
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function(res){
+                var data = $.parseJSON(res);
+                if(data.code == 1){
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        window.location.href = "";
+                    });
+//                    layer.alert(data.msg);
+                }else{
+                    //询问框
+                    layer.confirm(data.msg, {
+                        btn: ['确定'] //按钮
+                    }, function(){
+                        layer.msg('没有设置成功');
+                    });
+                }
+                console.log(res);
+            },
+            error:function (res) {
+                var data = $.parseJSON(res.responseText);
+                layer.confirm(data.msg, {
+                    btn: ['确定'] //按钮
+                }, function(){
+                    window.location.href = "";
+                });
+
+            },
+            dataType: 'json'
+        });
+    }
+    $(function () {
+        layui.use(['layer','form'], function(){
+            var layer = layui.layer,
+                form = layui.form();
+            $('.refresh').click(function () {
+                var that = $(this);
+                layer.confirm('是否刷新', {
+                    btn: ['确定', '取消'] //可以无限个按钮
+                }, function(index, layero){
+                    //按钮【按钮一】的回调
+                    var info_id = that.data('infoid');
+                    var user_id = that.data('userid');
+                    ajaxRefresh(info_id,user_id);
+                }, function(index){
+                    //按钮【按钮二】的回调
+                });
+
+            });
+            $('.del').click(function () {
+                var that = $(this);
+                layer.confirm('是否删除', {
+                    btn: ['确定', '取消'] //可以无限个按钮
+                }, function(index, layero){
+                    //按钮【按钮一】的回调
+                    var info_id = that.data('infoid');
+                    ajaxDel(info_id);
+                }, function(index){
+                    //按钮【按钮二】的回调
+                });
+
+            });
+            //监听指定开关
+            form.on('switch(switchStatus)', function(data){
+                var info_id  = $(data.elem).data("info_id");
+                var info_status = $(data.elem).data("info_status") == 1? 2 : 1;
+                ajaxStatus(info_id,info_status);
+            });
+        });
+    });
+</script>

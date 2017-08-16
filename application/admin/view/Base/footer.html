@@ -1,5 +1,37 @@
 <script type="text/javascript" src="__PUBLIC__/layui/layui.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/leftNav.js"></script>
-<script type="text/javascript" src="__PUBLIC__/js/index.js"></script>
-<script src="__PUBLIC__/js/info.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery-3.2.1.min.js"></script>
+<!--<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>-->
+<script src="__PUBLIC__/js/main.js"></script>
+<script>
+    var which_one = $('#switch_left').html();
+    $('left-which-one').removeClass('layui-this');
+    switch(which_one)
+    {
+        case '后台首页':
+            $('.htsy').addClass('layui-this');
+            break;
+        case '信息管理':
+            $('.fblb').addClass('layui-this');
+            break;
+        case '会员管理':
+            $('.yhlb').addClass('layui-this');
+            break;
+        case '评论列表':
+            $('.pllb').addClass('layui-this');
+            break;
+        case '充值记录':
+            $('.czjl').addClass('layui-this');
+            break;
+        case '管理员列表':
+            $('.glylb').addClass('layui-this');
+            break;
+        case '管理员操作记录':
+            $('.glyczjl').addClass('layui-this');
+            break;
+        case '系统基本参数':
+            $('.xtjbcs').addClass('layui-this');
+            break;
+
+    }
+</script>
 </html>

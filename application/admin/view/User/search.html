@@ -9,7 +9,7 @@
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
             <ul class="layui-tab-title top_tab" id="top_tabs">
-                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite id="switch_left">会员管理</cite></li>
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite id="switch_left">会员管理查询</cite></li>
             </ul>
             <div class="layui-tab-content clildFrame">
                 <div class="layui-tab-item layui-show">
@@ -17,9 +17,9 @@
                         <!--内容主体-->
                         <blockquote class="layui-elem-quote news_search">
                             <div class="layui-inline">
-                                <form action="{:url('admin/Info/searchInfo')}" method="post">
+                                <form action="{:url('admin/User/searchUser')}" method="post">
                                     <div class="layui-input-inline">
-                                        <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input" name="title">
+                                        <input type="text" value="" placeholder="请输入关键字" class="layui-input search_input" name="username">
                                     </div>
                                     <button type="submit" class="layui-btn search_btn">查询</button>
                                 </form>

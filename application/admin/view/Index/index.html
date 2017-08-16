@@ -9,7 +9,7 @@
     <div class="layui-body layui-form">
         <div class="layui-tab marg0" lay-filter="bodyTab" id="top_tabs_box">
             <ul class="layui-tab-title top_tab" id="top_tabs">
-                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite>后台首页</cite></li>
+                <li class="layui-this" lay-id=""><i class="iconfont icon-computer"></i> <cite id="switch_left">后台首页</cite></li>
             </ul>
             <!--<ul class="layui-nav closeBox">-->
             <!--<li class="layui-nav-item">-->
@@ -103,13 +103,13 @@
                                         <i class="layui-icon" data-icon="&#xe63a;">&#xe63a;</i>
                                     </div>
                                     <div class="panel_word newMessage">
-                                        <span>{$result['money_sum'][0]['money']}</span>
+                                        <span>{$result['money_sum'][0]['money'] != ''? $result['money_sum'][0]['money']:0}</span>
                                         <cite>今日充值</cite>
                                     </div>
                                 </a>
                             </div>
                             <div class="panel col">
-                                <a href="javascript:;" data-url="page/user/allUsers.html">
+                                <a href="javascript:;" data-url="">
                                     <div class="panel_icon" style="background-color:#FF5722;">
                                         <i class="iconfont icon-dongtaifensishu" data-icon="icon-dongtaifensishu"></i>
                                     </div>
@@ -120,7 +120,7 @@
                                 </a>
                             </div>
                             <div class="panel col">
-                                <a href="javascript:;" data-url="page/user/allUsers.html">
+                                <a href="javascript:;" data-url="">
                                     <div class="panel_icon" style="background-color:#009688;">
                                         <i class="layui-icon" data-icon="&#xe613;">&#xe613;</i>
                                     </div>
@@ -169,7 +169,7 @@
 
                         </blockquote>
                         <div class="row">
-                            <div class="sysNotice col">
+                            <div class="sysNotice col" style="float: left">
                                 <blockquote class="layui-elem-quote title">最新发布<i class="iconfont icon-new1"></i>
                                 </blockquote>
                                 <table class="layui-table" lay-even="" lay-skin="row">
@@ -188,15 +188,15 @@
                                     <tbody>
                                     {volist name="result['info_new']" id="vo"}
                                     <tr>
-                                        <td><a href="{$vo.id}">{$vo.title}</a></td>
-                                        <td><a href="{$vo.uid}">{$vo.username}</a></td>
+                                        <td><a href="{:url('admin/info/detail')}/{$vo.id}">{$vo.title}</a></td>
+                                        <td><a href="{:url('admin/user/detail')}/{$vo.uid}">{$vo.username}</a></td>
                                         <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
                                     </tr>
                                     {/volist}
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="sysNotice col">
+                            <div class="sysNotice col" style="float: right">
                                 <blockquote class="layui-elem-quote title">最新评论<i class="iconfont icon-new1"></i>
                                 </blockquote>
                                 <table class="layui-table" lay-even="" lay-skin="row">
@@ -215,16 +215,16 @@
                                     <tbody>
                                     {volist name="result['comment_new']" id="vo"}
                                     <tr>
-                                        <td><a href="">{$vo.runame? '回复:'.$vo.runame.' ' : ''}</a><a href="">{$vo.content}</a>
+                                        <td><a href="{:url('admin/user/detail')}/{$vo.ruid}" style="color: #00B7EE;">{$vo.runame? '回复:'.$vo.runame.' ' : ''}</a><a href="">{$vo.content}</a>
                                         </td>
-                                        <td><a href="">{$vo.uname}</a></td>
+                                        <td><a href="{:url('admin/user/detail')}/{$vo.uid}">{$vo.uname}</a></td>
                                         <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
                                     </tr>
                                     {/volist}
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="sysNotice col">
+                            <div class="sysNotice col" style="float: right">
                                 <blockquote class="layui-elem-quote title">最新充值<i class="iconfont icon-new1"></i>
                                 </blockquote>
                                 <table class="layui-table" lay-even="" lay-skin="row">
@@ -244,14 +244,14 @@
                                     {volist name="$result['money_new']" id="vo"}
                                     <tr>
                                         <td>{$vo.money}</td>
-                                        <td>{$vo.username}</td>
+                                        <td><a href="{:url('admin/user/detail')}/{$vo.uid}">{$vo.username}</a></td>
                                         <td>{$vo.update_time|date="y-m-d h:i:s",###}</td>
                                     </tr>
                                     {/volist}
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="sysNotice col">
+                            <div class="sysNotice col" style="float: left">
                                 <blockquote class="layui-elem-quote title">系统基本参数</blockquote>
                                 <table class="layui-table">
                                     <colgroup>
