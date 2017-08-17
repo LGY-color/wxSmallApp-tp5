@@ -190,7 +190,7 @@ class Info extends BaseModel
     }
 
     //根据条件筛选
-    public static function getConditionInfo($params,$limit=10){
+    public static function getConditionInfo($params,$limit=7){
         $field = [
             'i.id AS i_id,i.title,i.update_time,i.ip,i.status AS info_status,i.content',
             'u.id AS uid,u.username',
@@ -198,10 +198,9 @@ class Info extends BaseModel
             'lv.*,lv.id AS lv_id',
             'url.url AS img_url'
         ];
-
         $condition = [
             'i.status'=>1,
-            'i.big_item_id'=>$params['id'],
+            'i.big_item_id'=>$params['infoid'],
             'province'=>isset($params['province'])? $params['province'] : '',
             'monthly_rent'=>isset($params['monthly_rent'])? $params['monthly_rent'] : '',
             'day_turnover'=>isset($params['day_turnover'])? $params['day_turnover'] : '',
@@ -211,10 +210,11 @@ class Info extends BaseModel
             'shop_facilities'=>isset($params['shop_facilities'])? $params['shop_facilities'] : '',
             'hold_credentials'=>isset($params['hold_credentials'])? $params['hold_credentials'] : ''
         ];
-        $condition = array_filter($condition);
-        if($params['style'] == 1){
+        $page = $params['page'];
+        if($params['lv'] == 1){
             $condition['lv.top'] = 1;
         }
+        $condition = array_filter($condition);
         $join = [
             ['pdzg_user u','u.id=i.user_id','LEFT'],
             ['pdzg_big_item bi','bi.id=i.big_item_id','LEFT'],
@@ -224,7 +224,7 @@ class Info extends BaseModel
         $order = [
             'i.update_time'=>'DESC'
         ];
-        $result = Db::field($field)->table('pdzg_info')->alias('i')->where($condition)->join($join)->order($order)->limit(0,$limit)->select();
+        $result = Db::field($field)->table('pdzg_info')->alias('i')->where($condition)->join($join)->order($order)->limit($page,$limit)->select();
         return $result;
     }
 

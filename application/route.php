@@ -37,9 +37,9 @@ Route::get('api/:version/info/getUserComment/:id','api/:version.Info/getUserComm
 //根据分类id获取信息
 Route::get('api/:version/info/getInfoByItem/:id','api/:version.Info/getInfoByItem');
 //根据筛选条件获取信息
-Route::post('api/:version/info/getInfoByItem','api/:version.Info/getConditionInfo');
+Route::post('api/:version/info/getConditionInfo','api/:version.Info/getConditionInfo');
 
-//根据分类名获取具体的子分类下的条件
+//根据分类id获取具体的子分类下的条件
 Route::get('api/:version/item/getItemByName/:id','api/:version.Item/getItemByName');
 
 //获取更多置顶信息
