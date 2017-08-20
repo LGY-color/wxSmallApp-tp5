@@ -67,6 +67,9 @@ Route::post('api/:version/info/InsertInfo','api/:version.Info/InsertInfo');
 Route::post('api/:version/info/UpdateInfo','api/:version.Info/UpdateInfo');
 //用code换取openid ==
 Route::post('api/:version/token/user','api/:version.Token/getToken');
+//验证token
+Route::post('api/:version/token/verify','api/:version.Token/verifyToken');
+//回复功能
 //回复功能
 Route::post('api/:version/base/replyUser','api/:version.Base/replyUser');
 // +----------------------------------------------------------------------

@@ -20,4 +20,15 @@ class Token
         $salt = config('secure.token_salt');
         return md5($randChars.$timestamp.$salt);
     }
+    //验证token
+    public static function verifyToken($token)
+    {
+        $exist = Cache::get($token);
+        if($exist){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

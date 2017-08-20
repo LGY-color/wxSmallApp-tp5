@@ -20,8 +20,9 @@ class UserToken extends Token
     protected $wxAppID;
     protected $wxAppSecret;
     protected $wxLoginUrl;
-    function __construct($code){
+    function __construct($code,$username){
         $this->code = $code;
+        $this->username = $username;
         $this->wxAppID = config('wx.app_id');
         $this->wxAppSecret = config('wx.app_secret');
         $this->wxLoginUrl = sprintf(config('wx.login_url'),$this->wxAppID,$this->wxAppSecret,$this->code);
@@ -37,14 +38,17 @@ class UserToken extends Token
             if($loginFail){
                 $this->proessLoginError($wxResult);
             }else{
-                $this->grantToken($wxResult);
+                return $this->grantToken($wxResult);
             }
         }
     }
     //不存在新建用户
     private function newUser($openid){
         $user = User::create([
-            'openid' =>$openid
+            'openid' =>$openid,
+            'username'=>$this->username,
+            'level'=>8,
+            'create_time'=>time(),
         ]);
         return $user->id;
     }
