@@ -22,28 +22,26 @@ use app\api\service\Token as TokenService;
 class Base extends Controller
 {
     protected $beforeActionList = [
-        'checkToken'  =>  ['only'=>'hello,data'],
+        'checkToken'  =>  ['only'=>'InsertInfo'],
     ];
     protected  function checkToken(){
-        $request = Request::instance();
-        $params = $request->param();
-        $token = $params['token'];
+        $token = Request::instance()->header('token');
         if(!$token){
             throw new ParamsException([
-                'token不能为空'
+                'msg'=>'token不能为空'
             ]);
         }
         $result = TokenService::verifyToken($token);
+        if(!$result){
+            throw new ParamsException([
+               'msg'=>'令牌错误了'
+            ]);
+        }
         return $result;
     }
-//    //根据id进入详细
-//    public function getIdInfo($id){
-//        (new IDMustBePositiveInt())->goCheck();
-//        $data['info'] = $this->dealData(InfoModel::getIdInfo($id));
-//        $data['comment'] = $this->dealData(Comment::getComment($id));
-//        return json($data);
-//    }
-
+    public function getQiniuToken(){
+        return getQiniuTokenWx();
+    }
     //回复功能
     public function replyUser(){
         $request = Request::instance();

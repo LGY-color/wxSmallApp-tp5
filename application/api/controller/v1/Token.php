@@ -25,16 +25,18 @@ class Token extends Controller
         return json($token);
     }
     //验证token
-    public function verifyToken($token=''){
+    public function verifyToken(){
+        $token = Request::instance()->header('token');
         if(!$token){
             throw new ParamsException([
                 'token不允许为空'
             ]);
         }
+
         $valid = TokenService::verifyToken($token);
-        return [
+        return json([
             'isValid' => $valid
-        ];
+        ])  ;
     }
 
 }

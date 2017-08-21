@@ -255,10 +255,55 @@ class Info extends BaseModel
     }
 
     //数据插入
-    public static function InsertInfo($list){
-        $info = Info::create($list);
-        $result = $info->id;
-        return $result;
+    public static function InsertInfo($params){
+        $insert = [
+            'title'=>isset($params['title'])?$params['title']:'',
+            'big_item_id'=>isset($params['big_item_id'])?$params['big_item_id']:'',
+            'province'=>isset($params['province'])?$params['province']:'',
+            'valid_period'=>isset($params['valid_period'])?$params['valid_period']:'',
+            'monthly_rent'=>isset($params['monthly_rent'])?$params['monthly_rent']:'',
+            'day_turnover'=>isset($params['day_turnover'])?$params['day_turnover']:'',
+            'water_electricity'=>isset($params['water_electricity'])?$params['water_electricity']:'',
+            'to_serve'=>isset($params['to_serve'])?$params['to_serve']:'',
+            'transfer_fee'=>isset($params['transfer_fee'])?$params['transfer_fee']:'',
+            'monthly_salary'=>isset($params['monthly_salary'])?$params['monthly_salary']:'',
+            'sex'=>isset($params['sex'])?$params['sex']:'',
+            'work_experience'=>isset($params['work_experience'])?$params['work_experience']:'',
+            'work_skill'=>isset($params['work_skill'])?$params['work_skill']:'',
+            'work_hours'=>isset($params['work_hours'])?$params['work_hours']:'',
+            'age'=>isset($params['age'])?$params['age']:'',
+            'health_status'=>isset($params['health_status'])?$params['health_status']:'',
+            'cash_pledge'=>isset($params['cash_pledge'])?$params['cash_pledge']:'',
+            'live_conditions'=>isset($params['live_conditions'])?$params['live_conditions']:'',
+            'takeaway_status'=>isset($params['takeaway_status'])?$params['takeaway_status']:'',
+            'open_hours'=>isset($params['open_hours'])?$params['open_hours']:'',
+            'close_hours'=>isset($params['close_hours'])?$params['close_hours']:'',
+            'new_old'=>isset($params['new_old'])?$params['new_old']:'',
+            'decoration'=>isset($params['decoration'])?$params['decoration']:'',
+            'shop_facilities'=>isset($params['shop_facilities'])?$params['shop_facilities']:'',
+            'hold_credentials'=>isset($params['hold_credentials'])?$params['hold_credentials']:'',
+            'surroundings'=>isset($params['surroundings'])?$params['surroundings']:'',
+            'contact_name'=>isset($params['contact_name'])?$params['contact_name']:'',
+            'contact_phone'=>isset($params['contact_phone'])?$params['contact_phone']:'',
+            'contact_qq'=>isset($params['contact_qq'])?$params['contact_qq']:'',
+            'contact_wx'=>isset($params['contact_wx'])?$params['contact_wx']:'',
+            'shop_area'=>isset($params['shop_area'])?$params['shop_area']:'',
+            'shop_address'=>isset($params['shop_address'])?$params['shop_address']:'',
+            'content'=>isset($params['content'])?$params['content']:'',
+            'update_time'=>time(),
+            'ip'=>getIP()
+        ];
+        $id = Db::table('pdzg_info')->insertGetId($insert);
+        $insertImg = [
+            'url'=>$params['img_url'],
+            'info_id'=>$id
+        ];
+        $result = Db::table('pdzg_img_url')->data($insertImg)->insert();
+        if($result){
+            return $result;
+        }else{
+            throw new DbException();
+        }
     }
 
     //更新数据

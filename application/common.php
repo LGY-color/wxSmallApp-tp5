@@ -167,7 +167,7 @@ function getIP(){
     return $ip;
 }
 
-//获取七牛云的Token
+//获取七牛云的Token 后台
 function getQiniuToken(){
     require_once APP_PATH . '/../vendor/qiniu/autoload.php';
     $accessKey = config('qiniu.ACCESSKEY');
@@ -180,6 +180,21 @@ function getQiniuToken(){
     $res = [
         'uploadToken'=>$upToken,
         'filename'=>$filename
+    ];
+    return json($res);
+}
+
+//获取七牛云的Token 小程序
+function getQiniuTokenWx(){
+    require_once APP_PATH . '/../vendor/qiniu/autoload.php';
+    $accessKey = config('qiniu.ACCESSKEY');
+    $secretKey = config('qiniu.SECRETKEY');
+//        $auth = new Auth($accessKey, $secretKey);
+    $auth = new Auth($accessKey, $secretKey);
+    $bucket = config('qiniu.BUCKET');
+    $upToken = $auth->uploadToken($bucket);
+    $res = [
+        'uptoken'=>$upToken,
     ];
     return json($res);
 }

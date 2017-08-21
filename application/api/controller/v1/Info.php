@@ -77,8 +77,9 @@ class Info extends Base
 
     //发布信息
     public function InsertInfo(){
-        $request =Request::instance();
+        $request = Request::instance();
         $params = $request->post();
+        $params = $this->dealDataByWx($params);
         $result = InfoModel::InsertInfo($params);
         return json($result);
     }
@@ -109,7 +110,7 @@ class Info extends Base
     }
 
 
-    //处理获得数据
+    //处理sql查出数据
     public function dealData($data){
         foreach ($data as $k=>$value){
             $data[$k]['update_time']= date('Y-m-d H:i:s',$value['update_time']);
@@ -121,6 +122,14 @@ class Info extends Base
         foreach ($data as $k=>$value){
             $data[$k]['update_time']= date('Y-m-d H:i:s',$value['update_time']);
         }
+        return $data;
+    }
+
+    //处理微信小程序上传的数据
+    public function dealDataByWx($data){
+        $data['hold_credentials'] = implode(',',$data['hold_credentials']);
+        $data['shop_facilities'] = implode(',',$data['shop_facilities']);
+        $data['surroundings'] = implode(',',$data['surroundings']);
         return $data;
     }
 }
