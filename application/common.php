@@ -86,6 +86,7 @@ function countExpenses($params=[]){
     }
     return $cost;
 }
+
 //计算置顶费用
 function countTopMoney($params=[]){
     $cost = 0;
@@ -109,6 +110,7 @@ function countTopMoney($params=[]){
     }
     return $cost;
 }
+
 //查看用户等级
 function countUserLevel($level){
     $lv = '普通用户';
@@ -139,7 +141,6 @@ function countUserLevel($level){
     return $lv;
 
 }
-
 //检查用户设置是否超越权限
 
 //设置密码混淆
@@ -147,6 +148,7 @@ function psMD5($password){
     $password = $password+'xcpdlgy';
     return md5($password);
 }
+
 //获取用户
 function getAdminName(){
     return \think\Session::get('admin_sxxcpd_user');
@@ -197,6 +199,38 @@ function getQiniuTokenWx(){
         'uptoken'=>$upToken,
     ];
     return json($res);
+}
+
+//类型换算数字id
+function getItemId($text){
+    $itemId = 0;
+    switch ($text){
+        case '店铺转让':
+            $itemId = 5;
+            break;
+        case '求转店铺':
+            $itemId = 6;
+            break;
+        case '招工信息':
+            $itemId = 7;
+            break;
+        case '求职信息':
+            $itemId = 8;
+            break;
+        case '对外承包':
+            $itemId = 9;
+            break;
+        case '需求承包':
+            $itemId = 10;
+            break;
+        case '餐具设备':
+            $itemId = 11;
+            break;
+        case '其他物品':
+            $itemId = 12;
+            break;
+    }
+    return $itemId;
 }
 
 

@@ -22,7 +22,7 @@ use app\api\service\Token as TokenService;
 class Base extends Controller
 {
     protected $beforeActionList = [
-        'checkToken'  =>  ['only'=>'InsertInfo'],
+        'checkToken'  =>  ['only'=>'InsertInfo,getPublish'],
     ];
     protected  function checkToken(){
         $token = Request::instance()->header('token');
@@ -36,6 +36,8 @@ class Base extends Controller
             throw new ParamsException([
                'msg'=>'令牌错误了'
             ]);
+        }else{
+
         }
         return $result;
     }

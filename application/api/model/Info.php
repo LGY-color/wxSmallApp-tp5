@@ -11,6 +11,7 @@ namespace app\api\model;
 
 use app\lib\exception\DbException;
 use think\Db;
+use think\Session;
 
 class Info extends BaseModel
 {
@@ -257,8 +258,9 @@ class Info extends BaseModel
     //数据插入
     public static function InsertInfo($params){
         $insert = [
+            'user_id'=>Session::get('userid'),
+            'big_item_id'=>getItemId($params['classify']),
             'title'=>isset($params['title'])?$params['title']:'',
-            'big_item_id'=>isset($params['big_item_id'])?$params['big_item_id']:'',
             'province'=>isset($params['province'])?$params['province']:'',
             'valid_period'=>isset($params['valid_period'])?$params['valid_period']:'',
             'monthly_rent'=>isset($params['monthly_rent'])?$params['monthly_rent']:'',
@@ -325,14 +327,28 @@ class Info extends BaseModel
     }
 
     //查询已经个人发布的信息
-    public static function getPublish($id){
-        $info = new Info();
-        $condition = [
-            'user_id' =>$id
+    public static function getPublish($start=0,$limit=5){
+        $field = [
+            'i.id AS i_id,i.title,i.update_time,i.ip,i.status AS info_status,i.content',
+            'u.id AS uid,u.username',
+            'bi.item_name',
+            'lv.*,lv.id AS lv_id',
+            'url.url AS img_url'
         ];
-        $result = $info->all(function($query) use ($condition){
-            $query->where($condition)->order('update_time','DESC');
-        });
+        $condition = [
+            'i.status'=>['<>',0],
+            'i.user_id'=>Session::get('userid')
+        ];
+        $join = [
+            ['pdzg_user u','u.id=i.user_id','LEFT'],
+            ['pdzg_big_item bi','bi.id=i.big_item_id','LEFT'],
+            ['pdzg_level_type lv','lv.id = i.level_type_id','LEFT'],
+            ['pdzg_img_url url','url.info_id = i.id','LEFT']
+        ];
+        $order = [
+            'i.update_time'=>'DESC'
+        ];
+        $result = Db::field($field)->table('pdzg_info')->alias('i')->where($condition)->join($join)->order($order)->limit($start,$limit)->select();
         return $result;
     }
 

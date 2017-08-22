@@ -29,7 +29,7 @@ Route::post('api/:version/info/getInfo','api/:version.Info/getConditionInfo');
 //根据id 进入详情
 Route::get('api/:version/info/getIdInfo/:id','api/:version.Info/getIdInfo');
 //获取用户已发布的信息
-Route::get('api/:version/info/getPublish/:id','api/:version.Info/getPublish');
+Route::get('api/:version/info/getPublish/:page','api/:version.Info/getPublish');
 //获取用户已收藏信息
 Route::get('api/:version/info/getCollection/:id','api/:version.Info/getCollection');
 //获取用户评论信息

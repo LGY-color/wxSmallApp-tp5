@@ -9,7 +9,10 @@
 namespace app\api\service;
 
 
+use app\api\model\User;
+use app\lib\exception\DbException;
 use think\Cache;
+use think\Session;
 
 class Token
 {
@@ -26,7 +29,12 @@ class Token
     public static function verifyToken($token)
     {
         $exist = Cache::get($token);
-        if($exist){
+        $exist = json_decode($exist,true);
+        $openid = $exist['openid'];
+        $result = User::getByOpenID($openid);
+        $userid = $result->id;
+        Session::set('userid',$userid);
+        if($userid){
             return true;
         }
         else{

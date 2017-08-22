@@ -11,6 +11,7 @@ namespace app\api\controller\v1;
 
 use app\api\model\Comment;
 use app\api\validate\IDMustBePositiveInt;
+use app\lib\exception\DbException;
 use think\Controller;
 use app\api\model\Collection as ColModel;
 use think\Request;
@@ -91,9 +92,10 @@ class Info extends Base
         return json($result);
     }
     //获取用户已发布的信息
-    public function getPublish($id){
-        (new IDMustBePositiveInt())->goCheck();
-        $data = InfoModel::getPublish($id);
+    public function getPublish($page){
+//        (new IDMustBePositiveInt())->goCheck();
+        $data = InfoModel::getPublish($page);
+        $data = $this->dealData($data);
         return json($data);
     }
     //获取用户收藏信息
@@ -127,9 +129,18 @@ class Info extends Base
 
     //处理微信小程序上传的数据
     public function dealDataByWx($data){
-        $data['hold_credentials'] = implode(',',$data['hold_credentials']);
-        $data['shop_facilities'] = implode(',',$data['shop_facilities']);
-        $data['surroundings'] = implode(',',$data['surroundings']);
+        if(isset($data['hold_credentials'])){
+            $data['hold_credentials'] = implode(',',$data['hold_credentials']);
+        }
+        if(isset($data['shop_facilities'])){
+            $data['shop_facilities'] = implode(',',$data['shop_facilities']);
+        }
+        if(isset($data['surroundings'])){
+            $data['surroundings'] = implode(',',$data['surroundings']);
+        }
+        if(isset($data['img_url'])){
+            $data['img_url'] = implode(',',$data['img_url']);
+        }
         return $data;
     }
 }
