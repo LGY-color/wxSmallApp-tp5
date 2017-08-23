@@ -10,6 +10,8 @@ namespace app\api\model;
 
 
 use app\lib\exception\DbException;
+use app\lib\exception\MoneyException;
+use think\Config;
 use think\Db;
 use think\Session;
 
@@ -251,10 +253,18 @@ class Info extends BaseModel
         $order = [
             'update_time'=>'DESC',
         ];
+        $add = self::clickAdd($id);
         $result = Db::field($field)->table('pdzg_info')->alias('i')->where($condition)->join($join)->order($order)->select();
         return $result;
     }
-
+    //点击量+1
+    public static function clickAdd($id){
+        $condition = [
+            'id'=>$id
+        ];
+        $result = Db::table('pdzg_info')->where($condition)->setInc('click_num');
+        return $result;
+    }
     //数据插入
     public static function InsertInfo($params){
         $insert = [
@@ -308,23 +318,39 @@ class Info extends BaseModel
         }
     }
 
-    //更新数据
-    public static function UpdateInfo($list){
-        $info = new Info();
-        $condition = [
-            'user_id'=>$list['user_id'],
-            'id'=>$list['id']
-        ];
-        $have = $info->get($condition);
-        if($have){
-            $data = [
-              $list
-            ];
-            $result = $info->saveAll($data);
-            return $result;
+    //刷新
+    public static function refreshById($id){
+        $money = User::getGoldCoinById();
+        $cost = config('expenses.refresh');
+        if((int)$money >= $cost){
+            $params['cost']  = $cost;
+            $minus = User::minusGold($params);
+            if($minus){
+                $result = Db::table('think_user')->where('id',$id)->setField('update_time', time());
+                return $result;
+            }
+        }else{
+            throw new MoneyException();
         }
-        return $have;
+
     }
+//    //更新数据
+//    public static function UpdateInfo($list){
+//        $info = new Info();
+//        $condition = [
+//            'user_id'=>$list['user_id'],
+//            'id'=>$list['id']
+//        ];
+//        $have = $info->get($condition);
+//        if($have){
+//            $data = [
+//              $list
+//            ];
+//            $result = $info->saveAll($data);
+//            return $result;
+//        }
+//        return $have;
+//    }
 
     //查询已经个人发布的信息
     public static function getPublish($start=0,$limit=5){

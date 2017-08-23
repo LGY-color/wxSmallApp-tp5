@@ -9,6 +9,10 @@
 namespace app\api\model;
 
 
+use app\lib\exception\DbException;
+use think\Db;
+use think\Session;
+
 class User extends BaseModel
 {
     public static function getByOpenID($openid){
@@ -17,9 +21,20 @@ class User extends BaseModel
     }
 
     //根据用户用户余额
-    public static function getGoldCoinById($user_id){
-        $result = Db::field('gold_coin')->table('pdzg_user')->where('id',$user_id)->find();
-        return $result['gold_coin'];
+    public static function getGoldCoinById(){
+        $condition = [
+            'id'=> Session::get('userid')
+        ];
+        $result = Db::field('gold_coin')->table('pdzg_user')->where($condition)->find();
+        return $result;
+    }
+    //扣除金币
+    public static function minusGold($params){
+        $condition = [
+            'id'=>Session::get('userid')
+        ];
+        $result = Db::table('pdzg_user')->where($condition)->setDec('gold_coin',$params['cost']);
+        return $result;
     }
 
 }

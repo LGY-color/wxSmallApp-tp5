@@ -22,6 +22,9 @@ Route::get('api/:version/bitem','api/:version.Item/getBigItem');
 Route::get('api/:version/sitem','api/:version.Item/getSmallItem');
 //大分类下的子分类 包括筛选条件
 Route::get('api/:version/sitem/:id','api/:version.Item/getFilterItem');
+//根据分类id获取具体的子分类下的条件
+Route::get('api/:version/item/getItemByName/:id','api/:version.Item/getItemByName');
+
 //根据筛选条件获取数据
 Route::get('api/:version/info/:id','api/:version.Info/getConditionInfo');
 //根据筛选条件获取数据 中文get会转码
@@ -38,10 +41,6 @@ Route::get('api/:version/info/getUserComment/:id','api/:version.Info/getUserComm
 Route::get('api/:version/info/getInfoByItem/:id','api/:version.Info/getInfoByItem');
 //根据筛选条件获取信息
 Route::post('api/:version/info/getConditionInfo','api/:version.Info/getConditionInfo');
-
-//根据分类id获取具体的子分类下的条件
-Route::get('api/:version/item/getItemByName/:id','api/:version.Item/getItemByName');
-
 //获取更多置顶信息
 Route::get('api/:version/info/getMoreTop/:page','api/:version.Info/getMoreTop');
 //获取更多星级信息
@@ -57,6 +56,8 @@ Route::get('api/:version/info/getMoreDmcb/:page','api/:version.Info/getMoreDmcb'
 //获取更多二手市场信息
 Route::get('api/:version/info/getMoreEssc/:page','api/:version.Info/getMoreEssc');
 
+//设置 置顶 套红 加粗
+Route::post('api/:version/level/setLevelStatus','api/:version.Level/setLevelStatus');
 
 // +----------------------------------------------------------------------
 // | post create update 暂定不用put

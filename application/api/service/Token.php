@@ -11,6 +11,7 @@ namespace app\api\service;
 
 use app\api\model\User;
 use app\lib\exception\DbException;
+use app\lib\exception\ParamsException;
 use think\Cache;
 use think\Session;
 
@@ -29,6 +30,9 @@ class Token
     public static function verifyToken($token)
     {
         $exist = Cache::get($token);
+        if(!$exist){
+            return false;
+        }
         $exist = json_decode($exist,true);
         $openid = $exist['openid'];
         $result = User::getByOpenID($openid);
@@ -38,7 +42,9 @@ class Token
             return true;
         }
         else{
-            return false;
+            throw new ParamsException([
+               'msg'=>'用户不存在'
+            ]);
         }
     }
 }

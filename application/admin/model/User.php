@@ -38,7 +38,7 @@ class User extends BaseModel
     //根据用户用户余额
     public static function getGoldCoinById($user_id){
         $result = Db::field('gold_coin')->table('pdzg_user')->where('id',$user_id)->find();
-        return $result['gold_coin'];
+        return $result;
     }
     //获取用户列表
     public static function getUserList(){

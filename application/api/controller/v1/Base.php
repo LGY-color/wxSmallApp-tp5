@@ -22,7 +22,7 @@ use app\api\service\Token as TokenService;
 class Base extends Controller
 {
     protected $beforeActionList = [
-        'checkToken'  =>  ['only'=>'InsertInfo,getPublish'],
+        'checkToken'  =>  ['only'=>'InsertInfo,getPublish,setLevelStatus'],
     ];
     protected  function checkToken(){
         $token = Request::instance()->header('token');
@@ -44,13 +44,13 @@ class Base extends Controller
     public function getQiniuToken(){
         return getQiniuTokenWx();
     }
-    //回复功能
-    public function replyUser(){
-        $request = Request::instance();
-        $params = $request->post();
-        $result = News::replyUser($params);
-        return json($result);
-    }
+//    //回复功能
+//    public function replyUser(){
+//        $request = Request::instance();
+//        $params = $request->post();
+//        $result = News::replyUser($params);
+//        return json($result);
+//    }
 
 
 
