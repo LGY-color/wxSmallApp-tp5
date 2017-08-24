@@ -11,25 +11,21 @@ namespace app\api\model;
 
 use app\lib\exception\DbException;
 use think\Db;
+use think\Session;
 
 class News extends BaseModel
 {
-    //回复信息 分别插入comment表和news表
-    public static function replyUser($data){
-        $result['comment'] = Db::table('pdzg_comment')->insert($data);
-        if(!$result['comment']){
-            throw new DbException();
-        }
-        $comment_id = Db::table('pdzg_comment')->getLastInsID();
-        $news_data = [
-            'user_id'=>$data['user_id'],
-            'reply_user_id'=>$data['reply_user_id'],
-            'comment_id'=>$comment_id
+    //回复信息插入 news
+    public static function replyUser($params){
+        $data = [
+            'info_id'=>(int)$params['infoid'],
+            'user_id'=>Session::get('userid'),
+            'comment_id'=>$params['comment_id'],
+            'reply_user_id'=>isset($params['reply_user_id'])?$params['reply_user_id']:'',
+            'create_time'=>time(),
+            'update_time'=>time()
         ];
-        $result['news'] = Db::table('pdzg_news')->insert($news_data);
-        if(!$result['news']){
-            throw new DbException();
-        }
+        $result = Db::table('pdzg_news')->insert($data);
         return $result;
     }
     //获取未读信息条数

@@ -20,7 +20,7 @@ class LevelType
         //1.先查看 是否已经存在当前info_id 状态设置 若无新建 有则修改
         //2.计算出要花费的金币
         //3.比对当前用户金币是否足够 不够的话 返回提示
-        //4.修改状态 扣除金币
+        //4.修改状态 扣除金币 记录订单order
         $existId = self::existInfoId($params);
         $params['id'] = $existId['id'];
         if($params['level'] == config('order.top')){
@@ -34,17 +34,20 @@ class LevelType
         }
         $cost = countExpenses($params);
         $gold = User::getGoldCoinById();
-        $gold = $gold['gold_coin'];
+//        $gold = $gold['gold_coin'];
         if((int)$cost <= (int)$gold){
             $params['cost'] = $cost;
             if($existId){
                 $result = self::setLevelStatus($params);
+                Order::createOrder($params);
             }else{
                 $result = self::addNew($params);
+                Order::createOrder($params);
             }
         }else{
             throw new MoneyException([
-                'msg'=>'金币不足，请充值！'
+                'msg'=>'金币不足，请充值！',
+                'errorCode'=>'7788'
             ]);
         }
         return $result;

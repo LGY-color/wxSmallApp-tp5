@@ -58,6 +58,13 @@ Route::get('api/:version/info/getMoreEssc/:page','api/:version.Info/getMoreEssc'
 
 //设置 置顶 套红 加粗
 Route::post('api/:version/level/setLevelStatus','api/:version.Level/setLevelStatus');
+//用户刷新
+Route::get('api/:version/info/setRefresh/:id','api/:version.Info/setRefresh');
+//用户设置已成交
+Route::get('api/:version/info/setDeal/:id','api/:version.Info/setDeal');
+
+//用户评论
+Route::post('api/:version/comment/infoReply','api/:version.Comment/infoReply');
 
 // +----------------------------------------------------------------------
 // | post create update 暂定不用put

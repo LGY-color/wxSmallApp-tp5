@@ -21,7 +21,7 @@ class Info extends Base
     //筛选条件获取信息
     public function getConditionInfo(){
         $request =Request::instance();
-        $params = $request->post();
+        $params = $request->param();
         $data = $this->dealData(InfoModel::getConditionInfo($params));
         return json($data);
     }
@@ -75,11 +75,10 @@ class Info extends Base
         $result = InfoModel::getEsscInfo($page);
         return json($result);
     }
-
     //发布信息
     public function InsertInfo(){
         $request = Request::instance();
-        $params = $request->post();
+        $params = $request->param();
         $params = $this->dealDataByWx($params);
         $result = InfoModel::InsertInfo($params);
         return json($result);
@@ -87,7 +86,7 @@ class Info extends Base
     //更新数据
     public function UpdateInfo(){
         $request =Request::instance();
-        $params = $request->post();
+        $params = $request->param();
         $result = InfoModel::UpdateInfo($params);
         return json($result);
     }
@@ -110,6 +109,39 @@ class Info extends Base
         $result = Comment::getUserComment($id);
         return json($result);
     }
+    //用户刷新
+    public function setRefresh($id){
+        (new IDMustBePositiveInt())->goCheck();
+        $result = InfoModel::refreshById($id);
+        if($result){
+            $res = [
+                'code'=>200,
+                'msg'=>'操作成功！',
+            ];
+            return json($res);
+        }else{
+            throw new DbException([
+                'msg'=>'操作失败，请重试！'
+            ]);
+        }
+    }
+    //设置消息已成交
+    public function setDeal($id){
+        (new IDMustBePositiveInt())->goCheck();
+        $result = InfoModel::setDeal($id);
+        if($result){
+            $res = [
+                'code'=>200,
+                'msg'=>'操作成功！',
+            ];
+            return json($res);
+        }else{
+            throw new DbException([
+                'msg'=>'操作失败，请重试！'
+            ]);
+        }
+    }
+
 
 
     //处理sql查出数据
@@ -141,6 +173,7 @@ class Info extends Base
         if(isset($data['img_url'])){
             $data['img_url'] = implode(',',$data['img_url']);
         }
+
         return $data;
     }
 }

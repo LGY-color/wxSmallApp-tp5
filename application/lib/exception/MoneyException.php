@@ -11,7 +11,7 @@ namespace app\lib\exception;
 
 class MoneyException extends BaseException
 {
-    public $code = 400;
+    public $code = 200;
     public $msg = '您的金币不足';
     public $errorCode = 10000;
 }

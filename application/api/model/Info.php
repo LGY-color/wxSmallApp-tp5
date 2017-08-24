@@ -326,11 +326,27 @@ class Info extends BaseModel
             $params['cost']  = $cost;
             $minus = User::minusGold($params);
             if($minus){
-                $result = Db::table('think_user')->where('id',$id)->setField('update_time', time());
+                $result = Db::table('pdzg_info')->where('id',$id)->setField('update_time', time());
+                $params['level_type'] = config('order.refresh');
+                $params['infoid'] = $id;
+                $params['order_money'] = $cost;
+                Order::insertOrder($params);
                 return $result;
             }
         }else{
-            throw new MoneyException();
+            throw new MoneyException([
+                'msg'=>'金币不足，请充值！',
+                'errorCode'=>'7788'
+            ]);
+        }
+    }
+    //设置已成交
+    public static function setDeal($id){
+        $result = Db::table('pdzg_info')->where('id',$id)->setField('status', 0);
+        if($result){
+            return $result;
+        }else{
+            throw new DbException();
         }
 
     }

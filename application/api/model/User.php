@@ -26,7 +26,7 @@ class User extends BaseModel
             'id'=> Session::get('userid')
         ];
         $result = Db::field('gold_coin')->table('pdzg_user')->where($condition)->find();
-        return $result;
+        return $result['gold_coin'];
     }
     //扣除金币
     public static function minusGold($params){

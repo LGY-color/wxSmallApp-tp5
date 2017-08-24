@@ -45,7 +45,6 @@ class Order extends BaseModel
             }
         }
         if(isset($params['top'])){
-
             if($params['top'] == 1){
                 $params['level_type'] = config('order.top');
                 $params['order_money'] = countTopMoney($params);
