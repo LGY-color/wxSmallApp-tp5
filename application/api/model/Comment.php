@@ -15,10 +15,10 @@ use think\Session;
 
 class Comment extends BaseModel
 {
-    //根据当前信息获取评论信息
-    public static function getComment($infoId){
+    //根据当前info_id信息获取评论信息
+    public static function getComment($infoId,$page=0){
         $field = [
-            'c.id as c_id,u.username as u_name,u.id as uid,u.code_id,c.update_time,c.content,ur.username as ur_name,ur.id as urid'
+            'c.id as c_id,u.username as u_name,u.id as uid,u.code_id,c.update_time,c.content,ur.username as ur_name,ur.id as urid,u.img_url AS uimg'
         ];
         $condition = [
             'c.info_id'=>$infoId,
@@ -31,7 +31,7 @@ class Comment extends BaseModel
             ['pdzg_user u','c.user_id = u.id','LEFT'],
             ['pdzg_user ur','c.reply_user_id = ur.id','LEFT']
         ];
-        $result = Db::field($field)->table('pdzg_comment')->alias('c')->join($join)->where($condition)->order($order)->select();
+        $result = Db::field($field)->table('pdzg_comment')->alias('c')->join($join)->where($condition)->order($order)->limit($page,10)->select();
         return $result;
     }
     //用户回复评论
@@ -46,6 +46,8 @@ class Comment extends BaseModel
         ];
         if(isset($params['replyid'])){
             $data['reply_user_id'] = $params['replyid'];
+        }else{
+            $params['replyid'] = $params['authorid'];
         }
         $commentId = Db::table('pdzg_comment')->insertGetId($data);
         $params['comment_id'] = $commentId;
@@ -58,15 +60,22 @@ class Comment extends BaseModel
 
     }
     //获取用户评论信息
-    public static function getUserComment($id){
+    public static function getUserComment($page=0){
+        $field = [
+            'c.id as c_id,u.username as u_name,u.id as uid,u.code_id,c.update_time,c.content,ur.username as ur_name,ur.id as urid,u.img_url AS uimg,c.info_id'
+        ];
         $condition = [
-            'user_id'=>$id,
-            'status'=>1
+            'c.user_id'=>Session::get('userid'),
+            'c.status'=>1
         ];
         $order = [
-            'update_time DESC'
+            'c.update_time'=>'DESC'
         ];
-        $result = Db::table('pdzg_comment')->where($condition)->order($order)->select();
+        $join = [
+            ['pdzg_user u','c.user_id = u.id','LEFT'],
+            ['pdzg_user ur','c.reply_user_id = ur.id','LEFT']
+        ];
+        $result = Db::field($field)->table('pdzg_comment')->alias('c')->join($join)->where($condition)->order($order)->limit($page,10)->select();
         return $result;
     }
 }

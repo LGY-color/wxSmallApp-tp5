@@ -14,13 +14,19 @@ use app\api\validate\TokenGet;
 use app\lib\exception\ParamsException;
 use app\api\service\Token as TokenService;
 use think\Controller;
+use think\Request;
 
 class Token extends Controller
 {
     //获取token
-    public function getToken($code='',$username=''){
+    public function getToken(){
         (new TokenGet())->goCheck();
-        $user_token = new UserToken($code,$username);
+        $request = Request::instance();
+        $params = $request->param();
+        $code = $params['code'];
+        $username = $params['username'];
+        $img = isset($params['img'])?$params['img']:'';
+        $user_token = new UserToken($code,$username,$img);
         $token['token'] = $user_token->get();
         return json($token);
     }

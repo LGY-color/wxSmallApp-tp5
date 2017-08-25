@@ -9,6 +9,7 @@
 namespace app\api\controller\v1;
 
 
+use app\api\model\Collection;
 use app\api\model\Comment;
 use app\api\validate\IDMustBePositiveInt;
 use app\lib\exception\DbException;
@@ -26,10 +27,10 @@ class Info extends Base
         return json($data);
     }
     //根据id进入详细
-    public function getIdInfo($id){
+    public function getIdInfo($id,$page){
         (new IDMustBePositiveInt())->goCheck();
         $data['info'] = $this->dealData(InfoModel::getIdInfo($id));
-        $data['comment'] = $this->dealTime(Comment::getComment($id));
+        $data['comment'] = $this->dealTime(Comment::getComment($id,$page));
         return json($data);
     }
     //根据分类获取信息
@@ -96,18 +97,6 @@ class Info extends Base
         $data = InfoModel::getPublish($page);
         $data = $this->dealData($data);
         return json($data);
-    }
-    //获取用户收藏信息
-    public function getCollection($id){
-        (new IDMustBePositiveInt())->goCheck();
-        $result = ColModel::getCollection($id);
-        return json($result);
-    }
-    //获取当前用户评论信息
-    public function getUserComment($id){
-        (new IDMustBePositiveInt())->goCheck();
-        $result = Comment::getUserComment($id);
-        return json($result);
     }
     //用户刷新
     public function setRefresh($id){

@@ -20,9 +20,10 @@ class UserToken extends Token
     protected $wxAppID;
     protected $wxAppSecret;
     protected $wxLoginUrl;
-    function __construct($code,$username){
+    function __construct($code,$username,$img){
         $this->code = $code;
         $this->username = $username;
+        $this->img = $img;
         $this->wxAppID = config('wx.app_id');
         $this->wxAppSecret = config('wx.app_secret');
         $this->wxLoginUrl = sprintf(config('wx.login_url'),$this->wxAppID,$this->wxAppSecret,$this->code);
@@ -47,6 +48,7 @@ class UserToken extends Token
         $user = User::create([
             'openid' =>$openid,
             'username'=>$this->username,
+            'img_url'=>$this->img,
             'level'=>8,
             'create_time'=>time(),
         ]);

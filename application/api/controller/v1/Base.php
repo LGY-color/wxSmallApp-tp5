@@ -13,6 +13,7 @@ use app\api\model\Collection;
 use app\api\model\News;
 use app\api\validate\IDMustBePositiveInt;
 use app\lib\exception\ParamsException;
+use app\lib\exception\TokenException;
 use think\Controller;
 use app\api\model\Info as InfoModel;
 use app\api\model\Comment;
@@ -22,7 +23,7 @@ use app\api\service\Token as TokenService;
 class Base extends Controller
 {
     protected $beforeActionList = [
-        'checkToken'  =>  ['only'=>'InsertInfo,getPublish,setLevelStatus,setRefresh,setDeal,infoReply'],
+        'checkToken'  =>  ['only'=>'InsertInfo,getPublish,setLevelStatus,setRefresh,setDeal,infoReply,infoCollection,collectionInfo,getUserComment,getNoReadNum,getUserNews'],
     ];
     protected  function checkToken(){
         $token = Request::instance()->header('token');
@@ -33,9 +34,7 @@ class Base extends Controller
         }
         $result = TokenService::verifyToken($token);
         if(!$result){
-            throw new ParamsException([
-               'msg'=>'令牌错误了'
-            ]);
+            throw new TokenException();
         }else{
 
         }
@@ -44,13 +43,6 @@ class Base extends Controller
     public function getQiniuToken(){
         return getQiniuTokenWx();
     }
-//    //回复功能
-//    public function replyUser(){
-//        $request = Request::instance();
-//        $params = $request->post();
-//        $result = News::replyUser($params);
-//        return json($result);
-//    }
 
 
 
