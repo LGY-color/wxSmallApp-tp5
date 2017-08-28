@@ -19,13 +19,6 @@ class Collection extends Base
         $result = CollectionModel::infoCollection($id);
         return json($result);
     }
-    //
-    //获取用户收藏信息
-    public function getCollection($id){
-        (new IDMustBePositiveInt())->goCheck();
-        $result = CollectionModel::getCollection($id);
-        return json($result);
-    }
     //用户收藏行为 若未收藏改已收藏 已收藏改未收藏
     public function collectionInfo(){
         $request = Request::instance();
@@ -42,5 +35,22 @@ class Collection extends Base
                 'msg'=>'操作失败，请重试！'
             ]);
         }
+    }
+
+    //获取个人收藏信息
+    public function getUserCollection(){
+        $request = Request::instance();
+        $params = $request->param();
+        $page = $params['page'];
+        $result = $this->dealTime(CollectionModel::getUserCollection($page));
+        return json($result);
+    }
+
+    //处理查出的数据
+    public function dealTime($data){
+        foreach ($data as $k=>$value){
+            $data[$k]['update_time']= date('Y-m-d H:i:s',$value['update_time']);
+        }
+        return $data;
     }
 }

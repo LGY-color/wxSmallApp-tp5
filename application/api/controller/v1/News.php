@@ -11,7 +11,7 @@ namespace app\api\controller\v1;
 use app\api\model\News AS NewsModel;
 use think\Request;
 
-class News extends Base
+class News
 {
     //获取用户未读消息数目
     public function getNoReadNum(){

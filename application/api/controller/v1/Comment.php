@@ -30,12 +30,29 @@ class Comment extends Base
             ]);
         }
     }
+
     //获取当前用户评论信息
     public function getUserComment(){
         $request = Request::instance();
         $params = $request->param();
         $page = $params['page'];
         $result = $this->dealTime(CommentModel::getUserComment($page));
+        return json($result);
+    }
+
+
+
+    //查询未读评论
+    public function getNoReadNum(){
+        $result['noReadNum'] = CommentModel::noReadNum();
+        return json($result);
+    }
+    //获取用户消息
+    public function getUserNews(){
+        $request =Request::instance();
+        $params = $request->param();
+        $page = $params['page'];
+        $result = $this->dealTime(CommentModel::getUserNews($page));
         return json($result);
     }
 

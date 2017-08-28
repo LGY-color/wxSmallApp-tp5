@@ -33,8 +33,8 @@ Route::post('api/:version/info/getInfo','api/:version.Info/getConditionInfo');
 Route::get('api/:version/info/getIdInfo/:id','api/:version.Info/getIdInfo');
 //获取用户已发布的信息
 Route::get('api/:version/info/getPublish/:page','api/:version.Info/getPublish');
-//获取用户已收藏信息
-Route::get('api/:version/info/getCollection/:id','api/:version.Info/getCollection');
+////获取用户已收藏信息
+//Route::get('api/:version/info/getCollection/:id','api/:version.Info/getCollection');
 //根据分类id获取信息
 Route::get('api/:version/info/getInfoByItem/:id','api/:version.Info/getInfoByItem');
 //根据筛选条件获取信息
@@ -67,13 +67,21 @@ Route::post('api/:version/comment/infoReply','api/:version.Comment/infoReply');
 Route::get('api/:version/collection/infoCollection/:id','api/:version.Collection/infoCollection');
 //用户收藏行为
 Route::post('api/:version/collection/collectionInfo','api/:version.Collection/collectionInfo');
+
+//获取用户已收藏信息
+Route::get('api/:version/collection/getUserCollection','api/:version.Collection/getUserCollection');
+//获取用户信息
+Route::get('api/:version/user/getUserInfo','api/:version.User/getUserInfo');
+//用户解锁
+Route::get('api/:version/user/toUnlock','api/:version.User/toUnlock');
 //获取用户评论信息
 Route::get('api/:version/comment/getUserComment','api/:version.Comment/getUserComment');
 
 //获取用户未读消息数
-Route::get('api/:version/news/getNoReadNum','api/:version.News/getNoReadNum');
+Route::get('api/:version/comment/getNoReadNum','api/:version.Comment/getNoReadNum');
 //获取用户消息数
-Route::get('api/:version/news/getUserNews','api/:version.News/getUserNews');
+Route::get('api/:version/comment/getUserNews','api/:version.Comment/getUserNews');
+
 
 // +----------------------------------------------------------------------
 // | post create update 暂定不用put

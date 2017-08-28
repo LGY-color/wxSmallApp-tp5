@@ -305,6 +305,20 @@ class Info extends BaseModel
             'update_time'=>time(),
             'ip'=>getIP()
         ];
+
+
+//        Db::startTrans();
+//        try{
+//
+//            // 提交事务
+//            Db::commit();
+//        } catch (\Exception $e) {
+//            // 回滚事务
+//            Db::rollback();
+//        }
+
+        //扣除发布数
+        User::minusPublish();
         $id = Db::table('pdzg_info')->insertGetId($insert);
         $insertImg = [
             'url'=>$params['img_url'],
@@ -371,7 +385,7 @@ class Info extends BaseModel
     //查询已经个人发布的信息
     public static function getPublish($start=0,$limit=5){
         $field = [
-            'i.id AS i_id,i.title,i.update_time,i.ip,i.status AS info_status,i.content',
+            'i.id AS i_id,i.title,i.update_time,i.ip,i.status AS info_status,i.content,i.big_item_id',
             'u.id AS uid,u.username',
             'bi.item_name',
             'lv.*,lv.id AS lv_id',

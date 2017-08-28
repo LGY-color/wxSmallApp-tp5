@@ -44,7 +44,8 @@ class News extends BaseModel
             'status'=>['<>',0]
         ];
         $join = [
-          ['pdzg_comment c','c.id = n.comment_id']
+            ['pdzg_comment c','c.id = n.comment_id','LEFT'],
+            ['pdzg_user u','u.id = c.user_id']
         ];
         $result = Db::table('pdzg_news')->where($condition)->limit($page,10)->select();
         self::setRead();
