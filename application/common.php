@@ -201,7 +201,7 @@ function getQiniuTokenWx(){
     return json($res);
 }
 
-//类型换算数字id
+//类型换算分类 数字id
 function getItemId($text){
     $itemId = 0;
     switch ($text){

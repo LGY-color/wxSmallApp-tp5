@@ -31,6 +31,8 @@ Route::get('api/:version/info/:id','api/:version.Info/getConditionInfo');
 Route::post('api/:version/info/getInfo','api/:version.Info/getConditionInfo');
 //根据id 进入详情
 Route::get('api/:version/info/getIdInfo/:id','api/:version.Info/getIdInfo');
+//根据id 进入详情 主要是修改信息用的 带用户 不带评论
+Route::get('api/:version/info/getInfoById/:id','api/:version.Info/getInfoById');
 //获取用户已发布的信息
 Route::get('api/:version/info/getPublish/:page','api/:version.Info/getPublish');
 ////获取用户已收藏信息

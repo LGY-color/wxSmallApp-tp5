@@ -33,6 +33,13 @@ class Info extends Base
         $data['comment'] = $this->dealTime(Comment::getComment($id,$page));
         return json($data);
     }
+    //根据id进入详情修改 不带评论 有用户
+    public function getInfoById($id){
+
+        $result = $this->dealData(InfoModel::getInfoById($id));
+        $result = $this->dealString($result);
+        return json($result);
+    }
     //根据分类获取信息
     public function getInfoByItem($id){
         (new IDMustBePositiveInt())->goCheck();
@@ -147,7 +154,15 @@ class Info extends Base
         }
         return $data;
     }
+    public function dealString($data){
 
+        foreach ($data as $k=>$value){
+            $data[$k]['hold_credentials'] = explode(',',$value['hold_credentials']);
+            $data[$k]['shop_facilities'] = explode(',',$value['shop_facilities']);
+            $data[$k]['surroundings'] = explode(',',$value['surroundings']);
+        }
+        return $data;
+    }
     //处理微信小程序上传的数据
     public function dealDataByWx($data){
         if(isset($data['hold_credentials'])){

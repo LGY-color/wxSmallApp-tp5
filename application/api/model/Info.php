@@ -18,7 +18,7 @@ use think\Session;
 class Info extends BaseModel
 {
     protected $autoWriteTimestamp = true;
-//    获取sql fetchSql(true)->
+    //获取sql fetchSql(true)->
     //获取最新信息
     public static function getNewInfo($start=0,$limit=5){
         $field = [
@@ -251,10 +251,31 @@ class Info extends BaseModel
             ['pdzg_img_url url','url.info_id = i.id','LEFT'],
         ];
         $order = [
-            'update_time'=>'DESC',
+            'i.update_time'=>'DESC',
         ];
         $add = self::clickAdd($id);
         $result = Db::field($field)->table('pdzg_info')->alias('i')->where($condition)->join($join)->order($order)->select();
+        return $result;
+    }
+    //根据id进入详情 带用户
+    public static function getInfoById($id){
+        $field = [
+            'i.*,i.id AS infoid',
+            'u.id AS uid,u.username',
+            'bi.item_name AS big_item_name',
+            'url.id AS id_url,url.url AS img_url'
+        ];
+        $condition = [
+            'i.status'=>['<>',0],
+            'i.id'=>$id,
+            'i.user_id'=>Session::get('userid')
+        ];
+        $join = [
+            ['pdzg_user u','u.id=i.user_id','LEFT'],
+            ['pdzg_big_item bi','bi.id=i.big_item_id','LEFT'],
+            ['pdzg_img_url url','url.info_id = i.id','LEFT']
+        ];
+        $result = Db::field($field)->table('pdzg_info')->alias('i')->where($condition)->join($join)->select();
         return $result;
     }
     //点击量+1
@@ -364,23 +385,60 @@ class Info extends BaseModel
         }
 
     }
-//    //更新数据
-//    public static function UpdateInfo($list){
-//        $info = new Info();
-//        $condition = [
-//            'user_id'=>$list['user_id'],
-//            'id'=>$list['id']
-//        ];
-//        $have = $info->get($condition);
-//        if($have){
-//            $data = [
-//              $list
-//            ];
-//            $result = $info->saveAll($data);
-//            return $result;
-//        }
-//        return $have;
-//    }
+    //更新数据
+    public static function UpdateInfo($params){
+        $condition = [
+            'i.id' => $params['infoid'],
+            'i.user_id'=>Session::get('userid')
+        ];
+        $update = [
+            'i.big_item_id'=>getItemId($params['classify']),
+            'i.title'=>isset($params['title'])?$params['title']:'',
+            'i.province'=>isset($params['province'])?$params['province']:'',
+            'i.valid_period'=>isset($params['valid_period'])?$params['valid_period']:'',
+            'i.monthly_rent'=>isset($params['monthly_rent'])?$params['monthly_rent']:'',
+            'i.day_turnover'=>isset($params['day_turnover'])?$params['day_turnover']:'',
+            'i.water_electricity'=>isset($params['water_electricity'])?$params['water_electricity']:'',
+            'i.to_serve'=>isset($params['to_serve'])?$params['to_serve']:'',
+            'i.transfer_fee'=>isset($params['transfer_fee'])?$params['transfer_fee']:'',
+            'i.monthly_salary'=>isset($params['monthly_salary'])?$params['monthly_salary']:'',
+            'i.sex'=>isset($params['sex'])?$params['sex']:'',
+            'i.work_experience'=>isset($params['work_experience'])?$params['work_experience']:'',
+            'i.work_skill'=>isset($params['work_skill'])?$params['work_skill']:'',
+            'i.work_hours'=>isset($params['work_hours'])?$params['work_hours']:'',
+            'i.age'=>isset($params['age'])?$params['age']:'',
+            'i.health_status'=>isset($params['health_status'])?$params['health_status']:'',
+            'i.cash_pledge'=>isset($params['cash_pledge'])?$params['cash_pledge']:'',
+            'i.live_conditions'=>isset($params['live_conditions'])?$params['live_conditions']:'',
+            'i.takeaway_status'=>isset($params['takeaway_status'])?$params['takeaway_status']:'',
+            'i.open_hours'=>isset($params['open_hours'])?$params['open_hours']:'',
+            'i.close_hours'=>isset($params['close_hours'])?$params['close_hours']:'',
+            'i.new_old'=>isset($params['new_old'])?$params['new_old']:'',
+            'i.decoration'=>isset($params['decoration'])?$params['decoration']:'',
+            'i.shop_facilities'=>isset($params['shop_facilities'])?$params['shop_facilities']:'',
+            'i.hold_credentials'=>isset($params['hold_credentials'])?$params['hold_credentials']:'',
+            'i.surroundings'=>isset($params['surroundings'])?$params['surroundings']:'',
+            'i.contact_name'=>isset($params['contact_name'])?$params['contact_name']:'',
+            'i.contact_phone'=>isset($params['contact_phone'])?$params['contact_phone']:'',
+            'i.contact_qq'=>isset($params['contact_qq'])?$params['contact_qq']:'',
+            'i.contact_wx'=>isset($params['contact_wx'])?$params['contact_wx']:'',
+            'i.shop_area'=>isset($params['shop_area'])?$params['shop_area']:'',
+            'i.shop_address'=>isset($params['shop_address'])?$params['shop_address']:'',
+            'i.content'=>isset($params['content'])?$params['content']:'',
+//            'i.update_time'=>time(),
+            'i.ip'=>getIP(),
+            'url.url'=>$params['img_url']
+        ];
+        $join = [
+            ['pdzg_img_url url','url.info_id=i.id','LEFT']
+        ];
+        $result = Db::table('pdzg_info')->alias('i')->join($join)->where($condition)->update($update);
+        if($result){
+            return $result;
+        }else{
+            throw new DbException();
+        }
+    }
 
     //查询已经个人发布的信息
     public static function getPublish($start=0,$limit=5){
