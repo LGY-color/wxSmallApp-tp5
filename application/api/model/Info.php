@@ -257,7 +257,7 @@ class Info extends BaseModel
         $result = Db::field($field)->table('pdzg_info')->alias('i')->where($condition)->join($join)->order($order)->select();
         return $result;
     }
-    //根据id进入详情 带用户
+    //根据id进入详情 修改信息 带用户
     public static function getInfoById($id){
         $field = [
             'i.*,i.id AS infoid',

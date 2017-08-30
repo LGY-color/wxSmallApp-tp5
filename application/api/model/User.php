@@ -67,7 +67,7 @@ class User extends BaseModel
             'id'=>Session::get('userid')
         ];
         $field = [
-            'username,img_url,phone,email,weixin,gold_coin,real_name,id_card,last_ip,qq,level,publish_num,credit_num,create_time,update_time'
+            'username,img_url,phone,email,weixin,gold_coin,real_name,id_card,last_ip,qq,level,publish_num,credit_num,create_time,introduce,update_time'
         ];
         $result = Db::field($field)->table('pdzg_user')->where($condition)->select();
         return $result;
@@ -87,6 +87,22 @@ class User extends BaseModel
         }else{
             throw new MoneyException();
         }
+        $result = Db::table('pdzg_user')->where($condition)->update($update);
+        return $result;
+    }
+
+    //更新用户信息
+    public static function updateUser($params){
+        $condition = [
+            'id'=>Session::get('userid')
+        ];
+        $update = [
+            'username'=>$params['username'],
+            'phone'=>$params['phone'],
+            'weixin'=>$params['weixin'],
+            'qq'=>$params['qq'],
+            'introduce'=>$params['introduce']
+        ];
         $result = Db::table('pdzg_user')->where($condition)->update($update);
         return $result;
     }

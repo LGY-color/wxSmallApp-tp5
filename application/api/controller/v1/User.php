@@ -9,6 +9,7 @@
 namespace app\api\controller\v1;
 
 use app\api\model\User As UserModel;
+use think\Request;
 
 class User extends Base
 {
@@ -32,5 +33,12 @@ class User extends Base
                 'msg'=>'操作失败，请重试！'
             ]);
         }
+    }
+    //更新用户信息
+    public function updateUser(){
+        $request = Request::instance();
+        $params = $request->param();
+        $result = UserModel::updateUser($params);
+        return json($result);
     }
 }

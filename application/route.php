@@ -74,6 +74,8 @@ Route::post('api/:version/collection/collectionInfo','api/:version.Collection/co
 Route::get('api/:version/collection/getUserCollection','api/:version.Collection/getUserCollection');
 //获取用户信息
 Route::get('api/:version/user/getUserInfo','api/:version.User/getUserInfo');
+//更新用户信息
+Route::post('api/:version/user/updateUser','api/:version.User/updateUser');
 //用户解锁
 Route::get('api/:version/user/toUnlock','api/:version.User/toUnlock');
 //获取用户评论信息
