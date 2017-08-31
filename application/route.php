@@ -35,8 +35,7 @@ Route::get('api/:version/info/getIdInfo/:id','api/:version.Info/getIdInfo');
 Route::get('api/:version/info/getInfoById/:id','api/:version.Info/getInfoById');
 //获取用户已发布的信息
 Route::get('api/:version/info/getPublish/:page','api/:version.Info/getPublish');
-////获取用户已收藏信息
-//Route::get('api/:version/info/getCollection/:id','api/:version.Info/getCollection');
+
 //根据分类id获取信息
 Route::get('api/:version/info/getInfoByItem/:id','api/:version.Info/getInfoByItem');
 //根据筛选条件获取信息
@@ -69,9 +68,9 @@ Route::post('api/:version/comment/infoReply','api/:version.Comment/infoReply');
 Route::get('api/:version/collection/infoCollection/:id','api/:version.Collection/infoCollection');
 //用户收藏行为
 Route::post('api/:version/collection/collectionInfo','api/:version.Collection/collectionInfo');
-
 //获取用户已收藏信息
 Route::get('api/:version/collection/getUserCollection','api/:version.Collection/getUserCollection');
+
 //获取用户信息
 Route::get('api/:version/user/getUserInfo','api/:version.User/getUserInfo');
 //更新用户信息
@@ -80,13 +79,14 @@ Route::post('api/:version/user/updateUser','api/:version.User/updateUser');
 Route::get('api/:version/user/toUnlock','api/:version.User/toUnlock');
 //获取用户评论信息
 Route::get('api/:version/comment/getUserComment','api/:version.Comment/getUserComment');
-
 //获取用户未读消息数
 Route::get('api/:version/comment/getNoReadNum','api/:version.Comment/getNoReadNum');
 //获取用户消息数
 Route::get('api/:version/comment/getUserNews','api/:version.Comment/getUserNews');
-
-
+// +----------------------------------------------------------------------
+// | 微信支付
+// +----------------------------------------------------------------------
+Route::post('api/:version/pay/PreOrder','api/:version.Pay/getPreOrder');
 // +----------------------------------------------------------------------
 // | post create update 暂定不用put
 // +----------------------------------------------------------------------
@@ -151,14 +151,14 @@ Route::get('admin/comment/comment','admin/Comment/comment');
 //查询评论信息
 Route::post('admin/comment/search','admin/Comment/searchComment');
 //登录页面
-Route::get('admin/admin/login','admin/Admin/login');
+Route::get('admin/admin/login','admin/admin/login');
 //管理员列表页
-Route::get('admin/admin/admin','admin/Admin/admin');
+Route::get('admin/admin/admin','admin/admin/admin');
 //新增管理员页面
-Route::get('admin/admin/addlist','admin/Admin/addList');
+Route::get('admin/admin/addlist','admin/admin/addList');
 //管理员id详情页面页面
-Route::get('admin/admin/updatelist/:id','admin/Admin/updateList');
+Route::get('admin/admin/updatelist/:id','admin/admin/updateList');
 //根据名称查询管理员
-Route::post('admin/admin/search','admin/Admin/searchAdmin');
+Route::post('admin/admin/search','admin/admin/searchAdmin');
 //查看加金币记录
 Route::get('admin/record/record','admin/Record/record');

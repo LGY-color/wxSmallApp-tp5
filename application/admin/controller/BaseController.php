@@ -23,11 +23,11 @@ class BaseController extends Controller
         $this->admin_sxxcpd_user = Session::get('admin_sxxcpd_user');
         $this->admin_sxxcpd_level = Session::get('admin_sxxcpd_level');
         if(!$this->admin_sxxcpd_user){
-            $this->redirect('Admin/login');
+            $this->redirect('admin/login');
             return false;
         }
         if($this->admin_sxxcpd_level < 128){
-            $this->error('权限不足','Admin/login');
+            $this->error('权限不足','admin/login');
             return false;
         }
     }

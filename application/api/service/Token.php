@@ -38,6 +38,7 @@ class Token
         $result = User::getByOpenID($openid);
         $userid = $result->id;
         Session::set('userid',$userid);
+        Session::set('openid',$openid);
         if($userid){
             return true;
         }
