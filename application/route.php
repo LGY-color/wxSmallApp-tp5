@@ -86,6 +86,7 @@ Route::get('api/:version/comment/getUserNews','api/:version.Comment/getUserNews'
 // +----------------------------------------------------------------------
 // | 微信支付
 // +----------------------------------------------------------------------
+//用户充值
 Route::post('api/:version/pay/PreOrder','api/:version.Pay/getPreOrder');
 // +----------------------------------------------------------------------
 // | post create update 暂定不用put
