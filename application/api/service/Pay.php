@@ -46,7 +46,7 @@ class Pay
         $openid = Session::get('openid');
         $wxOrderData->SetOpenid($openid);
         //设置微信回调通知接收地址
-        $wxOrderData->SetNotify_url('www.baidu.com');
+        $wxOrderData->SetNotify_url(config('secure.pay_back_url'));
         return $this->getPaySignature($wxOrderData);
     }
 
@@ -58,6 +58,7 @@ class Pay
             Log::record('获取预支付订单失败','error');
         }
         //prepay_id 向用户推送模板消息
+        $this->recordOrder($wxOrder);
         $signature = $this->sign($wxOrder);
         return $signature;
     }
@@ -79,8 +80,16 @@ class Pay
         unset($rawValues['appId']);
         return $rawValues;
     }
-    //处理保存订单记录 prepay_id
-    private function recordPreOrder($wxOrder){
-
+    //处理保存订单记录 prepay_id userid orderno
+    private function recordOrder($wxOrder){
+        $data = [
+            'order_no'=>$this->orderNO,
+            'prepay_id'=>$wxOrder['prepay_id'],
+            'user_id'=>Session::get('userid'),
+            'orging'=>'微信支付',
+            'create_time'=>time()
+        ];
+        $result = Db::table('pdzg_moeny')->insert($data);
+        return $result;
     }
 }

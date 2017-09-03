@@ -23,7 +23,7 @@ use app\api\service\Token as TokenService;
 class Base extends Controller
 {
     protected $beforeActionList = [
-        'checkToken'  =>  ['only'=>'InsertInfo,getPublish,setLevelStatus,setRefresh,setDeal,infoReply,infoCollection,collectionInfo,getUserComment,getNoReadNum,getUserNews,getUserCollection,getUserInfo,toUnlock,getInfoById,UpdateInfo,updateUser,getPreOrder'],
+        'checkToken'  =>  ['only'=>'InsertInfo,getPublish,setLevelStatus,setRefresh,setDeal,setWeixin,infoReply,infoCollection,collectionInfo,getUserComment,getNoReadNum,getUserNews,getUserCollection,getUserInfo,toUnlock,getInfoById,UpdateInfo,updateUser,getPreOrder'],
     ];
     protected  function checkToken(){
         $token = Request::instance()->header('token');

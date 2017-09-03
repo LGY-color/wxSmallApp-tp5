@@ -18,8 +18,8 @@ class Index extends Base
 {
     public function index(){
 //        echo phpinfo();
-//        $data['banner_img'] = Banner::getBannerImgUrl();
-//        $data['banner_text'] = Banner::getBannerTextContent();
+        $data['banner_img'] = Banner::getBannerImgUrl();
+        $data['banner_text'] = Banner::getBannerTextContent();
         $data['new_info'] = $this->dealData(Info::getNewInfo());
         $data['top_info'] = $this->dealData(Info::getTopInfo());
         $data['star_info'] = $this->dealData(Info::getStarInfo());

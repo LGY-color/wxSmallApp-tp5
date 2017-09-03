@@ -121,6 +121,22 @@ class Info extends Base
             ]);
         }
     }
+    //微信推广
+    public function setWeixin($id){
+        (new IDMustBePositiveInt())->goCheck();
+        $result = InfoModel::weixinById($id);
+        if($result){
+            $res = [
+                'code'=>200,
+                'msg'=>'操作成功！',
+            ];
+            return json($res);
+        }else{
+            throw new DbException([
+                'msg'=>'操作失败，请重试！'
+            ]);
+        }
+    }
     //设置消息已成交
     public function setDeal($id){
         (new IDMustBePositiveInt())->goCheck();

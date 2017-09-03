@@ -375,6 +375,32 @@ class Info extends BaseModel
             ]);
         }
     }
+    //微信推广 是置顶9元 不是19元
+    public static function weixinById($id){
+        $money = User::getGoldCoinById();
+        $topStatus = LevelType::topStatus($id);
+        if($topStatus){
+            $cost = config('expenses.topweixin');
+        }else{
+            $cost = config('expenses.weixin');
+        }
+        if((int)$money >= $cost){
+            $params['cost']  = $cost;
+            $minus = User::minusGold($params);
+            if($minus){
+                $params['level_type'] = config('order.weixin');
+                $params['infoid'] = $id;
+                $params['order_money'] = $cost;
+                $result = Order::insertOrder($params);
+            }
+            return $result;
+        }else{
+            throw new MoneyException([
+                'msg'=>'金币不足，请充值！',
+                'errorCode'=>'7788'
+            ]);
+        }
+    }
     //设置已成交
     public static function setDeal($id){
         $result = Db::table('pdzg_info')->where('id',$id)->setField('status', 0);

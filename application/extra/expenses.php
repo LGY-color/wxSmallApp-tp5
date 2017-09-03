@@ -14,5 +14,7 @@ return [
     'red'=> 6,
     'bold'=> 3,
     'refresh'=> 6,
-    'unlock'=>158
+    'unlock'=>158,
+    'weixin'=>19,
+    'topweixin'=>9
 ];

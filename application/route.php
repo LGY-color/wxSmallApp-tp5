@@ -59,6 +59,8 @@ Route::get('api/:version/info/getMoreEssc/:page','api/:version.Info/getMoreEssc'
 Route::post('api/:version/level/setLevelStatus','api/:version.Level/setLevelStatus');
 //用户刷新
 Route::get('api/:version/info/setRefresh/:id','api/:version.Info/setRefresh');
+//用户微信推广
+Route::get('api/:version/info/setWeixin/:id','api/:version.Info/setWeixin');
 //用户设置已成交
 Route::get('api/:version/info/setDeal/:id','api/:version.Info/setDeal');
 
@@ -88,6 +90,7 @@ Route::get('api/:version/comment/getUserNews','api/:version.Comment/getUserNews'
 // +----------------------------------------------------------------------
 //用户充值
 Route::post('api/:version/pay/PreOrder','api/:version.Pay/getPreOrder');
+Route::post('api/:version/pay/notify','api/:version.Pay/receiveNotify');
 // +----------------------------------------------------------------------
 // | post create update 暂定不用put
 // +----------------------------------------------------------------------

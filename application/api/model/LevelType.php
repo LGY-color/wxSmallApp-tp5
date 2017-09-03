@@ -16,6 +16,7 @@ use think\Session;
 
 class LevelType
 {
+    //设置状态总方法
     public static function setLevel($params){
         //1.先查看 是否已经存在当前info_id 状态设置 若无新建 有则修改
         //2.计算出要花费的金币
@@ -52,6 +53,7 @@ class LevelType
         }
         return $result;
     }
+    // 设置状态
     public static function setLevelStatus($params){
         $data = [];
         if(isset($params['top'])){
@@ -114,6 +116,16 @@ class LevelType
         }else{
             throw new DbException();
         }
+        return $result;
+    }
+    //查询信息是否置顶
+    public static function topStatus($id){
+        $condition = [
+            'info_id'=>$id,
+            'user_id'=>Session::get('userid'),
+            'top'=>1
+        ];
+        $result = Db::table('pdzg_level_type')->where($condition)->find();
         return $result;
     }
 }

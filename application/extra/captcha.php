@@ -5,6 +5,7 @@
  * Date: 2017/8/1
  * Time: 11:08
  */
+
 return [
     // 验证码字体大小
     'fontSize'    =>    30,
